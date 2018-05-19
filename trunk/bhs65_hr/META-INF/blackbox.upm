@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="gb2312"?>
+<module name="hr">
+	<public>
+		<!--blackbox接口-->
+		<component remote="true" tx="CMT" priority="0" singleton="true" supportAlias="true">
+		    <interface>nc.pubitf.bhs.api.IBlackBox</interface>
+		    <implementation>nc.impl.bhs.api.BlackBoxImpl</implementation>
+		</component>
+	</public>
+</module>
+
