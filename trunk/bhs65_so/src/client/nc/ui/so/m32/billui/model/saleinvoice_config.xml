@@ -150,9 +150,6 @@
 		<!-- 表体行操作按钮注册，与表体右键菜单保持一致 -->
 		<property name="bodyLineActions">
 			<list>
-				<!-- add by lvj -->
-				<ref bean="impPsaBillAction" />
-				<!-- end -->
 				<!-- 提供了一组默认实现 -->
 				<bean class="nc.ui.pubapp.uif2app.actions.BodyAddLineAction"></bean>
 				<bean class="nc.ui.pubapp.uif2app.actions.BodyInsertLineAction"></bean>
@@ -380,7 +377,6 @@
 				<ref bean="browLinkActionGroup" />
 				<ref bean="separatorAction" />
 				<ref bean="printActionGroup" />
-				<ref bean="sendMailAction"/>
 			</list>
 		</property>
 	</bean>
@@ -407,7 +403,6 @@
 				<ref bean="browLinkActionGroup" />
 				<ref bean="separatorAction" />
 				<ref bean="printActionGroup" />
-				<ref bean="sendMailAction"/>
 			</list>
 		</property>
 		<property name="editActions">
@@ -548,12 +543,6 @@
 		</property>
 		<property name="model" ref="ManageAppModel" />
 		<property name="pfAddInfoLoader" ref="pfAddInfoLoader"></property>
-	</bean>
-	
-	<!-- 切换到卡片界面的拦截器 -->
-	<bean id="formInterceptor"
-		class="nc.ui.pubapp.uif2app.actions.interceptor.ShowUpComponentInterceptor">
-		<property name="showUpComponent" ref="billFormEditor" />
 	</bean>
 
 	<!--参照销售订单新增 -->
@@ -916,16 +905,6 @@
 			</list>
 		</property>
 	</bean>
-
-
-	<!-- add by lvj import psa bills -->
-	<bean id="impPsaBillAction" class="nc.ui.so.m32.billui.action.ImportPsaBillsToBodyLineAction">
-		<property name="model" ref="ManageAppModel" />
-		<property name="editor" ref="billFormEditor" />
-		<property name="code" value="Import PSA" />
-	</bean>
-	<!-- end -->
-
 	<!-- 输出... -->
 	<bean id="outputAction" class="nc.ui.pubapp.uif2app.actions.OutputAction">
 		<property name="model" ref="ManageAppModel" />

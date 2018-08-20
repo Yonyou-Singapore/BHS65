@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module>
+	<public>
+		<component name="ISendMail" singleton="true" remote="true" supportAlias="true" priority="0" tx="CMT">
+			<interface>nc.itf.mail.ISendMail</interface>
+			<implementation>nc.impl.mail.SendMailImpl</implementation>
+		</component>
+	</public>
+	<private>
+	</private>
+</module>
