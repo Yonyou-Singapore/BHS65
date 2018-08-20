@@ -47,10 +47,9 @@ public class SoMoveHeadBeforeEditHandler implements IAppEventHandler<CardHeadTai
 		sb.append(keyValue.getHeadStringValue("billid") + "'");
 		sb.append(" and bhs_somove_h.billid in (select billid from bhs_somove_box where dr=0) ");
 		
-		//update chenth 20180409 jason又说只combine同一客户的
 		//可以参照到当天的所有joborder
-		sb.append(" and bd_customer.pk_customer in (select ccustomerid from so_saleorder where vbillcode = '");
-		sb.append(thisMoveSO).append("') ");
+		//sb.append(" and bd_customer.pk_customer in (select ccustomerid from so_saleorder where vbillcode = '");
+		//sb.append(thisMoveSO).append("') ");
 		if(departuretime != null && jobendtime == null){
 			sb.append(" and bhs_somove_h.departuretime <= '" + departuretime + "' and bhs_somove_h.jobendtime > '" + departuretime + "' ");
 		}else if(departuretime == null && jobendtime != null){

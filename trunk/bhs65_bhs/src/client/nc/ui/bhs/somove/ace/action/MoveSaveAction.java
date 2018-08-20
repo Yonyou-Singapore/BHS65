@@ -71,6 +71,7 @@ public class MoveSaveAction extends SaveScriptAction{
 			sumgrossweight = sumgrossweight.add(grossweight);
 			sumnetweight = sumnetweight.add(netweight);
 			
+			
 			sumvolumem3 = sumvolumem3.add(vlengthcm.div(100).multiply(vwidthcm.div(100)).multiply(vheightcm.div(100)));
 			if(maxlengthcm.compareTo(vlengthcm) < 0){
 				maxlengthcm = vlengthcm;
@@ -90,8 +91,6 @@ public class MoveSaveAction extends SaveScriptAction{
 			}
 			
 		}
-		
-		
 		e.getBillCardPanel().setHeadItem("volumem3", sumvolumem3);
 		e.getBillCardPanel().setHeadItem("grossweight", sumgrossweight);
 		e.getBillCardPanel().setHeadItem("netweight", sumnetweight);

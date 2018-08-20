@@ -1,0 +1,3143 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="billtemplet" class="nc.pubapp.pade.templet.vo.BillTemplet"><property name="bodyVO">
+<list><bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="billid"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="false"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="billid"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.billid"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUP"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="false"/>
+<property name="showorder" value="1"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_group"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_group"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pk_group"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUQ"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="2"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_org"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_org"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pk_org"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUR"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="3"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_org_v"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_org_v"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pk_org_v"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUS"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="4"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vbillno"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vbillno"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.vbillno"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUT"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="5"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="dbilldate"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="dbilldate"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.dbilldate"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUU"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="6"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vbillstatus"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vbillstatus"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.vbillstatus"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUV"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="7"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_busitype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_busitype"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pk_busitype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUW"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="8"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_billtype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_billtype"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pk_billtype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUX"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="9"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="transtypecode"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="transtypecode"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.transtypecode"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUY"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="10"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_transtype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_transtype"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pk_transtype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUZ"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="11"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="approvenote"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="approvenote"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.approvenote"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV0"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="12"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def1"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def1"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def1"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV1"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="13"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def2"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def2"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def2"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV2"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="14"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def3"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def3"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def3"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV3"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="15"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def4"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def4"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def4"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV4"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="16"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def5"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def5"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def5"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV5"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="17"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def6"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def6"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def6"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV6"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="18"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def7"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def7"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def7"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV7"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="19"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def8"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def8"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def8"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV8"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="20"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def9"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def9"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def9"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IV9"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="21"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def10"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def10"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def10"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVA"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="22"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def11"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def11"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def11"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVB"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="23"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def12"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def12"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def12"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVC"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="24"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def13"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def13"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def13"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVD"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="25"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def14"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def14"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def14"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVE"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="26"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def15"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def15"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def15"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVF"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="27"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def16"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def16"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def16"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVG"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="28"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def17"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def17"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def17"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVH"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="29"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def18"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def18"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def18"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVI"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="30"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def19"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def19"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def19"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVJ"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="31"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def20"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def20"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.def20"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVK"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="32"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pono"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pono"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.pono"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVL"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="33"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="purpose"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="purpose"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.purpose"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVM"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="34"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="true"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="durationuom"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="true"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="durationuom"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.durationuom"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVN"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="35"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="ratetype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="ratetype"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.ratetype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVO"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="36"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="true"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="measurementuom"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="true"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="measurementuom"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.measurementuom"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVP"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="37"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="rateamt"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="rateamt"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.rateamt"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVQ"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="38"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="true"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="quantityuom"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="true"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="quantityuom"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.quantityuom"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVR"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="39"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="datein"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="datein"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.datein"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVS"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="40"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="storagetype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="storagetype"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.storagetype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVT"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="41"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="warehousezone"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="warehousezone"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.warehousezone"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVU"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="42"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="storedatlocation"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="storedatlocation"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.storedatlocation"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVV"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="43"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="csincharge"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="csincharge"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.csincharge"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVW"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="44"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="orderremarks"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="orderremarks"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.orderremarks"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVX"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="45"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="csaleorderid"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="csaleorderid"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.csaleorderid"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVY"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="46"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="csaleordercode"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="csaleordercode"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.csaleordercode"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IVZ"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="47"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="ts"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="false"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="ts"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.ts"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW0"/>
+<property name="pos" value="0"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="false"/>
+<property name="showorder" value="48"/>
+<property name="table_code" value="SoStoreHVO"/>
+<property name="table_name" value="Soorder_ Store主表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="billid_b"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="false"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="billid_b"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.billid_b"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW1"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="false"/>
+<property name="showorder" value="1"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_group"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_group"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.pk_group"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW2"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="2"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_org"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_org"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.pk_org"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW3"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="3"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="pk_org_v"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="pk_org_v"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.pk_org_v"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW4"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="4"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="rowno"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="rowno"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.rowno"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW5"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="5"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vsrctype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vsrctype"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vsrctype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW6"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="6"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vsrctrantype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vsrctrantype"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vsrctrantype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW7"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="7"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vsrccode"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vsrccode"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vsrccode"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW8"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="8"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="csrcid"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="csrcid"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.csrcid"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IW9"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="9"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="csrcbid"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="csrcbid"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.csrcbid"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWA"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="10"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vsrcrowno"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vsrcrowno"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vsrcrowno"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWB"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="11"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vfirsttype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vfirsttype"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vfirsttype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWC"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="12"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vfirsttrantype"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vfirsttrantype"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vfirsttrantype"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWD"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="13"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vfirstcode"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vfirstcode"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vfirstcode"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWE"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="14"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="cfirstid"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="cfirstid"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.cfirstid"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWF"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="15"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="cfirstbid"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="cfirstbid"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.cfirstbid"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWG"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="16"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="vfirstrowno"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="vfirstrowno"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.vfirstrowno"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWH"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="17"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def1"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def1"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def1"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWI"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="18"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def2"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def2"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def2"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWJ"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="19"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def3"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def3"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def3"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWK"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="20"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def4"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def4"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def4"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWL"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="21"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def5"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def5"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def5"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWM"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="22"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def6"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def6"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def6"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWN"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="23"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def7"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def7"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def7"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWO"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="24"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def8"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def8"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def8"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWP"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="25"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def9"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def9"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def9"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWQ"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="26"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def10"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def10"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def10"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWR"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="27"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def11"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def11"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def11"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWS"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="28"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def12"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def12"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def12"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWT"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="29"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def13"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def13"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def13"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWU"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="30"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def14"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def14"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def14"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWV"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="31"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def15"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def15"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def15"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWW"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="32"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def16"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def16"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def16"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWX"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="33"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def17"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def17"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def17"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWY"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="34"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def18"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def18"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def18"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IWZ"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="35"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def19"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def19"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def19"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IX0"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="36"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="def20"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="def20"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.def20"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IX1"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="37"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="true"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="ts"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="false"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="ts"/>
+<property name="metadataproperty" value="BHS.SoStoreBVO.ts"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IX2"/>
+<property name="pos" value="1"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="false"/>
+<property name="showorder" value="38"/>
+<property name="table_code" value="id_sostorebvo"/>
+<property name="table_name" value="Soorder_ Store子表"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="100"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="false"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="creationtime"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="creationtime"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.creationtime"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUM"/>
+<property name="pos" value="2"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="1"/>
+<property name="table_code" value="auditInfo"/>
+<property name="table_name" value="审计信息"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="false"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="modifier"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="modifier"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.modifier"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUN"/>
+<property name="pos" value="2"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="2"/>
+<property name="table_code" value="auditInfo"/>
+<property name="table_name" value="审计信息"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="false"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="modifiedtime"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="modifiedtime"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.modifiedtime"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUO"/>
+<property name="pos" value="2"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="3"/>
+<property name="table_code" value="auditInfo"/>
+<property name="table_name" value="审计信息"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="false"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="creator"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="creator"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.creator"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUJ"/>
+<property name="pos" value="2"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="1"/>
+<property name="table_code" value="tailerInfo"/>
+<property name="table_name" value="表尾信息"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="false"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="approver"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="approver"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.approver"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUK"/>
+<property name="pos" value="2"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="2"/>
+<property name="table_code" value="tailerInfo"/>
+<property name="table_name" value="表尾信息"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTempletBody"><property name="cardflag" value="true"/>
+<property name="datatype" value="-1"/>
+<property name="editflag" value="false"/>
+<property name="foreground" value="-1"/>
+<property name="hyperlinkflag" value="false"/>
+<property name="inputlength" value="-1"/>
+<property name="itemkey" value="approvedate"/>
+<property name="leafflag" value="false"/>
+<property name="list" value="false"/>
+<property name="listHyperlinkflag" value="false"/>
+<property name="listflag" value="true"/>
+<property name="listshowflag" value="true"/>
+<property name="lockflag" value="false"/>
+<property name="metadatapath" value="approvedate"/>
+<property name="metadataproperty" value="BHS.SoStoreHVO.approvedate"/>
+<property name="newlineflag" value="false"/>
+<property name="nullflag" value="false"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_b" value="0001V810000000003IUL"/>
+<property name="pos" value="2"/>
+<property name="reviseflag" value="false"/>
+<property name="showflag" value="true"/>
+<property name="showorder" value="3"/>
+<property name="table_code" value="tailerInfo"/>
+<property name="table_name" value="表尾信息"/>
+<property name="totalflag" value="false"/>
+<property name="userdefflag" value="false"/>
+<property name="usereditflag" value="true"/>
+<property name="userflag" value="true"/>
+<property name="userreviseflag" value="false"/>
+<property name="usershowflag" value="true"/>
+<property name="width" value="1"/>
+</bean>
+</list>
+</property>
+<property name="headVO"><bean class="nc.pubapp.pade.templet.vo.BillTempletHead"><property name="buseflag" value="false"/>
+<property name="layer" value="0"/>
+<property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="modulecode" value="H1H1"/>
+<property name="nodecode" value="H1H1H103"/>
+<property name="pkBillTypeCode" value="H1H1H103"/>
+<property name="pkBilltempletHead" value="0001V810000000003IUI"/>
+<property name="pkcorp" value="@@@@"/>
+<property name="shareflag" value="false"/>
+<property name="strBillTempletCaption" value="Soorder_ Store主表"/>
+<property name="strBillTempletName" value="SYSTEM"/>
+<property name="structvo"><bean class="nc.pubapp.pade.templet.vo.BillStruct"><property name="billTabVOs">
+<list><bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="metadatapath" value="SoStoreHVO"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX3"/>
+<property name="pos" value="2"/>
+<property name="tabcode" value="tailerInfo"/>
+<property name="tabindex" value="0"/>
+<property name="tabname" value="表尾信息"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="metadatapath" value="SoStoreHVO"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX4"/>
+<property name="pos" value="2"/>
+<property name="tabcode" value="auditInfo"/>
+<property name="tabindex" value="1"/>
+<property name="tabname" value="审计信息"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="metadatapath" value="SoStoreHVO"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX5"/>
+<property name="pos" value="0"/>
+<property name="tabcode" value="SoStoreHVO"/>
+<property name="tabindex" value="0"/>
+<property name="tabname" value="Soorder_ Store主表"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreBVO"/>
+<property name="metadatapath" value="id_sostorebvo"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX6"/>
+<property name="pos" value="1"/>
+<property name="tabcode" value="id_sostorebvo"/>
+<property name="tabindex" value="0"/>
+<property name="tabname" value="Soorder_ Store子表"/>
+</bean>
+</list>
+</property>
+</bean>
+</property>
+
+<property name="structvoAndClearOptions"><bean class="nc.pubapp.pade.templet.vo.BillStruct"><property name="billTabVOs">
+<list><bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="metadatapath" value="SoStoreHVO"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX3"/>
+<property name="pos" value="2"/>
+<property name="tabcode" value="tailerInfo"/>
+<property name="tabindex" value="0"/>
+<property name="tabname" value="表尾信息"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="metadatapath" value="SoStoreHVO"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX4"/>
+<property name="pos" value="2"/>
+<property name="tabcode" value="auditInfo"/>
+<property name="tabindex" value="1"/>
+<property name="tabname" value="审计信息"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreHVO"/>
+<property name="metadatapath" value="SoStoreHVO"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX5"/>
+<property name="pos" value="0"/>
+<property name="tabcode" value="SoStoreHVO"/>
+<property name="tabindex" value="0"/>
+<property name="tabname" value="Soorder_ Store主表"/>
+</bean>
+<bean class="nc.pubapp.pade.templet.vo.BillTab"><property name="metadataclass" value="BHS.SoStoreBVO"/>
+<property name="metadatapath" value="id_sostorebvo"/>
+<property name="pk_billtemplet" value="0001V810000000003IUI"/>
+<property name="pk_billtemplet_t" value="0001V810000000003IX6"/>
+<property name="pos" value="1"/>
+<property name="tabcode" value="id_sostorebvo"/>
+<property name="tabindex" value="0"/>
+<property name="tabname" value="Soorder_ Store子表"/>
+</bean>
+</list>
+</property>
+</bean>
+</property>
+
+<property name="ts" value="2017-03-05 15:48:13"/>
+</bean>
+</property>
+
+</bean>
+
+</beans>

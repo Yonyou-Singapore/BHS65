@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='gb2312'?>
+<module name="BHS">
+  <public>
+	<component remote="true" singleton="true"  tx="CMT">
+	  <interface>nc.itf.bhs.ISostoreMaintain</interface>
+	  <implementation>nc.impl.bhs.SostoreMaintainImpl</implementation>
+	</component>
+
+  </public> 
+</module> 

@@ -1,9 +1,9 @@
 package nc.impl.bhs;
 
 import nc.impl.pub.ace.AceSomovePubServiceImpl;
-import nc.itf.bhs.ISomoveMaintain;
 import nc.ui.querytemplate.querytree.IQueryScheme;
 import nc.vo.bhs.somove.AggSoMoveHVO;
+import nc.itf.bhs.ISomoveMaintain;
 import nc.vo.pub.BusinessException;
 
 public class SomoveMaintainImpl extends AceSomovePubServiceImpl
@@ -18,14 +18,12 @@ public class SomoveMaintainImpl extends AceSomovePubServiceImpl
 	@Override
 	public AggSoMoveHVO[] insert(AggSoMoveHVO[] clientFullVOs,
 			AggSoMoveHVO[] originBills) throws BusinessException {
-		new BlackboxTools().checkAndUpdateSkills(clientFullVOs);
 		return super.pubinsertBills(clientFullVOs, originBills);
 	}
 
 	@Override
 	public AggSoMoveHVO[] update(AggSoMoveHVO[] clientFullVOs,
 			AggSoMoveHVO[] originBills) throws BusinessException {
-		new BlackboxTools().checkAndUpdateSkills(clientFullVOs);
 		return super.pubupdateBills(clientFullVOs, originBills);
 	}
 
@@ -58,6 +56,5 @@ public class SomoveMaintainImpl extends AceSomovePubServiceImpl
 			AggSoMoveHVO[] originBills) throws BusinessException {
 		return super.pubunapprovebills(clientFullVOs, originBills);
 	}
-	
-	
+
 }

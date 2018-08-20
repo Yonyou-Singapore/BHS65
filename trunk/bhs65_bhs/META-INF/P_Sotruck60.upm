@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='gb2312'?>
+<module name="BHS">
+  <public>
+	<component remote="true" singleton="true"  tx="CMT">
+	  <interface>nc.itf.bhs.ISotruckMaintain</interface>
+	  <implementation>nc.impl.bhs.SotruckMaintainImpl</implementation>
+	</component>
+
+  </public> 
+</module> 

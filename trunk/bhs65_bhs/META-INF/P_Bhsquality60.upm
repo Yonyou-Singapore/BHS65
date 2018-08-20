@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='gb2312'?>
+<module name="bhs">
+  <public>
+	<component remote="true" singleton="true"  tx="CMT">
+	  <interface>nc.itf.bhs.IBhsqualityMaintain</interface>
+	  <implementation>nc.impl.bhs.BhsqualityMaintainImpl</implementation>
+	</component>
+
+  </public> 
+</module> 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="general" class="nc.pubapp.pade.code.funnode.FunNodePara">
+        <property name="moduleName" value="BHS" />
+	    <property name="bpfPath" value="test.bpf" />
+	    <property name="funcode" value="H1H1H104"/>
+	    <property name="funNodeName" value="sotruck"/>
+	    <property name="clientPackName" value="nc.ui.bhs.sotruck"/>
+			  		<property name="dbilldDate" value="Dbilldate" />
+			    <property name="metaData" value="bhs\METADATA\sotruck.bmf" />
+	    <property name="xmlPath" value="bhs\src\client\nc\ui\bhs\sotruck\ace\view\Sotruck_config.xml" />
+	    <property name="metaDataType" value="multiType" />
+	    <property name="funcregispath" value="bhs/designmodel/funcmodel/sotruck/funcregis/H1H1H104.func" />
+	    <property name="quetempath" value="bhs/designmodel/templet/sotruck/querytemplet/H1H1H104.qtf" />
+	    <property name="printtempath" value="bhs/designmodel/templet/sotruck/outtemplet/H1H1H104.otf" />
+	    <property name="systembasepath" value="bhs/designmodel/systemplatebase/sotruck/H1H1H104/H1H1H104.stb" />
+	    <property name="extendSuffix" value=""/>
+	    <property name="uif2ModelFilePath" value="bhs\designmodel\ace\uif2model\H1H1H104.umf"/>
+	    <property name="busiCompName" value="bhs"/>
+	    <property name="metaDataId" value="0178c2ce-2adc-4a32-9cd4-d415ddab4145"/>
+	</bean>
+	
+	<bean id="templet" class="nc.pubapp.pade.code.funnode.Templet">
+	    <property name="tempStyle" value="2" />
+	    <property name="nodeKey" value="" />
+		<property name="templetPath" value="bhs/designmodel/templet/sotruck/billtemplet/H1H1H104.btf" />
+	</bean>
+
+	<bean id="BAEHpara" class="nc.pubapp.pade.code.funnode.BodyAfterEditHandlerPara">
+		<property name="itemList">
+			<list>
+							</list>
+		</property>
+	</bean>
+
+	<bean id="BBEHpara" class="nc.pubapp.pade.code.funnode.BodyBeforeEditHandlerPara">
+		<property name="itemList">
+			<list>
+							</list>
+		</property>
+	</bean>
+	
+	<bean id="HTBEHpara" class="nc.pubapp.pade.code.funnode.HeadTailBeforeEditHandlerPara">
+	</bean>
+	
+	<bean id="HTAEHpara" class="nc.pubapp.pade.code.funnode.HeadTailAfterEditHandlerPara">
+	</bean>
+	
+	<bean id="SerPropara" class="nc.pubapp.pade.code.funnode.ServiceProxyPara">
+					<property name="queryByQueryScheme">
+			<bean class="nc.pubapp.pade.code.funnode.ServiceProxyItemPara">
+				<property name="fullClassName" value="nc.itf.bhs.ISotruckMaintain" />
+				<property name="itmClassName" value=".ISotruckMaintain" />
+				<property name="methodName" value="query" />
+			</bean>
+		</property>
+				</bean>
+	
+	<bean id="FilePackNameBean" class="nc.pubapp.pade.code.engine.FilePackNamePara">
+    	<property name="filePackNameList">
+	    	<list>
+				     						       <value>nc.ui.bhs.sotruck.handler.OrgChangedHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.handler.AceAddHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.handler.AceBodyAfterEditHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.handler.AceBodyBeforeEditHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.handler.AceHeadTailAfterEditHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.handler.AceHeadTailBeforeEditHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.handler.AceOrgChangedHandler.java</value>
+			       <value>nc.ui.bhs.sotruck.ace.serviceproxy.AceSotruckMaintainProxy.java</value>
+			       <value>nc.ui.bhs.sotruck.action.SotruckAddAction.java</value>
+			       <value>nc.ui.bhs.sotruck.action.SotruckDeleteAction.java</value>
+			       <value>nc.ui.bhs.sotruck.action.SotruckEditAction.java</value>
+			       <value>nc.ui.bhs.sotruck.action.CopyActionProcessor.java</value>
+			     			       <value>nc.ui.bhs.sotruck.query.SotruckQueryConditionInitializer.java</value>
+		     </list>
+	   </property>
+	</bean>
+
+</beans>

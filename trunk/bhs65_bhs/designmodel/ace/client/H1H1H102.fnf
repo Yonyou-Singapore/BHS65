@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="general" class="nc.pubapp.pade.code.funnode.FunNodePara">
+        <property name="moduleName" value="bhs" />
+	    <property name="bpfPath" value="test.bpf" />
+	    <property name="funcode" value="H1H1H102"/>
+	    <property name="funNodeName" value="pack"/>
+	    <property name="clientPackName" value="nc.ui.bhs.pack"/>
+			  		<property name="dbilldDate" value="Dbilldate" />
+			    <property name="metaData" value="bhs\METADATA\pack.bmf" />
+	    <property name="xmlPath" value="bhs\src\client\nc\ui\bhs\pack\ace\view\Pack_config.xml" />
+	    <property name="metaDataType" value="multiType" />
+	    <property name="funcregispath" value="bhs/designmodel/funcmodel/pack/funcregis/H1H1H102.func" />
+	    <property name="quetempath" value="bhs/designmodel/templet/pack/querytemplet/H1H1H102.qtf" />
+	    <property name="printtempath" value="bhs/designmodel/templet/pack/outtemplet/H1H1H102.otf" />
+	    <property name="systembasepath" value="bhs/designmodel/systemplatebase/pack/H1H1H102/H1H1H102.stb" />
+	    <property name="extendSuffix" value=""/>
+	    <property name="uif2ModelFilePath" value="bhs\designmodel\ace\uif2model\H1H1H102.umf"/>
+	    <property name="busiCompName" value="bhs"/>
+	    <property name="metaDataId" value="c56cbee4-5c30-4903-a8ab-467062d8dffc"/>
+	</bean>
+	
+	<bean id="templet" class="nc.pubapp.pade.code.funnode.Templet">
+	    <property name="tempStyle" value="2" />
+	    <property name="nodeKey" value="" />
+		<property name="templetPath" value="bhs/designmodel/templet/pack/billtemplet/H1H1H102.btf" />
+	</bean>
+
+	<bean id="BAEHpara" class="nc.pubapp.pade.code.funnode.BodyAfterEditHandlerPara">
+		<property name="itemList">
+			<list>
+							</list>
+		</property>
+	</bean>
+
+	<bean id="BBEHpara" class="nc.pubapp.pade.code.funnode.BodyBeforeEditHandlerPara">
+		<property name="itemList">
+			<list>
+							</list>
+		</property>
+	</bean>
+	
+	<bean id="HTBEHpara" class="nc.pubapp.pade.code.funnode.HeadTailBeforeEditHandlerPara">
+	</bean>
+	
+	<bean id="HTAEHpara" class="nc.pubapp.pade.code.funnode.HeadTailAfterEditHandlerPara">
+	</bean>
+	
+	<bean id="SerPropara" class="nc.pubapp.pade.code.funnode.ServiceProxyPara">
+					<property name="queryByQueryScheme">
+			<bean class="nc.pubapp.pade.code.funnode.ServiceProxyItemPara">
+				<property name="fullClassName" value="nc.itf.bhs.IPackMaintain" />
+				<property name="itmClassName" value=".IPackMaintain" />
+				<property name="methodName" value="query" />
+			</bean>
+		</property>
+				</bean>
+	
+	<bean id="FilePackNameBean" class="nc.pubapp.pade.code.engine.FilePackNamePara">
+    	<property name="filePackNameList">
+	    	<list>
+				     						       <value>nc.ui.bhs.pack.handler.OrgChangedHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.handler.AceAddHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.handler.AceBodyAfterEditHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.handler.AceBodyBeforeEditHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.handler.AceHeadTailAfterEditHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.handler.AceHeadTailBeforeEditHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.handler.AceOrgChangedHandler.java</value>
+			       <value>nc.ui.bhs.pack.ace.serviceproxy.AcePackMaintainProxy.java</value>
+			       <value>nc.ui.bhs.pack.action.PackAddAction.java</value>
+			       <value>nc.ui.bhs.pack.action.PackDeleteAction.java</value>
+			       <value>nc.ui.bhs.pack.action.PackEditAction.java</value>
+			       <value>nc.ui.bhs.pack.action.CopyActionProcessor.java</value>
+			     			       <value>nc.ui.bhs.pack.query.PackQueryConditionInitializer.java</value>
+		     </list>
+	   </property>
+	</bean>
+
+</beans>
