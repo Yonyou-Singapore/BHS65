@@ -188,10 +188,11 @@ public class TooltipUtil {
 		}
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		java.awt.FontMetrics fm = comp.getFontMetrics(comp.getFont());
-		int tatolLen = fm.stringWidth(value);
-		if (tatolLen < size.width) {
-			return retValue;
-		}
+//		del chenth 20180612 不需要校验长度，如果检验的话，长度没超过，但有换行的情况，显示时就没有效果了。
+//		int tatolLen = fm.stringWidth(value);
+//		if (tatolLen < size.width) {
+//			return retValue;
+//		}
 		// 按汉字计算长度
 		int len = fm.stringWidth("中");/* -=notranslate=- */
 		int num = size.width / len;
