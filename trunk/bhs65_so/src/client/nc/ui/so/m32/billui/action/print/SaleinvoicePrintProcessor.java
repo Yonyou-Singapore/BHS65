@@ -3,13 +3,18 @@ package nc.ui.so.m32.billui.action.print;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
+import nc.bs.framework.common.NCLocator;
+import nc.itf.uap.IUAPQueryBS;
 import nc.ui.pub.print.version55.util.PTStringUtil;
 import nc.ui.pubapp.pub.power.PowerCheckUtils;
 import nc.ui.uif2.model.AbstractAppModel;
+import nc.vo.bd.defdoc.DefdocVO;
 import nc.vo.price.adjustprice.entity.AdjustPriceHVO;
+import nc.vo.pub.BusinessException;
 import nc.vo.pubapp.pub.power.PowerActionEnum;
 import nc.vo.scmpub.res.billtype.SOBillType;
 import nc.vo.so.m32.entity.SaleInvoiceBVO;
@@ -42,15 +47,40 @@ public class SaleinvoicePrintProcessor
 	 */
 	@Override
 	public Object[] processData(Object[] datas) {
+		
+		
 		int len = 0;
 		// 第一页可用高度
 		double firstPageHeight = 255;
 		// 后续页的可用高度
 		double perpageHeight = 300;
 		// Descrption行的宽度
-		double colwidth = 224.0;
+		double columnWidth = 224.0;
 		// 没页能显示最大文字行数
 		int perPageMaxRows = 1;
+		
+		IUAPQueryBS query = NCLocator.getInstance().lookup(IUAPQueryBS.class);
+		Collection<DefdocVO> defdocs = null;
+		try {
+			defdocs = query.retrieveByClause(DefdocVO.class, " pk_defdoclist in (select pk_defdoclist from bd_defdoclist where code = 'BHS99') ");
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(defdocs != null){
+			for(DefdocVO vo : defdocs){
+				if("firstPageHeight".equals(vo.getCode())){
+					firstPageHeight = new Double(vo.getName());
+				}
+				if("perpageHeight".equals(vo.getCode())){
+					perpageHeight = new Double(vo.getName());
+				}
+				if("columnWidth".equals(vo.getCode())){
+					columnWidth = new Double(vo.getName());
+				}
+			}
+		}
+		
 		// 字体高度
 		FontMetrics fm = getFontMetrics();
 		int ascent = fm.getAscent();
@@ -82,7 +112,7 @@ public class SaleinvoicePrintProcessor
 			for (int bvoRowNo = 0; bvoRowNo < bvos.length; bvoRowNo++) {
 				SaleInvoiceBVO bvo = bvos[bvoRowNo];
 				String description = bvo.getVbdef2();
-				finalWords = getFinalRows(description, colwidth);
+				finalWords = getFinalRows(description, columnWidth);
 				totalWordRows = finalWords.size();
 				if(bvo.getCsaleinvoicebid() != null){
 					bvo.setCrowno("" + snno);
