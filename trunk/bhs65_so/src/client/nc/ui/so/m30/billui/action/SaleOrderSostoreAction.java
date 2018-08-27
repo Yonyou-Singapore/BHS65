@@ -1,24 +1,18 @@
 package nc.ui.so.m30.billui.action;
 
+import java.util.Collection;
 import java.util.List;
 
 import nc.bs.framework.common.NCLocator;
 import nc.itf.pubapp.pub.smart.IBillQueryService;
 import nc.itf.uap.IUAPQueryBS;
 import nc.jdbc.framework.processor.ColumnListProcessor;
-import nc.jdbc.framework.processor.ColumnProcessor;
-import nc.md.model.MetaDataException;
-import nc.md.persist.framework.MDPersistenceService;
-import nc.vo.bhs.bhstools.AggBhsToolsHeadVO;
-import nc.vo.bhs.build.AggSoOrderBuildHVO;
-import nc.vo.bhs.somove.AggSoMoveHVO;
-import nc.vo.bhs.somove.SoMoveHVO;
+import nc.vo.bhs.pack.SoOrderPackBVO;
 import nc.vo.bhs.sostore.AggSoStoreHVO;
+import nc.vo.bhs.sostore.SoStoreBVO;
 import nc.vo.bhs.sostore.SoStoreHVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.VOStatus;
-import nc.vo.pub.lang.UFDate;
-import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.model.entity.bill.AbstractBill;
 import nc.vo.so.m30.entity.SaleOrderHVO;
 
@@ -65,6 +59,9 @@ public class SaleOrderSostoreAction extends SaleOrderBaseAction {
 			
 			updateHeadVOValue(vo, headvo);
 			
+			SoStoreBVO[] bvos = getPackDetail(vo, headvo);
+			aggvo.setChildrenVO(bvos);
+			
 			aggvo.setParentVO(vo);
 			aggvos = new AggSoStoreHVO[1];
 			aggvos[0] = aggvo;
@@ -83,6 +80,32 @@ public class SaleOrderSostoreAction extends SaleOrderBaseAction {
 		return aggvos;
 	}
 	
+	private SoStoreBVO[] getPackDetail(SoStoreHVO vo, SaleOrderHVO headvo) throws BusinessException {
+		String condition = " billid in (select billid from bhs_pack_h where csaleorderid = '"+headvo.getCsaleorderid()+"') and isnull(dr,0) = 0 ";
+		Collection<SoOrderPackBVO> list = (Collection<SoOrderPackBVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).retrieveByClause(SoOrderPackBVO.class, condition);
+		SoStoreBVO[] bvos = new SoStoreBVO[list.size()];
+		int i=0;
+		for(SoOrderPackBVO packvo: list){
+			SoStoreBVO bvo = new SoStoreBVO();
+			bvo.setStatus(VOStatus.NEW);
+			
+			bvo.setCsrcid(packvo.getBillid());
+			bvo.setCsrcbid(packvo.getBillid_b());
+			bvo.setRowno(packvo.getRowno());
+			bvo.setDef11(packvo.getSnno());//S/N
+			bvo.setDef2(packvo.getPackdescription());//Description
+			bvo.setDef4(String.valueOf(packvo.getPackqty()));//Qty
+			bvo.setDef6(String.valueOf(packvo.getCratedimensionl()));//Length
+			bvo.setDef7(String.valueOf(packvo.getCratedimensionw()));//Width
+			bvo.setDef8(String.valueOf(packvo.getCratedimensionh()));//Height
+			bvo.setDef9(String.valueOf(packvo.getCratedimensionweight()));//Weight
+			
+			bvos[i] = bvo;
+			i++;
+		}
+		return bvos;
+	}
+
 	/**
 	 * 将销售订单信息带到store中
 	 * @param hvo
@@ -97,6 +120,18 @@ public class SaleOrderSostoreAction extends SaleOrderBaseAction {
 		hvo.setSubject(headvo.getAttributeValue("subject") == null?"":headvo.getAttributeValue("subject").toString());
 		hvo.setJobinstruction(headvo.getAttributeValue("jobinstruction") == null?"":headvo.getAttributeValue("jobinstruction").toString());
 		hvo.setRef(headvo.getAttributeValue("ref") == null?"":headvo.getAttributeValue("ref").toString());
+		
+		
+		hvo.setDef19(headvo.getAttributeValue("toolidlid") == null?"":headvo.getAttributeValue("toolidlid").toString());
+		hvo.setDef17(headvo.getAttributeValue("machinemodel") == null?"":headvo.getAttributeValue("machinemodel").toString());
+		hvo.setDef18(headvo.getAttributeValue("machinesubmodel") == null?"":headvo.getAttributeValue("machinesubmodel").toString());
+		hvo.setDef16(headvo.getAttributeValue("suppliername") == null?"":headvo.getAttributeValue("suppliername").toString());
+		hvo.setDef2(headvo.getAttributeValue("pkgs") == null?"":headvo.getAttributeValue("pkgs").toString());
+		hvo.setDef9(headvo.getAttributeValue("largestlength") == null?"":headvo.getAttributeValue("largestlength").toString());
+		hvo.setDef10(headvo.getAttributeValue("largestwidth") == null?"":headvo.getAttributeValue("largestwidth").toString());
+		hvo.setDef11(headvo.getAttributeValue("largestheight") == null?"":headvo.getAttributeValue("largestheight").toString());
+		hvo.setDef12(headvo.getAttributeValue("largestweight") == null?"":headvo.getAttributeValue("largestweight").toString());
+		
 	}
 	
 }

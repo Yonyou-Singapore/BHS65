@@ -38,7 +38,23 @@ public class InitDataListener extends DefaultFuncNodeInitDataListener{
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("subject", aggvos[0].getParentVO().getSubject());
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("jobinstruction", aggvos[0].getParentVO().getJobinstruction());
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("ref", aggvos[0].getParentVO().getRef());
+				
+				//add chenth 20180825
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def19", aggvos[0].getParentVO().getDef19());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def17", aggvos[0].getParentVO().getDef17());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def18", aggvos[0].getParentVO().getDef18());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def16", aggvos[0].getParentVO().getDef16());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def2", aggvos[0].getParentVO().getDef2());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def9", aggvos[0].getParentVO().getDef9());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def10", aggvos[0].getParentVO().getDef10());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def11", aggvos[0].getParentVO().getDef11());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("def12", aggvos[0].getParentVO().getDef12());
+				//带入表体
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().getBillModel().setBodyDataVO(aggvos[0].getChildrenVO());
+				
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().execHeadLoadFormulas();
+				
+				
 			}else{
 				this.getModel().initModel(aggvos);
 			}

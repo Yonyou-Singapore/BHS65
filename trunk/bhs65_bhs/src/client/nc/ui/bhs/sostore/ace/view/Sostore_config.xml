@@ -231,6 +231,14 @@
 						<bean class="nc.ui.bhs.sostore.ace.handler.AceAddHandler" />
 					</property>
 				</bean>
+				
+				<!-- nc.ui.pubapp.uif2app.event.card.CardHeadTailBeforeEditEvent -->
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.bhs.sostore.ace.handler.SoStoreBodyBeforeEditHandler" />
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>
