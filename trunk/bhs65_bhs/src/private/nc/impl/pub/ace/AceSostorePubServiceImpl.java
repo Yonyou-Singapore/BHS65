@@ -169,8 +169,8 @@ public abstract class AceSostorePubServiceImpl {
 		String inpath = itsparaMap.get("PATH_INBOUND");
 		
 		//先删除对应文件
-		ExportExcel.deleteCSV(jobOrderNo + "_IN", inpath);
-		ExportExcel.deleteCSV(jobOrderNo + "_OUT", outpath);
+		ExportExcel.deleteCSV(jobOrderNo, inpath);
+		ExportExcel.deleteCSV(jobOrderNo, outpath);
 		
 		SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
 		if(bvos == null
@@ -196,7 +196,8 @@ public abstract class AceSostorePubServiceImpl {
 			}
 			prex = prex + year;
 
-			String[] titleArry = new String[] { "Customer", "Manufacturer", "Model", "Sub Model", "Tag ID", "Description", "Date of Purchase", "Length", "Width", "Height", "Weight", "Location", "Person In Charge", "Qty"};
+			String[] titleArry = new String[] { "Customer", "Manufacturer", "Model", "Sub Model", "Tag ID", "Description", "Date of Purchase", "Length", "Width", "Height", "Weight", "Location", "Person In Charge", "Qty"
+					, "Shock Watch Activated", "Tilt_Watch_Activated", "Remarks", "Physically Damaged", "Progress/Status", "Project", "Inspected", "Crates Status", "Toppel Risk Crate No", "Asset No", "Micap No", "Tool ID/LID", "Set No"};
 			for(SoStoreBVO bvo : bvos){
 				if(bvo.getDef6() != null){
 					if(bvo.getDef10() == null 
@@ -207,7 +208,8 @@ public abstract class AceSostorePubServiceImpl {
 					}
 					String snno = bvo.getDef11()==null? "" : bvo.getDef11();
 					String description = bvo.getDef2()==null? "" : bvo.getDef2();
-					description = description + "  " + toolid + "  " + snno;
+					//description = description + "  " + toolid + "  " + snno;
+					
 					
 					String[] record = new String[titleArry.length];
 					record[0] = customer;//Customer
@@ -216,19 +218,32 @@ public abstract class AceSostorePubServiceImpl {
 					record[3] = hvo.getDef18()==null? "" : hvo.getDef18();//Sub Model
 					record[4] = bvo.getDef10();//Tag ID RFID Number
 					record[5] = description;//Description
-					record[6] = bvo.getDef5()==null? "" : UFDate.getDate(bvo.getDef5()).toString(TimeZone.getDefault(), df);//Date of Purchase
+					record[6] = bvo.getDef5()==null? hvo.getDbilldate().toString(TimeZone.getDefault(), df) : UFDate.getDate(bvo.getDef5()).toString(TimeZone.getDefault(), df);//Date of Purchase
 					record[7] = bvo.getDef6()==null? "" : bvo.getDef6();//Length
 					record[8] = bvo.getDef7()==null? "" : bvo.getDef7();//Width
 					record[9] = bvo.getDef8()==null? "" : bvo.getDef8();//Height
 					record[10] = bvo.getDef9()==null? "" : bvo.getDef9();//Weight
-					record[11] = "";//Location
+					record[11] = "Virtual Location";//Location
 					record[12] = "";//Person In Charge
 					record[13] = bvo.getDef4();//Qty
+					record[14] = "";//
+					record[15] = "";//
+					record[16] = "";//
+					record[17] = "";//
+					record[18] = "";//
+					record[19] = "";//
+					record[20] = "";//
+					record[21] = "";//
+					record[22] = "";//
+					record[23] = "";//
+					record[24] = hvo.getDef20()==null? "" : hvo.getDef20();//Micap No
+					record[25] = toolid;//Tool ID/LID
+					record[26] = snno;//Set No
 					recordList.add(record);
 				}
 			}
 			if(recordList.size() > 0){
-				ExportExcel.createCSV(jobOrderNo + "_IN", titleArry, recordList,
+				ExportExcel.createCSV(jobOrderNo , titleArry, recordList,
 						inpath);
 			}
 			//更新vo的RFID Number
@@ -250,7 +265,7 @@ public abstract class AceSostorePubServiceImpl {
 				}
 			}
 			if(recordList.size() > 0){
-				ExportExcel.createCSV(jobOrderNo + "_OUT", titleArry, recordList,
+				ExportExcel.createCSV(jobOrderNo, titleArry, recordList,
 						outpath);
 			}
 		}
@@ -277,7 +292,7 @@ public abstract class AceSostorePubServiceImpl {
 					path = itsparaMap.get("PATH_OUTBOUND");
 				}
 				//先删除对应文件
-				ExportExcel.deleteCSV(jobOrderNo + "_" + type, path);
+				ExportExcel.deleteCSV(jobOrderNo , path);
 			}
 	}
 	
@@ -311,7 +326,7 @@ public abstract class AceSostorePubServiceImpl {
 		
 		if(vos != null ){
 			for ( CustomerVO vo : vos){
-				custName = vo.getName();
+				custName = vo.getCode();
 			}
 		}
 		return custName;
