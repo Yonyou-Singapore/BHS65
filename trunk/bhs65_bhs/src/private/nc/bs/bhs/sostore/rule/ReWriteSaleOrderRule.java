@@ -8,6 +8,7 @@ import nc.vo.bhs.somove.SoMoveHVO;
 import nc.vo.bhs.sostore.AggSoStoreHVO;
 import nc.vo.bhs.sostore.SoStoreHVO;
 import nc.vo.pub.VOStatus;
+import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.so.m30.entity.SaleOrderHVO;
 import nc.vo.so.m30.entity.SaleOrderVO;
@@ -55,31 +56,35 @@ public class ReWriteSaleOrderRule implements IRule<AggSoStoreHVO>{
 //		hvo.setAttributeValue("vdef12", null);
 //		hvo.setAttributeValue("vdef13", null);
 //		hvo.setAttributeValue("jobtype", headvo.getJobtype());
-//		hvo.setAttributeValue("micapno",headvo.getMicapnumbermachineid());
-//		hvo.setAttributeValue("oemtoolno", headvo.getOemtoolno());
-		hvo.setAttributeValue("toolidlid", headvo.getDef19());
-//		hvo.setAttributeValue("machinemake", headvo.getMachinemake());
-		hvo.setAttributeValue("machinemodel", headvo.getDef17());
-		hvo.setAttributeValue("machinesubmodel", headvo.getDef18());
-		hvo.setAttributeValue("suppliername", headvo.getDef16());
-//		hvo.setAttributeValue("m2", null);
-//		hvo.setAttributeValue("m3", headvo.getVolumem3());
-//		hvo.setAttributeValue("kg", headvo.getGrossweight());
-		hvo.setAttributeValue("pkgs", headvo.getDef2());
+
+		hvo.setAttributeValue("micapno",headvo.getMicapno());
+		hvo.setAttributeValue("oemtoolno", headvo.getOemtoolno());
+		hvo.setAttributeValue("toolidlid", headvo.getToolidlid());
+		hvo.setAttributeValue("machinemake", headvo.getMachinemake());
+		hvo.setAttributeValue("machinemodel", headvo.getMachinemodel());
+		hvo.setAttributeValue("machinesubmodel", headvo.getMachinesubmodel());
+		hvo.setAttributeValue("suppliername", headvo.getSuppliername());
+		hvo.setAttributeValue("m2", headvo.getSummarym2());
+		hvo.setAttributeValue("m3", headvo.getSummarym3());
+		hvo.setAttributeValue("kg", headvo.getSummarykg());
+		hvo.setAttributeValue("pkgs", headvo.getSummarypkgs());
 //		hvo.setAttributeValue("chargeableweight", headvo.getChargeableweight());
 //		hvo.setAttributeValue("netweight", headvo.getNetweight());
-		hvo.setAttributeValue("largestlength", headvo.getDef9());
-		hvo.setAttributeValue("largestwidth", headvo.getDef10());
-		hvo.setAttributeValue("largestheight", headvo.getDef11());
-		hvo.setAttributeValue("largestweight", headvo.getDef12());
-//		hvo.setAttributeValue("lcrate", headvo.getCrate1());
-//		hvo.setAttributeValue("wcrate", headvo.getCrate2());
-//		hvo.setAttributeValue("hcrate", headvo.getCrate3());
-//		hvo.setAttributeValue("kcrate", headvo.getKcrate());
+		hvo.setAttributeValue("largestlength", headvo.getLargestlength());
+		hvo.setAttributeValue("largestwidth", headvo.getLargestwidth());
+		hvo.setAttributeValue("largestheight", headvo.getLargestheight());
+		hvo.setAttributeValue("largestweight", headvo.getLargestweight());
+		hvo.setAttributeValue("lcrate", headvo.getLcrate());
+		hvo.setAttributeValue("wcrate", headvo.getWcrate());
+		hvo.setAttributeValue("hcrate", headvo.getHcrate());
+		hvo.setAttributeValue("kcrate", headvo.getKcrate());
 //		hvo.setAttributeValue("awb", headvo.getAwb());
 		hvo.setStatus(VOStatus.UPDATED);
 		hvo.setAttributeValue("dr", 0);
 		hvo.setDr(Integer.valueOf(0));
+		//add chenth 20180904 …Ë÷√ Topple Risk
+		hvo.setVdef16(headvo.getIstopplerisk() == null ? UFBoolean.FALSE.toString() :
+			headvo.getIstopplerisk().toString());
 		try {
 			new BaseDAO().updateVO(hvo);
 		} catch (DAOException e) {

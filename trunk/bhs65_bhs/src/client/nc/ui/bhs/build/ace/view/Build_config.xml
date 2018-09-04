@@ -353,7 +353,7 @@
 	</bean>
 
 	<!--======= ¶¯×÷£º[newActions] [Ë¢ÐÂ] ===========-->
-	<bean id="defaultRefreshAction" class="nc.ui.pubapp.uif2app.query2.action.DefaultRefreshAction">
+	<bean id="defaultRefreshAction" class="nc.ui.bhs.pub.action.RefreshAction">
 		<property name="model"><ref bean="bmModel"/></property>
 		<property name="dataManager"><ref bean="bmModelModelDataManager"/></property>
 		<property name="exceptionHandler"><ref bean="exceptionHandler" /></property>

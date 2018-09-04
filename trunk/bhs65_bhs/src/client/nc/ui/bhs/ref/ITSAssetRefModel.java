@@ -16,10 +16,12 @@ public class ITSAssetRefModel extends AbstractRefModel {
 		setTableName("v_its_StockAvailable");
 		setFieldCode(new String[] {
 				"Location",
+				"Set_No",
 				"Asset_ID",
 				"Asset_No",
 				"Description"
-				, "EPC_ID"
+				, "Micap_No"
+				, "Tool_ID"
 				, "Date_of_Purchase"
 				, "Date_of_Expire"
 				, "customer"
@@ -28,11 +30,13 @@ public class ITSAssetRefModel extends AbstractRefModel {
 		});
 		setFieldName(new String[] {
 				"Location",
-				"Tool ID",
+				"S/N",
+				"Asset ID",
 				"Asset No",
 				"Description"
-				, "EPC ID"
-				, "Date of Purchase"
+				, "Micap No"
+				, "Tool ID/LID"
+				, "Date In"
 				, "Date of Expire"
 				, "Customer"
 				, "Last Bal"

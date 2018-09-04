@@ -25,6 +25,7 @@ import nc.impl.pubapp.pattern.data.bill.tool.BillTransferTool;
 import nc.jdbc.framework.processor.ResultSetProcessor;
 import nc.ui.querytemplate.querytree.IQueryScheme;
 import nc.vo.bd.cust.CustomerVO;
+import nc.vo.bd.defdoc.DefdocVO;
 import nc.vo.bhs.sostore.AggSoStoreHVO;
 import nc.vo.bhs.sostore.SoStoreBVO;
 import nc.vo.bhs.sostore.SoStoreHVO;
@@ -181,7 +182,7 @@ public abstract class AceSostorePubServiceImpl {
 		
 		if("INBOUND".equals(type) ){
 			String customer = getCustomerName(hvo);
-			String toolid = hvo.getDef19() == null ? "" : hvo.getDef19();
+			String toolid = hvo.getToolidlid() == null ? "" : hvo.getToolidlid();
 			Integer maxRFID = Integer.valueOf(itsparaMap.get("RFID_SEQ_NUMBER"));
 			String prex = itsparaMap.get("RFID_PREFIX_PROVIDE") + itsparaMap.get("RFID_PREFIX_BHS");
 			Integer lengthofRFID = Integer.valueOf(itsparaMap.get("RFID_LENGTH"));
@@ -210,33 +211,32 @@ public abstract class AceSostorePubServiceImpl {
 					String description = bvo.getDef2()==null? "" : bvo.getDef2();
 					//description = description + "  " + toolid + "  " + snno;
 					
-					
 					String[] record = new String[titleArry.length];
 					record[0] = customer;//Customer
-					record[1] = hvo.getDef16()==null? "" : hvo.getDef16();//Manufacturer
-					record[2] = hvo.getDef17()==null? "" : hvo.getDef17();//Model
-					record[3] = hvo.getDef18()==null? "" : hvo.getDef18();//Sub Model
+					record[1] = hvo.getSuppliername()==null? "" : hvo.getSuppliername();//Manufacturer
+					record[2] = hvo.getMachinemodel()==null? "" : hvo.getMachinemodel();//Model
+					record[3] = hvo.getMachinesubmodel()==null? "" : hvo.getMachinesubmodel();//Sub Model
 					record[4] = bvo.getDef10();//Tag ID RFID Number
 					record[5] = description;//Description
-					record[6] = bvo.getDef5()==null? hvo.getDbilldate().toString(TimeZone.getDefault(), df) : UFDate.getDate(bvo.getDef5()).toString(TimeZone.getDefault(), df);//Date of Purchase
+					record[6] = dbilldate.toString(TimeZone.getDefault(), df);//Date of INBound/OUTBound
 					record[7] = bvo.getDef6()==null? "" : bvo.getDef6();//Length
 					record[8] = bvo.getDef7()==null? "" : bvo.getDef7();//Width
 					record[9] = bvo.getDef8()==null? "" : bvo.getDef8();//Height
 					record[10] = bvo.getDef9()==null? "" : bvo.getDef9();//Weight
-					record[11] = "Virtual Location";//Location
+					record[11] = hvo.getWarehousezone()==null? "Virtual Location" : hvo.getWarehousezone();//Location
 					record[12] = "";//Person In Charge
 					record[13] = bvo.getDef4();//Qty
-					record[14] = "";//
-					record[15] = "";//
-					record[16] = "";//
-					record[17] = "";//
-					record[18] = "";//
-					record[19] = "";//
-					record[20] = "";//
-					record[21] = "";//
-					record[22] = "";//
+					record[14] = hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
+					record[15] = hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
+					record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks
+					record[17] = hvo.getDamagedcrateno()==null? "" : hvo.getDamagedcrateno();//Physically Damaged
+					record[18] = "";//Progress/Status
+					record[19] = "";//Project
+					record[20] = "";//Inspected
+					record[21] = hvo.getCratestatus()==null? "" : getCrateStatus(hvo.getCratestatus());//Crates Status
+					record[22] = hvo.getToppleriskcrateno()==null? "" : hvo.getToppleriskcrateno();//Toppel Risk Crate No
 					record[23] = "";//
-					record[24] = hvo.getDef20()==null? "" : hvo.getDef20();//Micap No
+					record[24] = hvo.getMicapno()==null? "" : hvo.getMicapno();//Micap No
 					record[25] = toolid;//Tool ID/LID
 					record[26] = snno;//Set No
 					recordList.add(record);
@@ -330,6 +330,16 @@ public abstract class AceSostorePubServiceImpl {
 			}
 		}
 		return custName;
+	}
+	
+	private String getCrateStatus(String pk_defdoc) throws BusinessException {
+		String cratestatus = "";
+		DefdocVO vo = (DefdocVO) new BaseDAO().retrieveByPK(DefdocVO.class, pk_defdoc);
+		
+		if(vo != null ){
+			cratestatus = vo.getName();
+		}
+		return cratestatus;
 	}
 	
 	public String frontCompWithZore(int number,int formatLength){

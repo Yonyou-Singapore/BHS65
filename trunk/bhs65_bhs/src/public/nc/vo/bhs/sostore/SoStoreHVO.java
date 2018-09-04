@@ -261,6 +261,100 @@ public String ref;
 */
 public UFDateTime ts;
     
+
+/**
+*M2
+*/
+public UFDouble summarym2;
+/**
+*M3
+*/
+public UFDouble summarym3;
+/**
+*kg
+*/
+public UFDouble summarykg;
+/**
+*pkgs
+*/
+public UFDouble summarypkgs;
+
+/**
+*no of shock watches
+*/
+public UFDouble noofshockwatches;
+/**
+*no of tilt watches
+*/
+public UFDouble nooftiltwatches;
+/**
+*Largest length
+*/
+public UFDouble largestlength;
+/**
+*Largest width
+*/
+public UFDouble largestwidth;
+/**
+*Largest height
+*/
+public UFDouble largestheight;
+/**
+*Largest weight
+*/
+public UFDouble largestweight;
+
+/**
+*Micap No
+*/
+public String micapno;
+/**
+*OEM Tool No
+*/
+public String oemtoolno;
+/**
+*Tool ID/LID
+*/
+public String toolidlid;
+/**
+*Machine Make
+*/
+public String machinemake;
+/**
+*Machine Model
+*/
+public String machinemodel;
+/**
+*Machine Submodel
+*/
+public String machinesubmodel;
+/**
+*Supplier Name
+*/
+public String suppliername;
+/**
+*Lcrate#
+*/
+public String lcrate;
+/**
+*Wcrate#
+*/
+public String wcrate;
+/**
+*Hcrate#
+*/
+public String hcrate;
+/**
+*Kcrate#
+*/
+public String kcrate;
+
+public UFBoolean istopplerisk;
+public String toppleriskcrateno;
+public String damagedcrateno;
+public String cratestatus;
+public UFBoolean iscentralgrapoint;
+
     
 /**
 * 属性 billid的Getter方法.属性名：主表主键
@@ -1345,5 +1439,213 @@ this.ts=ts;
     public IVOMeta getMetaData() {
     return VOMetaFactory.getInstance().getVOMeta("BHS.SoStoreHVO");
     }
+
+	public UFDouble getSummarym2() {
+		return summarym2;
+	}
+
+	public void setSummarym2(UFDouble summarym2) {
+		this.summarym2 = summarym2;
+	}
+
+	public UFDouble getSummarym3() {
+		return summarym3;
+	}
+
+	public void setSummarym3(UFDouble summarym3) {
+		this.summarym3 = summarym3;
+	}
+
+	public UFDouble getSummarykg() {
+		return summarykg;
+	}
+
+	public void setSummarykg(UFDouble summarykg) {
+		this.summarykg = summarykg;
+	}
+
+	public UFDouble getNoofshockwatches() {
+		return noofshockwatches;
+	}
+
+	public void setNoofshockwatches(UFDouble noofshockwatches) {
+		this.noofshockwatches = noofshockwatches;
+	}
+
+	public UFDouble getNooftiltwatches() {
+		return nooftiltwatches;
+	}
+
+	public void setNooftiltwatches(UFDouble nooftiltwatches) {
+		this.nooftiltwatches = nooftiltwatches;
+	}
+
+	public UFDouble getLargestlength() {
+		return largestlength;
+	}
+
+	public void setLargestlength(UFDouble largestlength) {
+		this.largestlength = largestlength;
+	}
+
+	public UFDouble getLargestwidth() {
+		return largestwidth;
+	}
+
+	public void setLargestwidth(UFDouble largestwidth) {
+		this.largestwidth = largestwidth;
+	}
+
+	public UFDouble getLargestheight() {
+		return largestheight;
+	}
+
+	public void setLargestheight(UFDouble largestheight) {
+		this.largestheight = largestheight;
+	}
+
+	public UFDouble getLargestweight() {
+		return largestweight;
+	}
+
+	public void setLargestweight(UFDouble largestweight) {
+		this.largestweight = largestweight;
+	}
+
+	public String getMicapno() {
+		return micapno;
+	}
+
+	public void setMicapno(String micapno) {
+		this.micapno = micapno;
+	}
+
+	public String getOemtoolno() {
+		return oemtoolno;
+	}
+
+	public void setOemtoolno(String oemtoolno) {
+		this.oemtoolno = oemtoolno;
+	}
+
+	public String getToolidlid() {
+		return toolidlid;
+	}
+
+	public void setToolidlid(String toolidlid) {
+		this.toolidlid = toolidlid;
+	}
+
+	public String getMachinemake() {
+		return machinemake;
+	}
+
+	public void setMachinemake(String machinemake) {
+		this.machinemake = machinemake;
+	}
+
+	public String getMachinemodel() {
+		return machinemodel;
+	}
+
+	public void setMachinemodel(String machinemodel) {
+		this.machinemodel = machinemodel;
+	}
+
+	public String getMachinesubmodel() {
+		return machinesubmodel;
+	}
+
+	public void setMachinesubmodel(String machinesubmodel) {
+		this.machinesubmodel = machinesubmodel;
+	}
+
+	public String getSuppliername() {
+		return suppliername;
+	}
+
+	public void setSuppliername(String suppliername) {
+		this.suppliername = suppliername;
+	}
+
+	public String getLcrate() {
+		return lcrate;
+	}
+
+	public void setLcrate(String lcrate) {
+		this.lcrate = lcrate;
+	}
+
+	public String getWcrate() {
+		return wcrate;
+	}
+
+	public void setWcrate(String wcrate) {
+		this.wcrate = wcrate;
+	}
+
+	public String getHcrate() {
+		return hcrate;
+	}
+
+	public void setHcrate(String hcrate) {
+		this.hcrate = hcrate;
+	}
+
+	public String getKcrate() {
+		return kcrate;
+	}
+
+	public void setKcrate(String kcrate) {
+		this.kcrate = kcrate;
+	}
+
+	public UFBoolean getIstopplerisk() {
+		return istopplerisk;
+	}
+
+	public void setIstopplerisk(UFBoolean istopplerisk) {
+		this.istopplerisk = istopplerisk;
+	}
+
+	public String getToppleriskcrateno() {
+		return toppleriskcrateno;
+	}
+
+	public void setToppleriskcrateno(String toppleriskcrateno) {
+		this.toppleriskcrateno = toppleriskcrateno;
+	}
+
+	public String getDamagedcrateno() {
+		return damagedcrateno;
+	}
+
+	public void setDamagedcrateno(String damagedcrateno) {
+		this.damagedcrateno = damagedcrateno;
+	}
+
+	public String getCratestatus() {
+		return cratestatus;
+	}
+
+	public void setCratestatus(String cratestatus) {
+		this.cratestatus = cratestatus;
+	}
+
+	public UFBoolean getIscentralgrapoint() {
+		return iscentralgrapoint;
+	}
+
+	public void setIscentralgrapoint(UFBoolean iscentralgrapoint) {
+		this.iscentralgrapoint = iscentralgrapoint;
+	}
+
+	public UFDouble getSummarypkgs() {
+		return summarypkgs;
+	}
+
+	public void setSummarypkgs(UFDouble summarypkgs) {
+		this.summarypkgs = summarypkgs;
+	}
    }
     
