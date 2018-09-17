@@ -327,10 +327,8 @@ public class StoreSettleUtil {
 			return null;
 		}
 		IUAPQueryBS query = NCLocator.getInstance().lookup(IUAPQueryBS.class);
-		// TODO
-		StringBuffer condition = new StringBuffer(" 1=1 ");
-		// new StringBuffer(" Doc_No in ");
-		// condition.append(InSqlManager.getInSQLValue(jonoSet));
+		StringBuffer condition = new StringBuffer(" Doc_No in ");
+		condition.append(InSqlManager.getInSQLValue(jonoSet));
 		condition.append(" and Date_In <= '");
 		condition.append(endDate.toString());
 		condition.append("' ");
