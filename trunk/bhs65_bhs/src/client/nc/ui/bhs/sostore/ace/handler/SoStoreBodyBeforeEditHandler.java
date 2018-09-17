@@ -1,11 +1,18 @@
 package nc.ui.bhs.sostore.ace.handler;
 
+import java.util.Collection;
+
+import nc.bs.framework.common.NCLocator;
+import nc.itf.uap.IUAPQueryBS;
 import nc.ui.bhs.ref.ITSAssetRefModel;
 import nc.ui.bhs.ref.SOPartsRefModel;
 import nc.ui.pub.beans.UIRefPane;
 import nc.ui.pubapp.uif2app.event.IAppEventHandler;
 import nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent;
 import nc.ui.so.pub.keyvalue.CardKeyValue;
+import nc.vo.bd.cust.CustomerVO;
+import nc.vo.bhs.pack.SoOrderPackBVO;
+import nc.vo.pub.BusinessException;
 import nc.vo.so.pub.keyvalue.IKeyValue;
 
 public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBeforeEditEvent> {
@@ -31,11 +38,31 @@ public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBe
 		ITSAssetRefModel model = (ITSAssetRefModel) ((UIRefPane) e
 				.getBillCardPanel().getBodyItem(e.getKey()).getComponent())
 				.getRefModel();
-		String customer = keyValue.getHeadStringValue("def_customer");
-		StringBuilder sb = new StringBuilder();
-		sb.append(" customer = '" + customer + "'");
+//		String customer = keyValue.getHeadStringValue("def_customer");
+		String customer = null;
+		String csaleorderid = keyValue.getHeadStringValue("csaleorderid");
+		String condition = " pk_customer in ( select ccustomerid from so_saleorder where csaleorderid = '" 
+				+ csaleorderid + "') ";
+		Collection<CustomerVO> list = null;
+		try {
+			list = (Collection<CustomerVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).retrieveByClause(CustomerVO.class, condition);
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+		}
+		if(list != null ){
+			for ( CustomerVO vo : list){
+				customer = vo.getCode();
+			}
+		}
 		
-		model.setWherePart("1=1");
+		String location = keyValue.getHeadStringValue("warehousezone");
+		StringBuilder sb = new StringBuilder(" 1=1 ");
+		if(location != null
+				&& !location.trim().equals("")){
+			sb.append(" and Location = '" + location + "'");
+		}
+		sb.append(" and customer = '" + customer + "'");
+		model.setWherePart(sb.toString());
 	}
 
 	@Override
