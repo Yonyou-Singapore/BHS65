@@ -416,6 +416,7 @@
 				<ref bean="editAstFuncActionGroup" />
 				<ref bean="separatorAction" />
 				<ref bean="editLinkActionGroup" />
+				<ref bean="settleAction" />
 			</list>
 		</property>
 	</bean>
@@ -1199,5 +1200,11 @@
 				</entry>
 			</map>
 		</property>
+	</bean>
+	
+	<!-- Storage租金结算 -->
+	<bean id="settleAction" class="nc.ui.so.m32.billui.action.SettleAction">
+		<property name="model" ref="ManageAppModel" />
+		<property name="editor" ref="billFormEditor" />
 	</bean>
 </beans>
