@@ -25,7 +25,6 @@ import nc.vo.bd.material.MaterialVO;
 import nc.vo.bd.material.marbasclass.MarBasClassVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.JavaType;
-import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.data.IRowSet;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.pubapp.pattern.pub.SqlBuilder;
@@ -38,6 +37,7 @@ import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.m32.entity.SaleInvoiceViewVO;
 import nc.vo.so.m32.util.RemoteFormSOUtil;
+import nc.vo.so.m32.util.SettleReturnVO;
 import nc.vo.so.m32.util.StoreSettleUtil;
 import nc.vo.so.pub.SOTable;
 import nc.vo.so.pub.query.SOQuerySchemeUtils;
@@ -426,8 +426,8 @@ public class SaleInvoiceMaintainImpl implements ISaleInvoiceMaintain {
     return bills;
   }
 
-@Override
-public UFDouble settle(SaleInvoiceVO vo) throws BusinessException {
-	return new StoreSettleUtil().settle(vo);
-}
+	@Override
+	public SettleReturnVO settle(SaleInvoiceVO vo) throws BusinessException {
+		return new StoreSettleUtil().settle(vo);
+	}
 }

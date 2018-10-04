@@ -4,7 +4,7 @@ import nc.vo.pub.SuperVO;
 import nc.vo.pub.lang.UFDate;
 import nc.vo.pub.lang.UFDouble;
 
-public class ItsStoreInOutVO extends SuperVO {
+public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOutVO>{
 	
 	
 	/**
@@ -28,13 +28,13 @@ public class ItsStoreInOutVO extends SuperVO {
 	private UFDouble space_m2; 
 	private UFDouble cubic_Meter; 
 	private String project; 
-	private UFDate date_In; 
-	private UFDate date_Out; 
+	private UFDate date_InOut; 
 	private UFDouble qty_In; 
 	private UFDouble qty_Out; 
 	private String person_In_Charge; 
 	private String remarks; 
 	private String doc_No;
+	private UFDouble space_ft;
 	
 
 	@Override
@@ -143,18 +143,6 @@ public class ItsStoreInOutVO extends SuperVO {
 	public void setProject(String project) {
 		this.project = project;
 	}
-	public UFDate getDate_In() {
-		return date_In;
-	}
-	public void setDate_In(UFDate date_In) {
-		this.date_In = date_In;
-	}
-	public UFDate getDate_Out() {
-		return date_Out;
-	}
-	public void setDate_Out(UFDate date_Out) {
-		this.date_Out = date_Out;
-	}
 	public UFDouble getQty_In() {
 		return qty_In;
 	}
@@ -185,5 +173,27 @@ public class ItsStoreInOutVO extends SuperVO {
 	public void setDoc_No(String doc_No) {
 		this.doc_No = doc_No;
 	}
+
+	public UFDate getDate_InOut() {
+		return date_InOut;
+	}
+
+	public void setDate_InOut(UFDate date_InOut) {
+		this.date_InOut = date_InOut;
+	}
+
+	@Override
+	public int compareTo(ItsStoreInOutVO o) {
+		return this.date_InOut.compareTo(o.getDate_InOut());
+	}
+
+	public UFDouble getSpace_ft() {
+		return space_ft;
+	}
+
+	public void setSpace_ft(UFDouble space_ft) {
+		this.space_ft = space_ft;
+	}
+
 
 }

@@ -9,6 +9,7 @@ import nc.vo.scmpub.goldtax.GoldTaxVO;
 import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.m32.entity.SaleInvoiceViewVO;
+import nc.vo.so.m32.util.SettleReturnVO;
 
 /**
  * <p>
@@ -222,5 +223,5 @@ public interface ISaleInvoiceMaintain {
 	 * @return
 	 * @throws BusinessException
 	 */
-	UFDouble settle(SaleInvoiceVO vo) throws BusinessException;
+	SettleReturnVO settle(SaleInvoiceVO vo) throws BusinessException;
 }

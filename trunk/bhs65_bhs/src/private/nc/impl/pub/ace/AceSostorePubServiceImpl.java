@@ -32,7 +32,9 @@ import nc.vo.bhs.sostore.SoStoreHVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.VOStatus;
 import nc.vo.pub.lang.UFDate;
+import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
+import nc.vo.trade.voutils.SafeCompute;
 
 import com.su.sa.job.utils.ExportExcel;
 
@@ -46,10 +48,14 @@ public abstract class AceSostorePubServiceImpl {
 					clientFullVOs);
 			// 调用BP
 			AceSostoreInsertBP action = new AceSostoreInsertBP();
+			//add chenth 20181002 计算m2 m3 largest
+			caculate(clientFullVOs[0]);
+			//add end 
 			AggSoStoreHVO[] retvos = action.insert(clientFullVOs);
 			
-			//chenth 20180820 导出excel给ITS
+			//add chenth 20180820 导出excel给ITS
 			exportExcel(retvos[0]);
+			//add end
 			
 			// 构造返回数据
 			return transferTool.getBillForToClient(retvos);
@@ -80,10 +86,14 @@ public abstract class AceSostorePubServiceImpl {
 			BillTransferTool<AggSoStoreHVO> transferTool = new BillTransferTool<AggSoStoreHVO>(
 					clientFullVOs);
 			AceSostoreUpdateBP bp = new AceSostoreUpdateBP();
+			//add chenth 20181002 计算m2 m3 largest
+			caculate(clientFullVOs[0]);
+			//add end 
 			AggSoStoreHVO[] retvos = bp.update(clientFullVOs, originBills);
 			
-			//chenth 20180820 导出excel给ITS
+			//add chenth 20180820 导出excel给ITS
 			exportExcel(retvos[0]);
+			//add end
 			
 			// 构造返回数据
 			return transferTool.getBillForToClient(retvos);
@@ -226,10 +236,10 @@ public abstract class AceSostorePubServiceImpl {
 					record[11] = hvo.getWarehousezone()==null? "Virtual Location" : hvo.getWarehousezone();//Location
 					record[12] = "";//Person In Charge
 					record[13] = bvo.getDef4();//Qty
-					record[14] = hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
-					record[15] = hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
+					record[14] = "";//hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
+					record[15] = "";//hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
 					record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks
-					record[17] = hvo.getDamagedcrateno()==null? "" : hvo.getDamagedcrateno();//Physically Damaged
+					record[17] = "";//hvo.getDamagedcrateno()==null? "" : hvo.getDamagedcrateno();//Physically Damaged
 					record[18] = "";//Progress/Status
 					record[19] = "";//Project
 					record[20] = "";//Inspected
@@ -351,6 +361,78 @@ public abstract class AceSostorePubServiceImpl {
 		String newString = String.format("%0"+formatLength+"d", number);
 		return newString;
 	}
+	
+
+	private void caculate(AggSoStoreHVO aggVO) {
+		SoStoreHVO hvo = aggVO.getParentVO();
+		SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
+		if(bvos == null
+				|| bvos.length < 1){
+			return;
+		}
+		UFDouble m2 = UFDouble.ZERO_DBL;
+		UFDouble m3 = UFDouble.ZERO_DBL;
+		UFDouble kg = UFDouble.ZERO_DBL;
+		Integer totalPkgs = 0;
+		UFDouble largestL = UFDouble.ZERO_DBL;
+		UFDouble largestW = UFDouble.ZERO_DBL;
+		UFDouble largestH = UFDouble.ZERO_DBL;
+		UFDouble largestWeight = UFDouble.ZERO_DBL;
+		String lcrate = null;
+		String wcrate = null;
+		String hcrate = null;
+		String kcrate = null;
+
+		UFDouble L = UFDouble.ZERO_DBL;
+		UFDouble W = UFDouble.ZERO_DBL;
+		UFDouble H = UFDouble.ZERO_DBL;
+		UFDouble Weight = UFDouble.ZERO_DBL;
+		for(SoStoreBVO bvo : bvos){
+			if(bvo.getDef6()!=null){
+				totalPkgs ++;
+			}
+			m2 = SafeCompute.add(m2, new UFDouble(bvo.getDef14()));
+			m3 = SafeCompute.add(m3, new UFDouble(bvo.getDef15()));
+			kg = SafeCompute.add(kg, new UFDouble(bvo.getDef9()));
+			L = bvo.getDef6() == null ? UFDouble.ZERO_DBL : new UFDouble(bvo.getDef6());
+			W = bvo.getDef7() == null ? UFDouble.ZERO_DBL : new UFDouble(bvo.getDef7());
+			H = bvo.getDef8() == null ? UFDouble.ZERO_DBL : new UFDouble(bvo.getDef8());
+			Weight = bvo.getDef9() == null ? UFDouble.ZERO_DBL : new UFDouble(bvo.getDef9());
+			if(largestL.compareTo(L) < 0){
+				largestL = L;
+				lcrate = bvo.getDef11();
+			}
+			if(largestW.compareTo(W) < 0){
+				largestW = W;
+				wcrate = bvo.getDef11();
+			}
+			if(largestH.compareTo(H) < 0){
+				largestH = H;
+				hcrate = bvo.getDef11();
+			}
+			if(largestWeight.compareTo(Weight) < 0){
+				largestWeight = Weight;
+				kcrate = bvo.getDef11();
+			}
+		}
+		
+		hvo.setSummarym2(m2);
+		hvo.setSummarym3(m3);
+		hvo.setSummarykg(kg);
+		hvo.setSummarypkgs(new UFDouble(totalPkgs));
+		hvo.setLargestlength(largestL);
+		hvo.setLargestwidth(largestW);
+		hvo.setLargestheight(largestH);
+		hvo.setLargestweight(largestWeight);
+		hvo.setLcrate(lcrate);
+		hvo.setWcrate(wcrate);
+		hvo.setHcrate(hcrate);
+		hvo.setKcrate(kcrate);
+		
+		
+		
+	}
+	
 
 
 }

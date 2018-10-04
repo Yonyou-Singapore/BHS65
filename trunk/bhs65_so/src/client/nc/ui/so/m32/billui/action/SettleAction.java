@@ -16,6 +16,7 @@ import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.so.m32.entity.SaleInvoiceBVO;
 import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
+import nc.vo.so.m32.util.SettleReturnVO;
 import nc.vo.so.m32.util.StoreSettleUtil;
 
 /**
@@ -51,22 +52,42 @@ public class SettleAction extends NCAction {
 		//¼ÆËã×â½ð
 		ISaleInvoiceMaintain query = NCLocator.getInstance().lookup(
 				ISaleInvoiceMaintain.class);
-		UFDouble settlQty = query.settle(aggvo);
+		SettleReturnVO settlReturnVo = query.settle(aggvo);
 
-		UFDouble oldQty = UFDouble.ZERO_DBL;
-		BillModel billmodel = getEditor().getBillCardPanel().getBillModel();
-		for (int i = 0; i < billmodel.getRowCount(); i++) {
-			if (billmodel.getValueAt(i, StoreSettleUtil.FLD_DURATION) != null) {
-				oldQty = (UFDouble) billmodel.getValueObjectAt(i,
-						SaleInvoiceBVO.NASTNUM);
-				CardBodyAfterEditEvent event = new CardBodyAfterEditEvent(
-						getEditor().getBillCardPanel(),
-						new BillEditEvent(billmodel
-								.getItemByKey(SaleInvoiceBVO.NASTNUM), oldQty,
-								settlQty, SaleInvoiceBVO.NASTNUM, i, 1), oldQty);
-				billmodel.setValueAt(settlQty, i, SaleInvoiceBVO.NASTNUM);
-				new BodyAfterEditHandler().handleAppEvent(event);
-				break;
+		if(settlReturnVo != null
+				&& (settlReturnVo.getSettleQty() != null
+				|| settlReturnVo.getSettlePrice() != null)){
+			UFDouble oldQty = UFDouble.ZERO_DBL;
+			UFDouble oldPrice = UFDouble.ZERO_DBL;
+			UFDouble settlQty = settlReturnVo.getSettleQty();
+			UFDouble settlPrice = settlReturnVo.getSettlePrice();
+			BillModel billmodel = getEditor().getBillCardPanel().getBillModel();
+			for (int i = 0; i < billmodel.getRowCount(); i++) {
+				if (billmodel.getValueAt(i, StoreSettleUtil.FLD_DURATION_UNIT) != null) {
+					if(settlReturnVo.getSettleQty() != null){
+						oldQty = (UFDouble) billmodel.getValueObjectAt(i,
+								SaleInvoiceBVO.NASTNUM);
+						CardBodyAfterEditEvent event = new CardBodyAfterEditEvent(
+								getEditor().getBillCardPanel(),
+								new BillEditEvent(billmodel
+										.getItemByKey(SaleInvoiceBVO.NASTNUM), oldQty,
+										settlQty, SaleInvoiceBVO.NASTNUM, i, 1), oldQty);
+						billmodel.setValueAt(settlQty, i, SaleInvoiceBVO.NASTNUM);
+						new BodyAfterEditHandler().handleAppEvent(event);
+					}
+					if(settlReturnVo.getSettleQty() != null){
+						oldPrice = (UFDouble) billmodel.getValueObjectAt(i,
+								SaleInvoiceBVO.NQTORIGPRICE);
+						CardBodyAfterEditEvent event = new CardBodyAfterEditEvent(
+								getEditor().getBillCardPanel(),
+								new BillEditEvent(billmodel
+										.getItemByKey(SaleInvoiceBVO.NQTORIGPRICE), oldPrice,
+										settlPrice, SaleInvoiceBVO.NQTORIGPRICE, i, 1), oldPrice);
+						billmodel.setValueAt(settlPrice, i, SaleInvoiceBVO.NQTORIGPRICE);
+						new BodyAfterEditHandler().handleAppEvent(event);
+					}
+					break;
+				}
 			}
 		}
 	}
