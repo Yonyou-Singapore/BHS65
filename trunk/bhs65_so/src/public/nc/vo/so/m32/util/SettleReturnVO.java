@@ -1,8 +1,15 @@
 package nc.vo.so.m32.util;
 
+import java.io.Serializable;
+
 import nc.vo.pub.lang.UFDouble;
 
-public class SettleReturnVO {
+public class SettleReturnVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1004415748681445569L;
+	
 	private UFDouble settleQty;
 	private UFDouble settlePrice;
 	public UFDouble getSettleQty() {

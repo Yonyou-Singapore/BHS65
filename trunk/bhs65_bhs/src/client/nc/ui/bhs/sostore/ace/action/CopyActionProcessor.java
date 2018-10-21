@@ -4,10 +4,6 @@ import nc.bs.framework.common.NCLocator;
 import nc.desktop.ui.ServerTimeProxy;
 import nc.itf.uap.IUAPQueryBS;
 import nc.ui.pubapp.uif2app.actions.intf.ICopyActionProcessor;
-import nc.vo.bhs.build.AggSoOrderBuildHVO;
-import nc.vo.bhs.build.SoOrderBuildHVO;
-import nc.vo.bhs.pack.AggSoOrderPackVO;
-import nc.vo.bhs.pack.SoOrderPackVO;
 import nc.vo.bhs.sostore.AggSoStoreHVO;
 import nc.vo.bhs.sostore.SoStoreHVO;
 import nc.vo.pub.BusinessException;
@@ -30,7 +26,8 @@ public class CopyActionProcessor implements ICopyActionProcessor<AggSoStoreHVO>{
 	public void processVOAfterCopy(AggSoStoreHVO billVO, LoginContext context) {
 		// TODO 自动生成的方法存根
 		this.processHeadVO(billVO, context);
-	    this.processBodyVO(billVO);
+//	    this.processBodyVO(billVO);
+	    billVO.setChildren(nc.vo.bhs.sostore.SoStoreBVO.class, null);
 	}
 
 	private void processBodyVO(AggSoStoreHVO vo) {
@@ -50,6 +47,8 @@ public class CopyActionProcessor implements ICopyActionProcessor<AggSoStoreHVO>{
 	  }
 
 	  private void processHeadVO(AggSoStoreHVO vo, LoginContext context) {
+		  vo.getParent().setAttributeValue(
+				    vo.getMetaData().getParent().getPrimaryAttribute().getName(), null);
 	    UFDateTime datetime = ServerTimeProxy.getInstance().getServerTime();
 	    SoStoreHVO hvo = vo.getParentVO();
 	    // 设置空处理
@@ -60,9 +59,10 @@ public class CopyActionProcessor implements ICopyActionProcessor<AggSoStoreHVO>{
 	    hvo.setModifiedtime(null);
 	    hvo.setCreator(null);
 	    hvo.setCreationtime(null);
+	    hvo.setDef1(null);
 	    //hvo.setTs(null);
 	    // 设置默认值
-	    hvo.setDbilldate(datetime.getDate());
+	    hvo.setDbilldate(null);
 	    hvo.setPk_group(context.getPk_group());
 	    hvo.setPk_org(context.getPk_org());
 	    hvo.setAttributeValue("vbillstatus", BillStatusEnum.FREE.value());

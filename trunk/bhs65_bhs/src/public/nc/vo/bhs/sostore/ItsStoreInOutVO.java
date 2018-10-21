@@ -35,6 +35,12 @@ public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOut
 	private String remarks; 
 	private String doc_No;
 	private UFDouble space_ft;
+
+	private UFDouble bal_m2; 
+	private UFDouble bal_m3; 
+	private UFDouble bal_sqft;
+	private UFDouble bal_qty; 
+	
 	
 
 	@Override
@@ -126,13 +132,13 @@ public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOut
 		this.height = height;
 	}
 	public UFDouble getSpace_m2() {
-		return space_m2;
+		return space_m2==null?UFDouble.ZERO_DBL:space_m2;
 	}
 	public void setSpace_m2(UFDouble space_m2) {
 		this.space_m2 = space_m2;
 	}
 	public UFDouble getCubic_Meter() {
-		return cubic_Meter;
+		return cubic_Meter==null?UFDouble.ZERO_DBL:cubic_Meter;
 	}
 	public void setCubic_Meter(UFDouble cubic_Meter) {
 		this.cubic_Meter = cubic_Meter;
@@ -144,13 +150,13 @@ public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOut
 		this.project = project;
 	}
 	public UFDouble getQty_In() {
-		return qty_In;
+		return qty_In==null?UFDouble.ZERO_DBL:qty_In;
 	}
 	public void setQty_In(UFDouble qty_In) {
 		this.qty_In = qty_In;
 	}
 	public UFDouble getQty_Out() {
-		return qty_Out;
+		return qty_Out==null?UFDouble.ZERO_DBL:qty_Out;
 	}
 	public void setQty_Out(UFDouble qty_Out) {
 		this.qty_Out = qty_Out;
@@ -184,15 +190,51 @@ public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOut
 
 	@Override
 	public int compareTo(ItsStoreInOutVO o) {
-		return this.date_InOut.compareTo(o.getDate_InOut());
+		if(date_InOut.compareTo(o.getDate_InOut()) == 0){
+			return (qty_Out == null ? UFDouble.ZERO_DBL : qty_Out).compareTo(o.getQty_Out()==null?UFDouble.ZERO_DBL:o.getQty_Out());
+		}else{
+			return this.date_InOut.compareTo(o.getDate_InOut());
+		}
 	}
 
 	public UFDouble getSpace_ft() {
-		return space_ft;
+		return space_ft==null?UFDouble.ZERO_DBL:space_ft;
 	}
 
 	public void setSpace_ft(UFDouble space_ft) {
 		this.space_ft = space_ft;
+	}
+
+	public UFDouble getBal_m2() {
+		return bal_m2;
+	}
+
+	public void setBal_m2(UFDouble bal_m2) {
+		this.bal_m2 = bal_m2;
+	}
+
+	public UFDouble getBal_m3() {
+		return bal_m3;
+	}
+
+	public void setBal_m3(UFDouble bal_m3) {
+		this.bal_m3 = bal_m3;
+	}
+
+	public UFDouble getBal_sqft() {
+		return bal_sqft;
+	}
+
+	public void setBal_sqft(UFDouble bal_sqft) {
+		this.bal_sqft = bal_sqft;
+	}
+
+	public UFDouble getBal_qty() {
+		return bal_qty;
+	}
+
+	public void setBal_qty(UFDouble bal_qty) {
+		this.bal_qty = bal_qty;
 	}
 
 

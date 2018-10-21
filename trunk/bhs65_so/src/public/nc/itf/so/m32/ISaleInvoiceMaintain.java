@@ -1,11 +1,13 @@
 package nc.itf.so.m32;
 
+import java.util.List;
 import java.util.Map;
 
 import nc.ui.querytemplate.querytree.IQueryScheme;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.lang.UFDouble;
 import nc.vo.scmpub.goldtax.GoldTaxVO;
+import nc.vo.so.m32.entity.SaleInvoiceBVO;
 import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.m32.entity.SaleInvoiceViewVO;
@@ -223,5 +225,5 @@ public interface ISaleInvoiceMaintain {
 	 * @return
 	 * @throws BusinessException
 	 */
-	SettleReturnVO settle(SaleInvoiceVO vo) throws BusinessException;
+	List<SaleInvoiceBVO> settle(SaleInvoiceVO vo) throws BusinessException;
 }

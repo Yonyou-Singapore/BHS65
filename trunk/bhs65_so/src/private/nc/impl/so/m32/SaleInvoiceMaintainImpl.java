@@ -37,7 +37,6 @@ import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.m32.entity.SaleInvoiceViewVO;
 import nc.vo.so.m32.util.RemoteFormSOUtil;
-import nc.vo.so.m32.util.SettleReturnVO;
 import nc.vo.so.m32.util.StoreSettleUtil;
 import nc.vo.so.pub.SOTable;
 import nc.vo.so.pub.query.SOQuerySchemeUtils;
@@ -427,7 +426,7 @@ public class SaleInvoiceMaintainImpl implements ISaleInvoiceMaintain {
   }
 
 	@Override
-	public SettleReturnVO settle(SaleInvoiceVO vo) throws BusinessException {
+	public List<SaleInvoiceBVO> settle(SaleInvoiceVO vo) throws BusinessException {
 		return new StoreSettleUtil().settle(vo);
 	}
 }
