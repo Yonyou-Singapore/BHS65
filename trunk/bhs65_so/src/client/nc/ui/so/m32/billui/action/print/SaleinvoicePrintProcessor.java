@@ -48,7 +48,6 @@ public class SaleinvoicePrintProcessor
 	@Override
 	public Object[] processData(Object[] datas) {
 		
-		
 		int len = 0;
 		// 第一页可用高度
 		double firstPageHeight = 255;
@@ -100,7 +99,7 @@ public class SaleinvoicePrintProcessor
 		for (int i = 0; i < datas.length; i++) {
 			snno = 1;
 			
-			vos[i] = (SaleInvoiceVO) ((SaleInvoiceVO) datas[i]).clone();
+			vos[i] = (SaleInvoiceVO) ((SaleInvoiceVO) this.model.getSelectedData()).clone();
 
 			SaleInvoiceBVO[] bvos = vos[i].getChildrenVO();
 			if (bvos == null || bvos.length < 1)
@@ -119,12 +118,21 @@ public class SaleinvoicePrintProcessor
 					snno++;
 				}
 
-				if (bvoRowNo > 0) {
+				if (bvoRowNo > 0 
+						//add chenth 20181025
+						&& perPageMaxRows <= 0
+						//add end
+						) {
 					perPageMaxRows = (int) (perpageHeight / fontHeight);
 				}
 				// 没有超一页
 				if (totalWordRows <= perPageMaxRows) {
 					bvoLst.add(bvo);
+					//add 少过半页  处理下继续能打下一行 chenth 20181025
+					if(totalWordRows<perPageMaxRows/2){
+						perPageMaxRows = perPageMaxRows - totalWordRows;
+					}
+					//add end
 					continue;
 				}
 
@@ -146,6 +154,12 @@ public class SaleinvoicePrintProcessor
 				
 				leftWordRows = totalWordRows - wordRowNo;
 				while (leftWordRows > 0) {
+					//add chenth 20181025
+					if (perPageMaxRows <= 0
+							|| perPageMaxRows < ((perpageHeight / fontHeight)/3)*2) {
+						perPageMaxRows = (int) (perpageHeight / fontHeight);
+					}
+					//add end
 					if (leftWordRows > perPageMaxRows) {
 						leftWordRows = wordRowNo+perPageMaxRows;
 					}else{
@@ -155,6 +169,9 @@ public class SaleinvoicePrintProcessor
 					for (; wordRowNo < leftWordRows; wordRowNo++) {
 						len = len + finalWords.get(wordRowNo).length();
 						wordBuff = wordBuff.append(finalWords.get(wordRowNo)).append("\n");
+						//add chenth 20181025
+						perPageMaxRows = perPageMaxRows - 1;
+						//add end
 					}
 					SaleInvoiceBVO newbvo = new SaleInvoiceBVO();
 					bvoLst.add(newbvo);
@@ -166,6 +183,7 @@ public class SaleinvoicePrintProcessor
 
 					leftWordRows = totalWordRows - wordRowNo;
 				}
+				perPageMaxRows = 0;
 			}
 			bvos = bvoLst.toArray(new SaleInvoiceBVO[bvoLst.size()]);
 		    vos[i].setChildrenVO(bvos);
