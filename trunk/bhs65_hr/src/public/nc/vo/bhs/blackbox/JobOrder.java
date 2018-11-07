@@ -46,6 +46,9 @@ public class JobOrder implements Comparable<JobOrder>{
 	private String oz_job_user_id;
 	private String oz_job_user_status_id;
 	
+	//add chenth 20181107
+	private String micap_no;
+	
 	
 	/**
 	 * ∂©µ•π§÷÷map: key: jobid+skillid value: JobOrderSkillUsers
@@ -305,5 +308,11 @@ public class JobOrder implements Comparable<JobOrder>{
 	}
 	public void setOz_job_user_status_id(String oz_job_user_status_id) {
 		this.oz_job_user_status_id = oz_job_user_status_id;
+	}
+	public String getMicap_no() {
+		return micap_no;
+	}
+	public void setMicap_no(String micap_no) {
+		this.micap_no = micap_no;
 	}
 }

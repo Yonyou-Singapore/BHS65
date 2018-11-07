@@ -570,10 +570,10 @@ public class BlackBoxImpl implements IBlackBox{
 							continue;
 						orderUser.setIsLocked(planinfo.getDefaultIsLocked());
 					}
+					//add chenth 20180412 人员按名称排序
+					Collections.sort(orderUsers);
 				}
 				
-				//add chenth 20180412 人员按名称排序
-				Collections.sort(orderUsers);
 
 				// 如果某个工种没有合适的排进来，则创建一个空的JobOrderUsers，ozform需要
 				if (skill.getPlanedcount() == 0) {
@@ -1087,7 +1087,7 @@ public class BlackBoxImpl implements IBlackBox{
 //		sb.append(" , ' <br/>Highest (CM):', cast(job.heightcm as int), ' Crate #:', cast(job.crate3 as int) ");
 //		sb.append(" , ' <br/>Heaviest (KG):', cast(job.largestweight as int), ' Crate #:', cast(job.kcrate as int) ");
 //		sb.append(" ) as requirement ");
-		sb.append(" ,sou.id as id ");
+		sb.append(" ,sou.id as id, som.micapno as micap_no ");
 		sb.append(" from bhs_somove_h job ");
 		sb.append(" inner join so_saleorder som on job.csaleorderid = som.csaleorderid ");
 		sb.append(" left join bhs_somove_box blackbox on job.billid = blackbox.billid  ");
@@ -1308,6 +1308,10 @@ public class BlackBoxImpl implements IBlackBox{
 			order.setToContactphone(null2String(rs.getString("tocontactphone")));
 			order.setFromlocationid(null2String(rs.getString("fromlocationid")));
 			order.setTolocationid(null2String(rs.getString("tolocationid")));
+			
+			//add chenth 20181107
+			order.setMicap_no(null2String(rs.getString("micap_no")));
+			//add end
 
 			//add chenth 20180501
 			order.setOz_job_user_status_id(rs.getString("jobuserstatusid"));
