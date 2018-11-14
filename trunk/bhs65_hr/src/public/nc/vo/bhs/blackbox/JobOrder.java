@@ -48,6 +48,7 @@ public class JobOrder implements Comparable<JobOrder>{
 	
 	//add chenth 20181107
 	private String micap_no;
+	private String jobno;
 	
 	
 	/**
@@ -314,5 +315,11 @@ public class JobOrder implements Comparable<JobOrder>{
 	}
 	public void setMicap_no(String micap_no) {
 		this.micap_no = micap_no;
+	}
+	public String getJobno() {
+		return jobno;
+	}
+	public void setJobno(String jobno) {
+		this.jobno = jobno;
 	}
 }

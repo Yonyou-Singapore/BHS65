@@ -165,6 +165,14 @@ public class BlackBoxImpl implements IBlackBox{
 				combineOrder.setSoNo(combineOrder.getSoNo() + ", " + order.getSoNo());
 			}
 			
+			//时间处理
+			if(combineOrder.getStartDate() > order.getStartDate()){
+				combineOrder.setStartDate(order.getStartDate());
+			}
+			if(combineOrder.getEndDate() < order.getEndDate()){
+				combineOrder.setEndDate(order.getEndDate());
+			}
+			
 			jobids.add(jobid);
 		}
 		
@@ -728,8 +736,11 @@ public class BlackBoxImpl implements IBlackBox{
 				|| (startdate1.before(startdate2) && enddate1.equals(enddate2))
 				|| (startdate1.after(startdate2) && startdate1.before(enddate2))
 				  || (enddate1.after(startdate2) && enddate1.before(enddate2));*/
-		return ((startdate1.compareTo(startdate2) >= 0 && startdate1.before(enddate2))
-				||(enddate1.after(startdate2) && enddate1.compareTo(enddate2) <= 0 ));
+		//update chenth 20181113 这个时间overlap，但没有判断出来[ 15/11/2018 07:30 - 15/11/2018 17:00 ] [ 15/11/2018 08:00 - 15/11/2018 15:00 ]
+//		return ((startdate1.compareTo(startdate2) >= 0 && startdate1.before(enddate2))
+//				||(enddate1.after(startdate2) && enddate1.compareTo(enddate2) <= 0 ));
+		return (startdate1.compareTo(enddate2) < 1 && enddate1.compareTo(startdate2) > -1);
+		//update end
 	}
 
 	/**
@@ -948,14 +959,20 @@ public class BlackBoxImpl implements IBlackBox{
 		sb.append("   select surveyor_id as user_id, substring(appointment_date,0,11) + ' 00:00:00' as leavebegintime, substring(appointment_date,0,11) + ' 23:59:59' as leaveendtime ");
 		sb.append("   from oz_joborder_survey ");
 		sb.append(" ) a ");
-		sb.append(" where ((leavebegintime >= ? and leavebegintime < ?) or (leaveendtime > ? and leaveendtime <= ?))  ");
-		//(leavebegintime > minbegindate and leavebegintime < maxenddate) or (leaveendtime > minbegindate and leaveendtime < maxenddate)
+		//update chenth 20181110 
+		sb.append(" where (leavebegintime <= ? and leaveendtime >=  ?) ");
+//		sb.append(" where ((leavebegintime >= ? and leavebegintime < ?) or (leaveendtime > ? and leaveendtime <= ?))  ");
+		//update end
 		BaseDAO dao = new BaseDAO();
 		SQLParameter parameter = new SQLParameter();
-		parameter.addParam(minStartdate);
+		//update chenth 20181110 
 		parameter.addParam(maxEnddate);
 		parameter.addParam(minStartdate);
-		parameter.addParam(maxEnddate);
+//		parameter.addParam(minStartdate);
+//		parameter.addParam(maxEnddate);
+//		parameter.addParam(minStartdate);
+//		parameter.addParam(maxEnddate);
+		//update end
 		
 		Map<String, List<LeaveRegVO>> leaveMap = null;
 		try {
@@ -1087,7 +1104,7 @@ public class BlackBoxImpl implements IBlackBox{
 //		sb.append(" , ' <br/>Highest (CM):', cast(job.heightcm as int), ' Crate #:', cast(job.crate3 as int) ");
 //		sb.append(" , ' <br/>Heaviest (KG):', cast(job.largestweight as int), ' Crate #:', cast(job.kcrate as int) ");
 //		sb.append(" ) as requirement ");
-		sb.append(" ,sou.id as id, som.micapno as micap_no ");
+		sb.append(" ,sou.id as id, som.micapno as micap_no,job.vbillno as jobno ");
 		sb.append(" from bhs_somove_h job ");
 		sb.append(" inner join so_saleorder som on job.csaleorderid = som.csaleorderid ");
 		sb.append(" left join bhs_somove_box blackbox on job.billid = blackbox.billid  ");
@@ -1311,6 +1328,7 @@ public class BlackBoxImpl implements IBlackBox{
 			
 			//add chenth 20181107
 			order.setMicap_no(null2String(rs.getString("micap_no")));
+			order.setJobno(null2String(rs.getString("jobno")));
 			//add end
 
 			//add chenth 20180501
@@ -1509,18 +1527,29 @@ public class BlackBoxImpl implements IBlackBox{
 		Collection<JobOrder> orders = jobOrderMap.values();
 		JobOrder[] orderArr = orders.toArray(new JobOrder[orders.size()]);
 		
+		//update chenth 20181113 skill和已分配的用户 不需要设置为空， 返回回去
+//		//查询所有在职人员信息key:pk_psndoc
+//		Map<String, UserInfoVO> userMap = getUserInfo(null);
+//		UserInfoVO userInfoVo = null;
+//		for(JobOrder order : orderArr){
+////			order.setJobOrderSkillUsers(null);
+//			
+//			// 不同业务员的订单用颜色区分
+//			String operator = order.getOperator();
+//			userInfoVo = userMap.get(operator);
+//			if (userInfoVo != null) {
+//				order.setColor(userInfoVo.getColor());
+//			}
+//		}
 		//查询所有在职人员信息key:pk_psndoc
 		Map<String, UserInfoVO> userMap = getUserInfo(null);
-		UserInfoVO userInfoVo = null;
-		for(JobOrder order : orderArr){
-			order.setJobOrderSkillUsers(null);
-			// 不同业务员的订单用颜色区分
-			String operator = order.getOperator();
-			userInfoVo = userMap.get(operator);
-			if (userInfoVo != null) {
-				order.setColor(userInfoVo.getColor());
-			}
-		}
+		List<BDDocVO> skillVOs = getBDDocInfo(BlackBoxConstant.DEFDOC_SKILL);
+		List<BDDocVO> certifacateVOs = getBDDocInfo(BlackBoxConstant.DEFDOC_CERTIFICATE);
+		
+		//（补足技能、证书、人员名称）
+		afterAutoAssign(orderArr, planinfo, skillVOs, certifacateVOs, userMap);
+		//update chenth 20181113
+		
 		return orderArr;
 	}
 
