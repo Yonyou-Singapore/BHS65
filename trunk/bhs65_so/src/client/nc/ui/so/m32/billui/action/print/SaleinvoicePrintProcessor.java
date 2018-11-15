@@ -13,6 +13,7 @@ import nc.ui.pub.print.version55.util.PTStringUtil;
 import nc.ui.pubapp.pub.power.PowerCheckUtils;
 import nc.ui.uif2.model.AbstractAppModel;
 import nc.vo.bd.defdoc.DefdocVO;
+import nc.vo.org.util.CloneUtil;
 import nc.vo.price.adjustprice.entity.AdjustPriceHVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pubapp.pub.power.PowerActionEnum;
@@ -99,7 +100,7 @@ public class SaleinvoicePrintProcessor
 		for (int i = 0; i < datas.length; i++) {
 			snno = 1;
 			
-			vos[i] = (SaleInvoiceVO) ((SaleInvoiceVO) this.model.getSelectedData()).clone();
+			vos[i] = (SaleInvoiceVO) CloneUtil.deepClone(((SaleInvoiceVO) datas[i]));
 
 			SaleInvoiceBVO[] bvos = vos[i].getChildrenVO();
 			if (bvos == null || bvos.length < 1)
