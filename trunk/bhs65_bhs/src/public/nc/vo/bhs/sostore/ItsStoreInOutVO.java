@@ -1,6 +1,10 @@
 package nc.vo.bhs.sostore;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import nc.vo.pub.SuperVO;
+import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pub.lang.UFDate;
 import nc.vo.pub.lang.UFDouble;
 
@@ -36,10 +40,16 @@ public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOut
 	private String doc_No;
 	private UFDouble space_ft;
 
+	private UFBoolean isinbound;
+	private UFBoolean isoutbound;
+	
 	private UFDouble bal_m2; 
 	private UFDouble bal_m3; 
 	private UFDouble bal_sqft;
 	private UFDouble bal_qty; 
+	
+	private Set<String> toolIDS;
+	private Set<String> micapNOS;
 	
 	
 
@@ -237,5 +247,34 @@ public class ItsStoreInOutVO extends SuperVO implements Comparable<ItsStoreInOut
 		this.bal_qty = bal_qty;
 	}
 
+	public UFBoolean getIsinbound() {
+		return isinbound;
+	}
+
+	public void setIsinbound(UFBoolean isinbound) {
+		this.isinbound = isinbound;
+	}
+
+	public UFBoolean getIsoutbound() {
+		return isoutbound;
+	}
+
+	public void setIsoutbound(UFBoolean isoutbound) {
+		this.isoutbound = isoutbound;
+	}
+
+	public Set<String> getToolIDS() {
+		if(toolIDS == null){
+			toolIDS = new HashSet<String>();
+		}
+		return toolIDS;
+	}
+
+	public Set<String> getMicapNOS() {
+		if(micapNOS == null){
+			micapNOS = new HashSet<String>();
+		}
+		return micapNOS;
+	}
 
 }

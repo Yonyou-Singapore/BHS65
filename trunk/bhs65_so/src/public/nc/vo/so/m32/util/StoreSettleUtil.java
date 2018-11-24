@@ -3,9 +3,12 @@ package nc.vo.so.m32.util;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,9 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
-import edu.emory.mathcs.backport.java.util.Collections;
 
 import nc.bs.dao.BaseDAO;
 import nc.bs.framework.common.NCLocator;
@@ -28,6 +28,7 @@ import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pub.lang.UFDate;
 import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
+import nc.vo.so.m30.entity.SaleOrderBVO;
 import nc.vo.so.m30.entity.SaleOrderHVO;
 import nc.vo.so.m32.entity.SaleInvoiceBVO;
 import nc.vo.so.m32.entity.SaleInvoiceHVO;
@@ -64,8 +65,8 @@ public class StoreSettleUtil {
 	public final static String PER_SQFT_PERWEEK = "32";
 	public final static String PER_SQFT_PERMONTH = "33";
 	public final static String PER_M3_PERDAY = "41";
-	public final static String PER_M3_PERWEEK = "43";
-	public final static String PER_M3_PERMONTH = "42";
+	public final static String PER_M3_PERWEEK = "42";
+	public final static String PER_M3_PERMONTH = "43";
 	public final static String PER_M2_PERDAY = "51";
 	public final static String PER_M2_PERWEEK = "52";
 	public final static String PER_M2_PERMONTH = "53";
@@ -73,7 +74,34 @@ public class StoreSettleUtil {
 	public final static String PER_SQFT_PERDAY_BYYEAR = "62";
 	public final static String HANDLING_IN_M3 = "11";
 	public final static String HANDLING_OUT_M3 = "12";
+	public final static String HANDLING_INOUT_M3 = "13";
 
+	/**
+	 * 判断订单行是否storage,需要多次结算的
+	 * @param bvo
+	 * @return
+	 */
+	public static boolean isStorage(SaleOrderBVO bvo){
+		if (bvo.getAttributeValue(StoreSettleUtil.FLD_DURATION_UNIT) != null) {
+      	   return true;
+        }else{
+        	return false;
+        }
+	}
+	
+	/**
+	 * 判断订单行是否storage,需要多次结算的
+	 * @param bvo
+	 * @return
+	 */
+	public static boolean isStorage(SaleInvoiceBVO bvo){
+		if (bvo.getAttributeValue(StoreSettleUtil.FLD_DURATION_UNIT) != null) {
+      	   return true;
+        }else{
+        	return false;
+        }
+	}
+	
 	/**
 	 * 判断是否是Storage, 如果是，默认不是最后一期账单
 	 * 
@@ -118,13 +146,14 @@ public class StoreSettleUtil {
 	 * @param vo
 	 * @throws BusinessException
 	 */
-	public List<SaleInvoiceBVO> settle(SaleInvoiceVO vo) throws BusinessException {
+	public List<SaleInvoiceBVO> settle(SaleInvoiceVO vo)
+			throws BusinessException {
 		UFDouble settleQty = UFDouble.ZERO_DBL;
+		UFDouble settleAmt = UFDouble.ZERO_DBL;
 
 		List<SaleInvoiceBVO> returnVos = new ArrayList<SaleInvoiceBVO>();
 		SaleInvoiceHVO hvo = vo.getParentVO();
 		SaleInvoiceBVO[] bvos = vo.getChildrenVO();
-		Set<String> saleorderids = new HashSet<String>();
 		SaleInvoiceBVO storageBvo = null;
 
 		// 本次结算开始日期
@@ -146,25 +175,50 @@ public class StoreSettleUtil {
 			ExceptionUtils
 					.wrappBusinessException("Please input [Rent From],[Rent To].");
 		}
-		
+
+		Set<String> saleorderids = new HashSet<String>();
+		Set<String> saleorderbids = new HashSet<String>();
 		for (SaleInvoiceBVO bvo : bvos) {
 			saleorderids.add(bvo.getCsrcid());
+			saleorderbids.add(bvo.getCsrcbid());
+
+		}
+		// 查询ITS进退场信息
+		Collection<ItsStoreInOutVO> storeItemCol = getStoreInOutVO(
+				saleorderids, beginDate, endDate);
+		// 如果完全没有进退场信息，不处理
+		if (storeItemCol == null || storeItemCol.size() < 1) {
+			return null;
+		}
+		// 按进出时间排序
+		List<ItsStoreInOutVO> storeItems = new ArrayList<ItsStoreInOutVO>();
+		storeItems.addAll(storeItemCol);
+		Collections.sort(storeItems);
+
+		// 获取SO原始信息
+		Map<String, SaleOrderBVO> saleOrderBvoMap = getSaleOrderBVOMap(saleorderbids);
+		SaleOrderBVO saleOrderBvo = null;
+		String oriDescription = null;
+		UFDouble oriPrice = null;
+
+		for (SaleInvoiceBVO bvo : bvos) {
+			// 结算方式为空的跳过
 			if (bvo.getAttributeValue(FLD_DURATION_UNIT) == null) {
 				continue;
 			}
 
 			storageBvo = bvo;
-			// 查询ITS进退场信息
-			Collection<ItsStoreInOutVO> storeItems = getStoreInOutVO(
-					saleorderids, beginDate, endDate);
-			//如果完全没有进退场信息，不处理
-			if (storeItems == null || storeItems.size() < 1) {
-				continue;
-			}
 
-			Map<String, String> durationMap = getDurationMap();
-			// update chenth 20181013 再多考虑 handling in/out的服务，按没次多少m3计算
+			// 获取SO原始信息(重复点结算时，decription会重复,price会再计算，所以每次计算重新获取下原始的description和price)
+			saleOrderBvo = saleOrderBvoMap.get(bvo.getCsrcbid());
+			oriDescription = saleOrderBvo.getVbdef2();
+			oriPrice = saleOrderBvo.getNqtorigprice();
+			
+			UFDouble settlePrice = oriPrice;
+
 			// 计租方式（3大类：Fixed Amount, Fixed Space by duration, Pay by use by duration)
+			// update chenth 20181013 再多考虑 handling in/out的服务，按每次多少m3计算
+			Map<String, String> durationMap = getDurationMap();
 			String durationUnit = (String) storageBvo
 					.getAttributeValue(FLD_DURATION_UNIT);
 			durationUnit = durationMap.get(durationUnit);
@@ -204,13 +258,13 @@ public class StoreSettleUtil {
 			if (FIXED_AMOUNT.equals(durationUnit)) {
 				continue;
 			}
-			
+
 			// Handling In/Out的情况
 			if (HANDLING_IN_M3.equals(durationUnit)
 					|| HANDLING_OUT_M3.equals(durationUnit)) {
-				storageBvo = getHandlings(storageBvo,
-						storeItems, beginDate, endDate, minimumSpace,
-						durationUnit);
+				storageBvo.setVbdef2(oriDescription);
+				storageBvo = getHandlings(storageBvo, storeItems, beginDate,
+						endDate, minimumSpace, durationUnit);
 				returnVos.add(storageBvo);
 				continue;
 			}
@@ -219,11 +273,14 @@ public class StoreSettleUtil {
 			Integer durationCnt = 0;
 			Integer durationUnitCnt = 0;
 			UFDouble space = UFDouble.ZERO_DBL;
-			
-			//Desription
-			StringBuffer newDescription = new StringBuffer(storageBvo.getVbdef2());
-			appendBeginingDesc(newDescription, beginDate, endDate, storeItems,durationUnit, isFixedIncrease, fixedIncremental);
-			
+			UFDouble amount = UFDouble.ZERO_DBL;
+
+			// Desription
+			StringBuffer newDescription = new StringBuffer(
+					oriDescription == null ? "" : oriDescription);
+			appendBeginingDesc(newDescription, beginDate, endDate, storeItems,
+					durationUnit, isFixedIncrease, fixedIncremental);
+
 			// 获取结算期间内有多少个duration unit
 			durationUnitCnt = getDurationUnitCnt(beginDate, endDate,
 					durationUnit);
@@ -239,27 +296,51 @@ public class StoreSettleUtil {
 			if (isFixedSpace(durationUnit)) {
 				space = qty;
 				// 添加Fixed Space Description
-				appendDesc4FixedSpace(newDescription, durationUnit, duration, minimumDuration, durationCnt, space, isFixedIncrease, fixedIncremental);
-				
+				appendDesc4FixedSpace(newDescription, durationUnit, duration,
+						minimumDuration, durationCnt, space, isFixedIncrease,
+						fixedIncremental);
+
 				// 如果是固定增量，qty * 增量（场景：租固定的几个Pallet, 每个Pallet算多少m2/m3/sqft)
 				if (UFBoolean.TRUE.equals(isFixedIncrease)) {
 					space = space.multiply(fixedIncremental);
 				}
 				settleQty = space.multiply(durationCnt);
-			}
-			// 第三种情况：Pay by use, 则分别计算每个duration里的space，最后再汇总
-			else {
-				// 添加期初Description
-				appendOpeningDesc(newDescription, beginDate, endDate, storeItems,durationUnit, isFixedIncrease, fixedIncremental);
 				
+				//结算金额
+				settleAmt = settleQty.multiply(settlePrice);
+			}
+			// 第三、四种情况：Pay by use, 则分别计算每个duration里的space，最后再汇总
+			else {
+				// 如果是第四情况，租赁空间数量计算和第三种情况一样，但月单价需要转成日单价
+				if (isMonth2Day(durationUnit)) {
+					settlePrice = month2DayPrice(settlePrice, durationUnit,
+							endDate);
+					storageBvo.setNqtorigprice(settlePrice);
+				}
+				
+				// 添加期初Description
+				appendOpeningDesc(newDescription, beginDate, endDate,
+						storeItems, durationUnit, isFixedIncrease,
+						fixedIncremental);
+
 				// 每个duration的开始时间
 				UFDate durationBeginDate = beginDate;
 				// 每个duration的结束时间
 				UFDate durationEndDate = null;
+				UFDouble durationSettleQty = UFDouble.ZERO_DBL;
+				// 按天计价的情况，
+				UFDate lastBeginDate = durationBeginDate;
+				UFDouble lastSpace = UFDouble.ZERO_DBL;
+				boolean existInOrOut = false;
+				boolean isFinal = false;
+				
 				for (int i = 0; i < durationCnt; i++) {
 					// 获取duration的结束时间
 					durationEndDate = getDateAfterDuration(durationBeginDate,
 							duration, durationUnit);
+					if(durationEndDate.compareTo(endDate)>0){
+						durationEndDate = endDate;
+					}
 					// 获取每个duration期间内占用的sqft/m2/m3
 					space = getSpace(storeItems, durationBeginDate,
 							durationEndDate, durationUnit, isFixedIncrease);
@@ -267,42 +348,54 @@ public class StoreSettleUtil {
 					if (space.compareTo(minimumSpace) < 0) {
 						space = minimumSpace;
 					}
-					
-					//添加明细Description
-					appendDetailDesc(newDescription,storeItems, durationBeginDate,
-							durationEndDate, durationUnit, duration, space, isFixedIncrease, fixedIncremental);
-					
+
+					if(i==0){
+						lastSpace = space;
+					}
+					//本期是否有进出，通过和上期空间比较
+					existInOrOut = lastSpace.compareTo(space) != 0;
+					isFinal = i == durationCnt-1;
+					// 添加明细Description
+					appendDetailDesc(newDescription, storeItems,
+							durationBeginDate, durationEndDate, durationUnit,
+							duration, space, isFixedIncrease, fixedIncremental,settlePrice, existInOrOut, lastBeginDate, lastSpace,isFinal);
+
 					// 如果是固定增量 使用空间=数量*固定增量
 					if (UFBoolean.TRUE.equals(isFixedIncrease)) {
-						space = space.multiply(fixedIncremental);
+						durationSettleQty = space.multiply(fixedIncremental);
+					}else{
+						durationSettleQty = space;
 					}
 					// 每个duration租赁的空间汇总
-					settleQty = settleQty.add(space);
+					settleQty = settleQty.add(durationSettleQty);
+					
+					//结算金额
+					amount = durationSettleQty.multiply(settlePrice);
+					settleAmt = settleAmt.add(amount);
 
-					durationBeginDate = durationEndDate.getDateAfter(1);
-					durationBeginDate.asBegin();
+					if(existInOrOut){
+						lastBeginDate = durationBeginDate;
+					}
+					lastSpace = space;
+					
+					durationBeginDate = durationEndDate.getDateAfter(1)
+							.asBegin();
+					
 				}
-				
-				
-				// 第四情况，租赁空间数量同上，但月单价需要转成日单价
-				UFDouble settlePrice = storageBvo.getNqtorigprice();
-				if (isMonth2Day(durationUnit)) {
-					settlePrice = month2DayPrice(settlePrice, durationUnit, endDate);
-					storageBvo.setNqtorigprice(settlePrice);
-				}
-				
+
 				// 添加合计Description
-				appendTotalDesc(newDescription, settleQty, settlePrice);
+				appendTotalDesc(newDescription, settleQty, settlePrice, settleAmt);
 			}
 
 			storageBvo.setNastnum(settleQty);
+//			storageBvo.setNastnum(UFDouble.ONE_DBL);
+			storageBvo.setNorigmny(settleAmt);
 			storageBvo.setVbdef2(newDescription.toString());
 			returnVos.add(storageBvo);
 		}
 
 		return returnVos;
 	}
-
 
 	private UFDouble month2DayPrice(UFDouble settlePrice, String durationUnit,
 			UFDate endDate) {
@@ -459,14 +552,14 @@ public class StoreSettleUtil {
 		while (iterator.hasNext()) {
 			vo = iterator.next();
 			// 进场(累加在duration结束时间前（含当天）的所有进场数据）
-			if (vo.getQty_In() != null
+			if (vo.getIsinbound().equals(UFBoolean.TRUE)
 					&& vo.getDate_InOut().compareTo(durationEndDate) < 1) {
 				m2 = m2.add(vo.getSpace_m2());
 				m3 = m3.add(vo.getCubic_Meter());
 				sqft = sqft.add(vo.getSpace_ft());
 				qty = qty.add(vo.getQty_In());
 			}// 退场（减去在duration开始时间前（不含当天）的所有退场数据）
-			else if (vo.getQty_Out() != null
+			else if (vo.getIsoutbound().equals(UFBoolean.TRUE)
 					&& vo.getDate_InOut().compareTo(durationBeginDate) < 0) {
 				m2 = m2.sub(vo.getSpace_m2());
 				m3 = m3.sub(vo.getCubic_Meter());
@@ -497,7 +590,9 @@ public class StoreSettleUtil {
 		UFDouble qty = UFDouble.ZERO_DBL;
 		Map<UFDate, ItsStoreInOutVO> handlings = new HashMap<UFDate, ItsStoreInOutVO>();
 		UFDate dateInOut = null;
-		
+		String toolID = null;
+		String micapNo = null;
+
 		Iterator<ItsStoreInOutVO> iterator = storeItems.iterator();
 		while (iterator.hasNext()) {
 			vo = iterator.next();
@@ -506,18 +601,25 @@ public class StoreSettleUtil {
 			if (dateInOut.compareTo(beginDate) > -1
 					&& dateInOut.compareTo(endDate) < 1) {
 				// 判断是进场还是退场
-				if ((HANDLING_IN_M3.equals(durationUnit) && vo.getQty_In() != null)
-						|| (HANDLING_OUT_M3.equals(durationUnit) && vo
-								.getQty_Out() != null)) {
+				if ((HANDLING_IN_M3.equals(durationUnit) 
+						&& vo.getIsinbound().equals(UFBoolean.TRUE))
+						|| (HANDLING_OUT_M3.equals(durationUnit) 
+								&& vo.getIsoutbound().equals(UFBoolean.TRUE))
+						||(HANDLING_INOUT_M3.equals(durationUnit) )) {
 
-					if (HANDLING_IN_M3.equals(durationUnit)) {
+					if (HANDLING_IN_M3.equals(durationUnit)
+							|| (HANDLING_INOUT_M3.equals(durationUnit) 
+							&& vo.getIsinbound().equals(UFBoolean.TRUE))) {
 						qty = vo.getQty_In();
 					} else {
 						qty = vo.getQty_Out();
 					}
+					
 					m3 = vo.getCubic_Meter();
 					m2 = vo.getSpace_m2();
 					sqft = vo.getSpace_ft();
+					toolID = vo.getTool_ID();
+					micapNo = vo.getMicap_No();
 
 					if (handlings.containsKey(dateInOut)) {
 						sumVo = handlings.get(dateInOut);
@@ -535,6 +637,15 @@ public class StoreSettleUtil {
 					sumVo.setSpace_m2(m2);
 					sumVo.setTool_ID(vo.getTool_ID());
 					sumVo.setMicap_No(vo.getMicap_No());
+					sumVo.getToolIDS().add(toolID);
+					sumVo.getMicapNOS().add(micapNo);
+					
+					String handlingDesc = " HANDLING IN ";
+					if(vo.getIsoutbound().equals(UFBoolean.TRUE)){
+						handlingDesc = " HANDLING OUT ";
+					}
+					sumVo.setDescription(handlingDesc);
+					
 					handlings.put(dateInOut, sumVo);
 				}
 			}
@@ -545,27 +656,49 @@ public class StoreSettleUtil {
 			return storageBvo;
 		}
 
+		
+		
 		StringBuffer newDescription = new StringBuffer(storageBvo.getVbdef2());
 		Iterator<UFDate> iteratorD = handlings.keySet().iterator();
 		UFDouble totalM3 = UFDouble.ZERO_DBL;
+		UFDouble totalAmount = UFDouble.ZERO_DBL;
+		UFDouble amount = UFDouble.ZERO_DBL;
+		DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
 		while (iteratorD.hasNext()) {
 			dateInOut = iteratorD.next();
 			sumVo = handlings.get(dateInOut);
+
+			//23/9/2017 HANDLING IN FOR 4 PKGS OF P3004, 3 m3, mininum 5 m3 .
+			newDescription.append("\n ");
+			DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			newDescription.append(dateInOut.toString(TimeZone.getDefault(), format));
+			newDescription.append(sumVo.getDescription());
+			newDescription.append(sumVo.getQty_In().setScale(0, UFDouble.ROUND_HALF_UP)).append(" PKGS OF ");
+			if (sumVo.getToolIDS() != null) {
+				newDescription.append(set2String(sumVo.getToolIDS()));
+			}
+			if (sumVo.getMicap_No() != null) {
+				newDescription.append("|").append(set2String(sumVo.getMicapNOS()));
+			}
+			
 			// 判断每次handling的数量是否小于minimumSpace
 			m3 = sumVo.getCubic_Meter();
+			newDescription.append("; SubTotal: ").append(m3).append(" m3");
 			if (m3.compareTo(minimumSpace) < 0) {
 				m3 = minimumSpace;
+				newDescription.append(", Minimum: ").append(m3).append(" m3");
 			}
 			totalM3 = totalM3.add(m3);
 			
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			// WAREHOUSE HANDLING IN FOR 4 PKGS OF P3004 SHIPMENTS ON 23/9/2017.
-			newDescription.append("\n ");
-			newDescription.append(sumVo.getQty_In()).append(" PKGS OF " );
-			newDescription.append(sumVo.getTool_ID()).append("/").append(sumVo.getMicap_No());
-			newDescription.append(" SHIPMENTS ON ").append(dateInOut.toString(TimeZone.getDefault(), format));
+			amount = m3.multiply(storageBvo.getNqtorigprice());
+			totalAmount = totalAmount.add(amount);
+			
+			newDescription.append(" * $").append(decimalFormat.format(storageBvo.getNqtorigprice())).append(" = ").append(decimalFormat.format(amount));
+			
 		}
-		storageBvo.setNastnum(totalM3);
+		newDescription.append("\n Total: $").append(totalAmount.setScale(2, UFDouble.ROUND_HALF_UP));
+		storageBvo.setNastnum(totalM3.setScale(2, UFDouble.ROUND_HALF_UP));
+		storageBvo.setNorigmny(totalAmount);
 		storageBvo.setVbdef2(newDescription.toString());
 
 		return storageBvo;
@@ -654,7 +787,7 @@ public class StoreSettleUtil {
 		ItsStoreInOutVO vo = null;
 		while (iterator.hasNext()) {
 			vo = iterator.next();
-			if (vo.getQty_In() != null
+			if (vo.getIsinbound().equals(UFBoolean.TRUE)
 					&& minimumInbounddate.compareTo(vo.getDate_InOut()) > 0) {
 				minimumInbounddate = vo.getDate_InOut();
 			}
@@ -719,7 +852,7 @@ public class StoreSettleUtil {
 							while (rs.next()) {
 								date = rs.getString(1);
 								if (date != null) {
-									lastbilldate = new UFDate();
+									lastbilldate = new UFDate(date);
 								}
 							}
 						}
@@ -766,24 +899,24 @@ public class StoreSettleUtil {
 
 		return durationMap;
 	}
-	
 
 	private void appendBeginingDesc(StringBuffer newDescription,
 			UFDate beginDate, UFDate endDate,
-			Collection<ItsStoreInOutVO> storeItems, String durationUnit
-			,UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
+			Collection<ItsStoreInOutVO> storeItems, String durationUnit,
+			UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String strBegindate = beginDate.toString(TimeZone.getDefault(), format);
 		String strEnddate = endDate.toString(TimeZone.getDefault(), format);
-		//第1行：FROM 1/10/2018 TO 31/10/2018
-		newDescription.append("\nFrom ").append(strBegindate).append(" To ").append(strEnddate);
+		// 第1行：FROM 1/10/2018 TO 31/10/2018
+		newDescription.append("\nFrom ").append(strBegindate).append(" To ")
+				.append(strEnddate);
 	}
-	
+
 	private void appendOpeningDesc(StringBuffer newDescription,
 			UFDate beginDate, UFDate endDate,
-			Collection<ItsStoreInOutVO> storeItems, String durationUnit
-			,UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
-		//第2行：Opening Balance: 100 sqft
+			Collection<ItsStoreInOutVO> storeItems, String durationUnit,
+			UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
+		// 第2行：Opening Balance: 100 sqft
 		Iterator<ItsStoreInOutVO> iterator = storeItems.iterator();
 		ItsStoreInOutVO vo = null;
 		UFDouble space = UFDouble.ZERO_DBL;
@@ -794,14 +927,14 @@ public class StoreSettleUtil {
 		while (iterator.hasNext()) {
 			vo = iterator.next();
 			// 结算开始日期前进场(累加在duration结束时间前（含当天）的所有进场数据）
-			if (vo.getQty_In() != null
+			if (vo.getIsinbound().equals(UFBoolean.TRUE)
 					&& vo.getDate_InOut().compareTo(beginDate) < 0) {
 				m2 = m2.add(vo.getSpace_m2());
 				m3 = m3.add(vo.getCubic_Meter());
 				sqft = sqft.add(vo.getSpace_ft());
 				qty = qty.add(vo.getQty_In());
 			}// 结算开始日期前退场（减去在duration开始时间前（不含当天）的所有退场数据）
-			else if (vo.getQty_Out() != null
+			else if (vo.getIsoutbound().equals(UFBoolean.TRUE)
 					&& vo.getDate_InOut().compareTo(beginDate) < 0) {
 				m2 = m2.sub(vo.getSpace_m2());
 				m3 = m3.sub(vo.getCubic_Meter());
@@ -809,7 +942,7 @@ public class StoreSettleUtil {
 				qty = qty.sub(vo.getQty_Out());
 			}
 		}
-		
+
 		if (UFBoolean.TRUE.equals(isFixedIncrease)) {
 			space = qty;
 		} else if (isByPerM2(durationUnit)) {
@@ -820,84 +953,131 @@ public class StoreSettleUtil {
 			space = sqft;
 		}
 		String spaceUnit = getDisplaySpaceUnit(durationUnit);
-		newDescription.append("\n Opening Balance: ").append(space.setScale(2, UFDouble.ROUND_HALF_UP));
+		DecimalFormat decimalFormat = new DecimalFormat("###################.###########");  
+		newDescription.append("\n Opening Balance: ").append(decimalFormat.format(space));
 		if (UFBoolean.TRUE.equals(isFixedIncrease)) {
-			newDescription.append(" * ").append(fixedIncremental).append(" = ").append(space.multiply(fixedIncremental).setScale(2, UFDouble.ROUND_HALF_UP));
+			newDescription
+					.append(" * ")
+					.append(decimalFormat.format(fixedIncremental))
+					.append(" = ")
+					.append(decimalFormat.format(space.multiply(fixedIncremental)));
 		}
-		newDescription.append(" ").append(spaceUnit);
+		newDescription.append(spaceUnit);
 	}
 
-	private void appendDesc4FixedSpace(StringBuffer newDescription, String durationUnit, Integer duration,
-			Integer minimumDuration, Integer durationCnt, UFDouble space, UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
-		//Fixed space: 100 sqft * 10 days, Minimal duration: 10 days
-		if(isFixedSpace(durationUnit)){
+	private void appendDesc4FixedSpace(StringBuffer newDescription,
+			String durationUnit, Integer duration, Integer minimumDuration,
+			Integer durationCnt, UFDouble space, UFBoolean isFixedIncrease,
+			UFDouble fixedIncremental) {
+		// Fixed space: 100 sqft * 10 days, Minimal duration: 10 days
+		if (isFixedSpace(durationUnit)) {
 			String timeUnit = getDisplayTimeUnit(durationUnit);
 			String spaceUnit = getDisplaySpaceUnit(durationUnit);
-			
-			newDescription.append("\n Fixed space: ").append(space.setScale(2, UFDouble.ROUND_HALF_UP));
+			DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+			newDescription.append("\n Fixed space: ").append(
+					decimalFormat.format(space));
 			if (UFBoolean.TRUE.equals(isFixedIncrease)) {
-				newDescription.append(" * ").append(fixedIncremental).append(" = ").append(space.multiply(fixedIncremental).setScale(2, UFDouble.ROUND_HALF_UP));
+				newDescription
+						.append(" * ")
+						.append(fixedIncremental)
+						.append(" = ")
+						.append(decimalFormat.format(space.multiply(fixedIncremental)));
 			}
-			newDescription.append(" ").append(spaceUnit);
+			newDescription.append(spaceUnit);
 			newDescription.append(" * ").append(durationCnt);
 			if (duration > 1) {
 				newDescription.append(" ").append(duration);
 			}
 			newDescription.append(timeUnit);
-			if(durationCnt <= minimumDuration){
-				newDescription.append(", Minimal duration: ").append(minimumDuration).append(" ").append(timeUnit);
+			if (durationCnt <= minimumDuration) {
+				newDescription.append(", Minimal duration: ")
+						.append(minimumDuration).append(" ").append(timeUnit);
 			}
 		}
 	}
-	
 
 	private void appendDetailDesc(StringBuffer newDescription,
 			Collection<ItsStoreInOutVO> storeItems, UFDate durationBeginDate,
 			UFDate durationEndDate, String durationUnit, Integer duration,
-			UFDouble space, UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
-		String timeUnit = getDisplayTimeUnit(durationUnit);
-		String spaceUnit = getDisplaySpaceUnit(durationUnit);
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		//除按天和按月的情况，其他的期间都需要加一个小结
-		if(isByPerWeek(durationUnit)
-				|| duration > 1){
-			String strBegindate = durationBeginDate.toString(TimeZone.getDefault(), format);
-			String strEnddate = durationEndDate.toString(TimeZone.getDefault(), format);
-			//1/10/2018-31/10/2018
-			newDescription.append("\n ").append(strBegindate).append("-").append(strEnddate);
-		}
+			UFDouble space, UFBoolean isFixedIncrease, UFDouble fixedIncremental, UFDouble settlePrice, boolean existInOrOut, UFDate lastBeginDate, UFDouble lastSpace, boolean isFinal) {
 		
-		appendInOutDetailDescs(newDescription,storeItems, durationBeginDate,
-				durationEndDate, durationUnit, isFixedIncrease, fixedIncremental);
-		
-		// SubTotal: 400 sqft * 1 weeks  = 400
-		if(isByPerWeek(durationUnit)
-				|| duration > 1){
-			newDescription.append("\n SubTotal: ").append(space.setScale(2, UFDouble.ROUND_HALF_UP));
-			if (UFBoolean.TRUE.equals(isFixedIncrease)) {
-				newDescription.append(" * ").append(fixedIncremental).append(" = ").append(space.multiply(fixedIncremental).setScale(2, UFDouble.ROUND_HALF_UP));
-				space = space.multiply(fixedIncremental);
+		if(isByPerMonth(durationUnit) && duration == 1 ){// 1、按每月计价的, 只需要显示 IN/OUT明细
+			// IN/OUT明细：26/04/2018 INBOUND 3 PKGS OF OPI902, 68.4230 sqft, Bal:68.42300000 sqft
+			appendInOutDetailDescs(newDescription, storeItems, durationBeginDate,
+					durationEndDate, durationUnit, isFixedIncrease,
+					fixedIncremental);
+		}else if(isByPerDay(durationUnit) && duration == 1 ){// 2、按每天计价的， 有IN/OUT才体现
+			if(existInOrOut){
+				appendDetailDescSubtotal(newDescription, storeItems,
+						lastBeginDate, durationBeginDate.getDateBefore(1).asEnd(), durationUnit,
+							duration, lastSpace, isFixedIncrease, fixedIncremental,settlePrice);
+			}else if(isFinal){
+				appendDetailDescSubtotal(newDescription, storeItems,
+						lastBeginDate, durationEndDate, durationUnit,
+							duration, space, isFixedIncrease, fixedIncremental,settlePrice);
 			}
-			newDescription.append(" ").append(spaceUnit);
-			newDescription.append(" * ").append(1);
-			if (duration > 1) {
-				newDescription.append(" ").append(duration);
-			}
-			newDescription.append(" ").append(timeUnit);
-			newDescription.append(" = ").append(space.multiply(1).setScale(2, UFDouble.ROUND_HALF_UP));
+			
+		}else {// 3、按每周或每几天或每几周计价的（除按天和按月的情况），需要加上时间范围和期间小结        if(isByPerWeek(durationUnit) || duration > 1)
+			appendDetailDescSubtotal(newDescription, storeItems,
+					durationBeginDate, durationEndDate, durationUnit,
+						duration, space, isFixedIncrease, fixedIncremental,settlePrice);
 		}
 	}
 	
-	
+	private void appendDetailDescSubtotal(StringBuffer newDescription,
+			Collection<ItsStoreInOutVO> storeItems, UFDate durationBeginDate,
+			UFDate durationEndDate, String durationUnit, Integer duration,
+			UFDouble space, UFBoolean isFixedIncrease, UFDouble fixedIncremental, UFDouble settlePrice) {
+		String timeUnit = getDisplayTimeUnit(durationUnit);
+		String spaceUnit = getDisplaySpaceUnit(durationUnit);
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+		String strBegindate = durationBeginDate.toString(
+				TimeZone.getDefault(), format);
+		String strEnddate = durationEndDate.toString(TimeZone.getDefault(),
+				format);
+		// 时间范围： 1/10/2018-31/10/2018
+		newDescription.append("\n ").append(strBegindate).append("-")
+				.append(strEnddate);
+
+		// IN/OUT明细：26/04/2018 INBOUND 3 PKGS OF OPI902, 68.4230 sqft, Bal:68.42300000 sqft
+		appendInOutDetailDescs(newDescription, storeItems, durationBeginDate,
+				durationEndDate, durationUnit, isFixedIncrease,
+				fixedIncremental);
+
+		// 期间小结: SubTotal: 400 sqft * 1 weeks = 400
+		newDescription.append("\n SubTotal: ").append(decimalFormat.format(space));
+		if (UFBoolean.TRUE.equals(isFixedIncrease)) {
+			newDescription
+					.append(" * ")
+					.append(decimalFormat.format(fixedIncremental))
+					.append(" = ")
+					.append(decimalFormat.format(space.multiply(fixedIncremental)));
+			space = space.multiply(fixedIncremental);
+		}
+		newDescription.append(spaceUnit);
+		
+		
+		//结算金额
+		UFDouble amount = space.multiply(settlePrice);
+		newDescription.append(" * $").append(decimalFormat.format(settlePrice)).append( " = $").append(decimalFormat.format(amount));
+		
+		if(isByPerDay(durationUnit) && duration == 1){
+			int days = UFDate.getDaysBetween(durationBeginDate, durationEndDate) + 1;
+			newDescription.append(" * ").append(days).append(timeUnit).append( " = $").append(decimalFormat.format(amount.multiply(days)));
+		}else{
+//			newDescription.append(" ").append(1);
+//			if (duration > 1) {
+//				newDescription.append(" ").append(duration);
+//			}
+//			newDescription.append(timeUnit);
+		}
+	}
 
 	private void appendInOutDetailDescs(StringBuffer newDescription,
 			Collection<ItsStoreInOutVO> storeItems, UFDate durationBeginDate,
-			UFDate durationEndDate, String durationUnit, UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
-		//排序
-		List<ItsStoreInOutVO> listSotreItems = new ArrayList<ItsStoreInOutVO>();
-		listSotreItems.addAll(storeItems);
-		Collections.sort(listSotreItems);
-		
+			UFDate durationEndDate, String durationUnit,
+			UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
 		ItsStoreInOutVO vo = null;
 		ItsStoreInOutVO sumVo = null;
 		UFDouble m2 = UFDouble.ZERO_DBL;
@@ -912,7 +1092,9 @@ public class StoreSettleUtil {
 		Map<UFDate, ItsStoreInOutVO> inMap = new HashMap<UFDate, ItsStoreInOutVO>();
 		Map<UFDate, ItsStoreInOutVO> outMap = new HashMap<UFDate, ItsStoreInOutVO>();
 		UFDate dateInOut = null;
-		
+		String toolID = null;
+		String micapNo = null;
+
 		Iterator<ItsStoreInOutVO> iterator = storeItems.iterator();
 		while (iterator.hasNext()) {
 			vo = iterator.next();
@@ -922,102 +1104,106 @@ public class StoreSettleUtil {
 			m3 = vo.getCubic_Meter();
 			m2 = vo.getSpace_m2();
 			sqft = vo.getSpace_ft();
-			
-			//求balance
+			toolID = vo.getTool_ID();
+			micapNo = vo.getMicap_No();
+
+			// 求balance
 			// 进场(累加在duration结束时间前（含当天）的所有进场数据）
-			if (vo.getQty_In() != null
+			if (vo.getIsinbound().equals(UFBoolean.TRUE)
 					&& vo.getDate_InOut().compareTo(durationEndDate) < 1) {
 				bal_m2 = bal_m2.add(m2);
 				bal_m3 = bal_m3.add(m3);
 				bal_sqft = bal_sqft.add(sqft);
 				bal_qty = bal_qty.add(qty_in);
 			}// 退场（减去在duration开始时间前（不含当天）的所有退场数据）
-			else if (vo.getQty_Out() != null
+			else if (vo.getIsoutbound().equals(UFBoolean.TRUE)
 					&& vo.getDate_InOut().compareTo(durationEndDate) < 0) {
 				bal_m2 = bal_m2.sub(m2);
 				bal_m3 = bal_m3.sub(m3);
 				bal_sqft = bal_sqft.sub(sqft);
 				bal_qty = bal_qty.sub(qty_out);
 			}
-			
-			
+
 			// 判断进退场时间是否在结算期间内
 			if (dateInOut.compareTo(durationBeginDate) > -1
 					&& dateInOut.compareTo(durationEndDate) < 1) {
-					if(vo.getQty_In() != null){
-						if (inMap.containsKey(dateInOut)) {
-							sumVo = inMap.get(dateInOut);
-							qty_in = qty_in.add(sumVo.getQty_In());
-							m3 = m3.add(sumVo.getCubic_Meter());
-							m2 = m2.add(sumVo.getSpace_m2());
-							sqft = sqft.add(sumVo.getSpace_ft());
-						} else {
-							sumVo = new ItsStoreInOutVO();
-							inMap.put(dateInOut, sumVo);
-						}
-					}else if(vo.getQty_Out() != null){
-						if (outMap.containsKey(dateInOut)) {
-							sumVo = outMap.get(dateInOut);
-							qty_out = qty_out.add(sumVo.getQty_Out());
-							m3 = m3.add(sumVo.getCubic_Meter());
-							m2 = m2.add(sumVo.getSpace_m2());
-							sqft = sqft.add(sumVo.getSpace_ft());
-						} else {
-							sumVo = new ItsStoreInOutVO();
-							outMap.put(dateInOut, sumVo);
-						}
+				if (vo.getIsinbound().equals(UFBoolean.TRUE)) {
+					if (inMap.containsKey(dateInOut)) {
+						sumVo = inMap.get(dateInOut);
+						qty_in = qty_in.add(sumVo.getQty_In());
+						m3 = m3.add(sumVo.getCubic_Meter());
+						m2 = m2.add(sumVo.getSpace_m2());
+						sqft = sqft.add(sumVo.getSpace_ft());
+					} else {
+						sumVo = new ItsStoreInOutVO();
+						inMap.put(dateInOut, sumVo);
 					}
-						
-					sumVo.setDate_InOut(dateInOut);
 					sumVo.setQty_In(qty_in);
-					sumVo.setQty_Out(qty_out);
-					sumVo.setCubic_Meter(m3);
-					sumVo.setSpace_ft(sqft);
-					sumVo.setSpace_m2(m2);
-					sumVo.setTool_ID(vo.getTool_ID());
-					sumVo.setMicap_No(vo.getMicap_No());
-					sumVo.setBal_m2(bal_m2);
-					sumVo.setBal_m3(bal_m3);
-					sumVo.setBal_sqft(bal_sqft);
-					sumVo.setBal_qty(bal_qty);
-					
+				} else if (vo.getIsoutbound().equals(UFBoolean.TRUE)) {
+					if (outMap.containsKey(dateInOut)) {
+						sumVo = outMap.get(dateInOut);
+						qty_out = qty_out.add(sumVo.getQty_In());
+						m3 = m3.add(sumVo.getCubic_Meter());
+						m2 = m2.add(sumVo.getSpace_m2());
+						sqft = sqft.add(sumVo.getSpace_ft());
+					} else {
+						sumVo = new ItsStoreInOutVO();
+						outMap.put(dateInOut, sumVo);
+					}
+					sumVo.setQty_In(qty_out);
 				}
+
+				sumVo.setDate_InOut(dateInOut);
+				sumVo.setCubic_Meter(m3);
+				sumVo.setSpace_ft(sqft);
+				sumVo.setSpace_m2(m2);
+				sumVo.setBal_m2(bal_m2);
+				sumVo.setBal_m3(bal_m3);
+				sumVo.setBal_sqft(bal_sqft);
+				sumVo.setBal_qty(bal_qty);
+				sumVo.setTool_ID(toolID);
+				sumVo.setMicap_No(micapNo);
+				sumVo.getToolIDS().add(toolID);
+				sumVo.getMicapNOS().add(micapNo);
+
 			}
+		}
 
 		// 当前结算期间没有进退场
-		if (inMap.isEmpty()
-				&& outMap.isEmpty()) {
-			return ;
+		if (inMap.isEmpty() && outMap.isEmpty()) {
+			return;
 		}
-		
+
 		Set<UFDate> dates = new HashSet<UFDate>();
 		dates.addAll(inMap.keySet());
 		dates.addAll(outMap.keySet());
-		//日期排序
+		// 日期排序
 		UFDate[] dateArr = dates.toArray(new UFDate[dates.size()]);
 		Arrays.sort(dateArr);
-		
+
 		// 添加明细描述
-		for(UFDate date : dateArr){
+		for (UFDate date : dateArr) {
 			sumVo = inMap.get(date);
-			if(sumVo!=null){
-				appendInOutDetailDesc(newDescription, durationUnit, sumVo, "INBOUND", isFixedIncrease, fixedIncremental);
+			if (sumVo != null) {
+				appendInOutDetailDesc(newDescription, durationUnit, sumVo,
+						"INBOUND", isFixedIncrease, fixedIncremental);
 			}
 			sumVo = outMap.get(date);
-			if(sumVo!=null){
-				appendInOutDetailDesc(newDescription, durationUnit, sumVo, "OUTBOUND", isFixedIncrease, fixedIncremental);
+			if (sumVo != null) {
+				appendInOutDetailDesc(newDescription, durationUnit, sumVo,
+						"OUTBOUND", isFixedIncrease, fixedIncremental);
 			}
 		}
 	}
 
 	private void appendInOutDetailDesc(StringBuffer newDescription,
-			String durationUnit, ItsStoreInOutVO sumVo, String inOutType, UFBoolean isFixedIncrease,
-			UFDouble fixedIncremental) {
+			String durationUnit, ItsStoreInOutVO sumVo, String inOutType,
+			UFBoolean isFixedIncrease, UFDouble fixedIncremental) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		String spaceUnit = getDisplaySpaceUnit(durationUnit);
 		UFDouble inOutSpace = UFDouble.ZERO_DBL;
 		UFDouble bal_InOutSpace = UFDouble.ZERO_DBL;
-		
+
 		if (UFBoolean.TRUE.equals(isFixedIncrease)) {
 			inOutSpace = sumVo.getQty_In();
 			bal_InOutSpace = sumVo.getBal_qty();
@@ -1031,32 +1217,62 @@ public class StoreSettleUtil {
 			inOutSpace = sumVo.getSpace_ft();
 			bal_InOutSpace = sumVo.getBal_sqft();
 		}
-		//4/10/2018 INBOUND 3PKGS, 300 sqft, Bal: 400 sqft.
-		newDescription.append("\n  ").append(sumVo.getDate_InOut().toString(TimeZone.getDefault(), format));
+		// 4/10/2018 INBOUND 3PKGS, 300 sqft, Bal: 400 sqft.
+		newDescription.append("\n  ").append(
+				sumVo.getDate_InOut().toString(TimeZone.getDefault(), format));
 		newDescription.append(" ").append(inOutType).append(" ");
-		newDescription.append(sumVo.getQty_In()).append(" PKGS OF " );
-		newDescription.append(sumVo.getTool_ID()).append("/").append(sumVo.getMicap_No());
-		newDescription.append(", ").append(inOutSpace);
-		if (UFBoolean.TRUE.equals(isFixedIncrease)) {
-			newDescription.append(" * ").append(fixedIncremental).append(" = ").append(inOutSpace.multiply(fixedIncremental));
+		newDescription.append(
+				sumVo.getQty_In().setScale(0, UFDouble.ROUND_HALF_UP)).append(
+				" PKGS OF ");
+		if (sumVo.getToolIDS() != null) {
+			newDescription.append(set2String(sumVo.getToolIDS()));
 		}
-		newDescription.append(" ").append(spaceUnit);
-		newDescription.append(", Bal:").append(bal_InOutSpace).append(" ").append(spaceUnit);
-	
+		if (sumVo.getMicap_No() != null) {
+			newDescription.append("|").append(set2String(sumVo.getMicapNOS()));
+		}
+		DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+		newDescription.append(", ").append(decimalFormat.format(inOutSpace));
+		if (UFBoolean.TRUE.equals(isFixedIncrease)) {
+			newDescription.append(" * ").append(decimalFormat.format(fixedIncremental)).append(" = ")
+					.append(decimalFormat.format(inOutSpace.multiply(fixedIncremental)));
+			bal_InOutSpace = bal_InOutSpace.multiply(fixedIncremental);
+		}
+		newDescription.append(spaceUnit);
+		newDescription.append(", Bal:")
+				.append(decimalFormat.format(bal_InOutSpace))
+				.append(spaceUnit);
+
+	}
+
+	private String set2String(Set<String> set) {
+		if (set == null || set.size() < 1) {
+			return "";
+		}
+		StringBuffer strSet = new StringBuffer();
+		for (String str : set) {
+			if (strSet.length() > 0) {
+				strSet.append(",");
+			}
+			strSet.append(str);
+		}
+		return strSet.toString();
 	}
 
 	private void appendTotalDesc(StringBuffer newDescription,
-			UFDouble settleQty, UFDouble settlePrice) {
-		newDescription.append("\n Total: ").append(settleQty.setScale(2, UFDouble.ROUND_HALF_UP)).append(" * $").append(settlePrice);
+			UFDouble settleQty, UFDouble settlePrice, UFDouble settleAmt) {
+//		newDescription.append("\n Total: ")
+//				.append(settleQty.setScale(2, UFDouble.ROUND_HALF_UP))
+//				.append(" * $").append(settlePrice);
+		newDescription.append("\n Total: $").append(settleAmt.setScale(2, UFDouble.ROUND_HALF_UP));
 	}
 
 	private String getDisplaySpaceUnit(String durationUnit) {
 		String unit = null;
-		if(isByPerSqft(durationUnit)){
+		if (isByPerSqft(durationUnit)) {
 			unit = "sqft";
-		}else if (isByPerM3(durationUnit)){
+		} else if (isByPerM3(durationUnit)) {
 			unit = "m3";
-		}else{
+		} else {
 			unit = "m2";
 		}
 		return unit;
@@ -1064,14 +1280,29 @@ public class StoreSettleUtil {
 
 	private String getDisplayTimeUnit(String durationUnit) {
 		String unit = null;
-		if(isByPerDay(durationUnit)){
+		if (isByPerDay(durationUnit)) {
 			unit = "days";
-		}else if (isByPerWeek(durationUnit)){
+		} else if (isByPerWeek(durationUnit)) {
 			unit = "weeks";
-		}else{
+		} else {
 			unit = "months";
 		}
 		return unit;
+	}
+
+	private Map<String, SaleOrderBVO> getSaleOrderBVOMap(
+			Set<String> saleorderbids) throws BusinessException {
+		Map<String, SaleOrderBVO> saleOrderBvoMap = new HashMap<String, SaleOrderBVO>();
+		IUAPQueryBS query = NCLocator.getInstance().lookup(IUAPQueryBS.class);
+		StringBuffer condition = new StringBuffer(" dr=0 and csaleorderbid in ");
+		condition.append(InSqlManager.getInSQLValue(saleorderbids));
+
+		Collection<SaleOrderBVO> vos = query.retrieveByClause(
+				SaleOrderBVO.class, condition.toString());
+		for (SaleOrderBVO bvo : vos) {
+			saleOrderBvoMap.put(bvo.getCsaleorderbid(), bvo);
+		}
+		return saleOrderBvoMap;
 	}
 
 	public static void main(String[] args) {

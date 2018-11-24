@@ -58,8 +58,10 @@ public class SettleAction extends NCAction {
 				&& settlReturnVos.size() > 0){
 			UFDouble oldQty = UFDouble.ZERO_DBL;
 			UFDouble oldPrice = UFDouble.ZERO_DBL;
+			UFDouble oldAmt = UFDouble.ZERO_DBL;
 			UFDouble settlQty = UFDouble.ZERO_DBL;
 			UFDouble settlPrice = UFDouble.ZERO_DBL;
+			UFDouble settlAmt = UFDouble.ZERO_DBL;
 			String rowno = null;
 			String part = null;
 			String oldDescription = null;
@@ -72,12 +74,15 @@ public class SettleAction extends NCAction {
 							SaleInvoiceBVO.NASTNUM);
 					oldPrice = (UFDouble) billmodel.getValueObjectAt(i,
 							SaleInvoiceBVO.NQTORIGPRICE);
+					oldAmt = (UFDouble) billmodel.getValueObjectAt(i,
+							SaleInvoiceBVO.NORIGMNY);
 					oldDescription = (String) billmodel.getValueObjectAt(i,
 							"cc");
 					for(SaleInvoiceBVO bvo : settlReturnVos){
 						if(rowno.equals(bvo.getCrowno())){
 							settlQty = bvo.getNastnum();
 							settlPrice = bvo.getNqtorigprice();
+							settlAmt = bvo.getNorigmny();
 							description = bvo.getVbdef2();
 							if(settlQty != null){
 								CardBodyAfterEditEvent event = new CardBodyAfterEditEvent(
@@ -95,6 +100,15 @@ public class SettleAction extends NCAction {
 												.getItemByKey(SaleInvoiceBVO.NQTORIGPRICE), oldPrice,
 												settlPrice, SaleInvoiceBVO.NQTORIGPRICE, i, 1), oldPrice);
 								billmodel.setValueAt(settlPrice, i, SaleInvoiceBVO.NQTORIGPRICE);
+								new BodyAfterEditHandler().handleAppEvent(event);
+							}
+							if(settlAmt != null){
+								CardBodyAfterEditEvent event = new CardBodyAfterEditEvent(
+										getEditor().getBillCardPanel(),
+										new BillEditEvent(billmodel
+												.getItemByKey(SaleInvoiceBVO.NORIGMNY), oldAmt,
+												settlAmt, SaleInvoiceBVO.NORIGMNY, i, 1), oldAmt);
+								billmodel.setValueAt(settlAmt, i, SaleInvoiceBVO.NORIGMNY);
 								new BodyAfterEditHandler().handleAppEvent(event);
 							}
 							if(description != null){

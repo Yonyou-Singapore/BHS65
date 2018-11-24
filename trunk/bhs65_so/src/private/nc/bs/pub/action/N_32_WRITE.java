@@ -82,8 +82,8 @@ public class N_32_WRITE extends AbstractCompiler2 {
       if (insertvos != null && insertvos.length > 0) {
     	 
     	SaleInvoiceVO[] svdVOS = maintainsrv.saleInvoiceInsert(clientvos, userObj);
-    	//add chenth 20180911 销售订单支持多次开票
-    	rewriteSOInvoiceendflag(insertvos);
+    	//add chenth 20180911 销售订单支持多次开票 新增在回写规则中处理
+//    	rewriteSOInvoiceendflag(insertvos);
     	//add end 
         return svdVOS;
       }
@@ -245,19 +245,19 @@ private SaleInvoiceVO[] getInsertVO(SaleInvoiceVO[] orderVos) {
 			  //更新子表
 			  updatesql = " update so_saleorder_b set bbinvoicendflag = 'N' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
 			  //只处理store 
-			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder_b.csaleorderid = b.csaleorderid and m.def20='Y') ";
+			  updatesql = updatesql + " and cmaterialid in (select pk_material from bd_material m where so_saleorder_b.cmaterialid = m.pk_material and m.def20='Y') ";
 			  dao.executeUpdate(updatesql);
 		  }
 		  
 		  if(closeStateHids.size() > 0){
 			  //更新主表
-			  String updatesql = " update so_saleorder set binvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
+			  String updatesql = " update so_saleorder set binvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(closeStateHids);
 			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y') ";
 			  dao.executeUpdate(updatesql);
 			  
 			  //更新子表
-			  updatesql = " update so_saleorder_b set bbinvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
-			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder_b.csaleorderid = b.csaleorderid and m.def20='Y') ";
+			  updatesql = " update so_saleorder_b set bbinvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(closeStateHids);
+			  updatesql = updatesql + " and cmaterialid in (select pk_material from bd_material m where so_saleorder_b.cmaterialid = m.pk_material and m.def20='Y') ";
 			  dao.executeUpdate(updatesql);
 		  }
 	  }
