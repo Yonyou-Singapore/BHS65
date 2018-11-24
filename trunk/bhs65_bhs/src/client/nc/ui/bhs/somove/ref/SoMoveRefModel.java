@@ -14,17 +14,19 @@ public class SoMoveRefModel extends AbstractRefModel {
 		setRefTitle("SO Move");
 		setTableName("bhs_somove_h left join so_saleorder " 
 				+ "on bhs_somove_h.csaleorderid = so_saleorder.csaleorderid"
-				+ " left join bd_customer on so_saleorder.ccustomerid = bd_customer.pk_customer");
+				+ " left join bd_customer on so_saleorder.ccustomerid = bd_customer.pk_customer"
+				+ " left join bd_addressdoc fromcorp on bhs_somove_h.fromcorp = fromcorp.pk_addressdoc"
+				+ " left join bd_addressdoc tocorp on bhs_somove_h.tocorp = tocorp.pk_addressdoc");
 		setFieldCode(new String[] {
 				"bd_customer.name",
-				"bhs_somove_h.csaleordercode", "bhs_somove_h.vbillno", "bhs_somove_h.fromaddress",
-				"bhs_somove_h.toaddress", "bhs_somove_h.departuretime", "bhs_somove_h.jobstarttime",
+				"bhs_somove_h.csaleordercode", "bhs_somove_h.vbillno","fromcorp.name", "bhs_somove_h.fromaddress",
+				"tocorp.name", "bhs_somove_h.toaddress","bhs_somove_h.departuretime", "bhs_somove_h.jobstarttime",
 				"bhs_somove_h.jobendtime"
 		});
 		setFieldName(new String[] {
 				"Customer Name",
-				"SO No.", "Job Order No.", "From Address",
-				"To Address", "Departure Time", "Job Start Time",
+				"SO No.", "Job Order No.", "From", "From Address",
+				"To", "To Address", "Departure Time", "Job Start Time",
 				"Job End Time"
 		});
 		setHiddenFieldCode(new String[] {

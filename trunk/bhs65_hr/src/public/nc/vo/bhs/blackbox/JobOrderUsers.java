@@ -136,6 +136,8 @@ public class JobOrderUsers implements Comparable<JobOrderUsers> {
 	@Override
 	public int compareTo(JobOrderUsers o) {
 		if(this.assignedUserName == null)
+			return -1;
+		if(o.getAssignedUserName() == null)
 			return 1;
 		return this.assignedUserName.compareTo(o.getAssignedUserName());
 	}

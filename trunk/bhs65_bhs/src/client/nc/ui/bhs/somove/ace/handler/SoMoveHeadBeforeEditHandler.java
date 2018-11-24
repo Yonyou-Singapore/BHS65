@@ -50,13 +50,15 @@ public class SoMoveHeadBeforeEditHandler implements IAppEventHandler<CardHeadTai
 		//可以参照到当天的所有joborder
 		//sb.append(" and bd_customer.pk_customer in (select ccustomerid from so_saleorder where vbillcode = '");
 		//sb.append(thisMoveSO).append("') ");
-		if(departuretime != null && jobendtime == null){
-			sb.append(" and bhs_somove_h.departuretime <= '" + departuretime + "' and bhs_somove_h.jobendtime > '" + departuretime + "' ");
-		}else if(departuretime == null && jobendtime != null){
-			sb.append(" and bhs_somove_h.departuretime < '" + jobendtime + "' and bhs_somove_h.jobendtime >= '" + jobendtime + "' ");
-		}else if(departuretime != null && jobendtime != null){
-			sb.append(" and ( (bhs_somove_h.departuretime <= '" + departuretime + "' and bhs_somove_h.jobendtime > '" + departuretime + "') ");
-			sb.append(" or (bhs_somove_h.departuretime < '" + jobendtime + "' and bhs_somove_h.jobendtime >= '" + jobendtime + "') ) ");
+//		if(departuretime != null && jobendtime == null){
+//			sb.append(" and bhs_somove_h.departuretime <= '" + departuretime + "' and bhs_somove_h.jobendtime > '" + departuretime + "' ");
+//		}else if(departuretime == null && jobendtime != null){
+//			sb.append(" and bhs_somove_h.departuretime < '" + jobendtime + "' and bhs_somove_h.jobendtime >= '" + jobendtime + "' ");
+//		}else if(departuretime != null && jobendtime != null){
+//			sb.append(" and ( (bhs_somove_h.departuretime <= '" + departuretime + "' and bhs_somove_h.jobendtime > '" + departuretime + "') ");
+//			sb.append(" or (bhs_somove_h.departuretime < '" + jobendtime + "' and bhs_somove_h.jobendtime >= '" + jobendtime + "') ) ");
+		if(departuretime != null && jobendtime != null){
+			sb.append(" and ( bhs_somove_h.departuretime <= '" + jobendtime + "' and bhs_somove_h.jobendtime >= '" + departuretime + "') ");
 		}else{
 			sb.append(" and 1=2 ");
 		}

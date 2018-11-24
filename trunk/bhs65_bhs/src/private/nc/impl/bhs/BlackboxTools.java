@@ -133,18 +133,22 @@ public class BlackboxTools {
 	    StringBuffer tmpStr = null;
 	    String userName = null;
 	    for(JobOrder order : orders){
-	    	errStr.append("\n        Job No:").append(order.getSoNo());
+	    	errStr.append("\n        SO No:").append(order.getSoNo());
+	    	errStr.append("\n        Job No:").append(order.getJobno());
 	    	List<JobOrderSkillUsers> jobOrderSkills = order.getJobOrderSkillUsers();
 	    	if(jobOrderSkills != null && jobOrderSkills.size() > 0){
 				for(JobOrderSkillUsers skill : jobOrderSkills){
 					int gap = skill.getCount() - skill.getPlanedcount();
+					errStr.append("\n                [").append(skill.getSkillCategoryName()).append("] ");
+					errStr.append(" Total: (").append(skill.getCount());
+					errStr.append(") ; ");
 					if(gap > 0){
 						isShowErr = true;
+						errStr.append("Gap: (").append(gap);
+						errStr.append(") ; Arranged: (").append(skill.getPlanedcount());
+						errStr.append(") ; ");
 					}
-					errStr.append("\n                [").append(skill.getSkillCategoryName()).append("] Gap: (").append(gap);
-					errStr.append(") ; Arranged: (").append(skill.getPlanedcount());
-					errStr.append(") ; Total: (").append(skill.getCount());
-					errStr.append(") ; Arranged worker: ");
+					errStr.append(" Arranged worker: ");
 					List<JobOrderUsers> orderUsers = skill.getJobOrderUsers();
 					if(orderUsers != null && orderUsers.size() > 0){
 						tmpStr = new StringBuffer();
@@ -165,12 +169,14 @@ public class BlackboxTools {
 	private JobOrder createJobOrder(AggSoMoveHVO vo, Map<String, BDDocVO> skillMap, Map<String, BDDocVO> certificateMap) {
 		SoMoveHVO jobvo = vo.getParentVO();
 		String jobid = jobvo.getBillid();
+		String jobno = jobvo.getVbillno();
 		if(jobid == null){
 			jobid = "NEWJOBID";
+			jobno = "New Job";
 		}
 		JobOrder order = new JobOrder();
 		order.setJobId(jobid);
-		order.setSoNo(jobvo.getVbillno());
+		order.setSoNo(jobvo.getCsaleordercode());
 		order.setSubject(jobvo.getSubject());
 		order.setCustomerId(jobvo.getFromcorp());
 		order.setTStartDate(jobvo.getDeparturetime());
@@ -179,6 +185,7 @@ public class BlackboxTools {
 		order.setEndDate(order.getTEndDate().getMillis());
 		order.setRefjoborderID(jobvo.getDef16());
 		order.setCombinejoborderID(jobvo.getDef15());
+		order.setJobno(jobno);
 		
 		List<SoMoveBlackBoxVO> bbvos = getBlackBoxVOs(vo);
 		String certificateid = null;
