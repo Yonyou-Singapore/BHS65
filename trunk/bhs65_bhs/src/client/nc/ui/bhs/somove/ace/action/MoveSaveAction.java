@@ -40,7 +40,7 @@ public class MoveSaveAction extends SaveScriptAction{
 	 */
 	private void doTotal(){
 		ShowUpableBillForm e = (ShowUpableBillForm)this.editor;
-		int rowCount = e.getBillCardPanel().getRowCount();
+		int rowCount = e.getBillCardPanel().getRowCount("id_somove_b");
 		UFDouble grossweight = UFDouble.ZERO_DBL;
 		UFDouble netweight = UFDouble.ZERO_DBL;
 		
@@ -61,7 +61,7 @@ public class MoveSaveAction extends SaveScriptAction{
 		
 		for(int i = 0 ;i<rowCount; i++){
 			
-			SoMoveBVO itemvo = (SoMoveBVO) e.getBillCardPanel().getBillModel().getBodyValueRowVO(i,SoMoveBVO.class.getName());
+			SoMoveBVO itemvo = (SoMoveBVO) e.getBillCardPanel().getBillModel("id_somove_b").getBodyValueRowVO(i,SoMoveBVO.class.getName());
 			grossweight = itemvo.getVgrossweigthkg() == null?UFDouble.ZERO_DBL:itemvo.getVgrossweigthkg();
 			netweight = itemvo.getVnetweightkg() == null?UFDouble.ZERO_DBL:itemvo.getVnetweightkg();
 			UFDouble vlengthcm = itemvo.getVlengthcm() == null?UFDouble.ZERO_DBL:itemvo.getVlengthcm();
@@ -105,7 +105,7 @@ public class MoveSaveAction extends SaveScriptAction{
 		
 		e.getBillCardPanel().setHeadItem("largestweight", maxheaviest);
 		e.getBillCardPanel().setHeadItem("kcrate", maxheaviestno);
-		e.getBillCardPanel().setHeadItem("totalofpkgs", e.getBillCardPanel().getRowCount());
+		e.getBillCardPanel().setHeadItem("totalofpkgs", rowCount);
 		
 	}
 }
