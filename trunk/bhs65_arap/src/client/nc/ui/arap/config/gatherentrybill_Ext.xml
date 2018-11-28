@@ -103,8 +103,8 @@
     <bean class="nc.ui.pubapp.plugin.action.ActionInterceptorInfo">
         <property name="target" ref="deleteActionReal"/>
         <property name="interceptor">
-            <bean class="nc.ui.arap.actions.interceptor.DeleteActionInterceptor">
-                <property name="gathering" ref="gatheringShowChgAction"/>
+            <bean class="nc.ui.arap.actions.interceptor.EntryDeleteActionInterceptor">
+                <property name="gathering" ref="gatherEntryShowChgAction"/>
             </bean> 
         </property>
     </bean>

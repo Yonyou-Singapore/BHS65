@@ -103,7 +103,7 @@
     <bean class="nc.ui.pubapp.plugin.action.ActionInterceptorInfo">
         <property name="target" ref="deleteAction"/>
         <property name="interceptor">
-            <bean class="nc.ui.arap.actions.interceptor.PayDeleteActionInterceptor">
+            <bean class="nc.ui.arap.actions.interceptor.PayEntryDeleteActionInterceptor">
                 <property name="payable" ref="payEntryShowChgAction"/>
             </bean> 
         </property>
