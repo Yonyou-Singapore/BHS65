@@ -238,6 +238,20 @@
 						<bean class="nc.ui.bhs.somove.ace.handler.SoMoveHeadBeforeEditHandler" />
 					</property>
 				</bean>
+				
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.bhs.somove.ace.handler.SoMoveBodyBeforeEditHandler" />
+					</property>
+				</bean>
+				
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.bhs.somove.ace.handler.SoMoveBodyAfterEditHandler" />
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

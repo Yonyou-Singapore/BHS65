@@ -349,12 +349,13 @@ public class StoreSettleUtil {
 						space = minimumSpace;
 					}
 
+					//本期是否有进出，通过和上期空间比较
 					if(i==0){
 						lastSpace = space;
 					}
-					//本期是否有进出，通过和上期空间比较
 					existInOrOut = lastSpace.compareTo(space) != 0;
 					isFinal = i == durationCnt-1;
+					
 					// 添加明细Description
 					appendDetailDesc(newDescription, storeItems,
 							durationBeginDate, durationEndDate, durationUnit,

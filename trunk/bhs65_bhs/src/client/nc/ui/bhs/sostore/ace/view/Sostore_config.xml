@@ -239,6 +239,19 @@
 						<bean class="nc.ui.bhs.sostore.ace.handler.SoStoreBodyBeforeEditHandler" />
 					</property>
 				</bean>
+				
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.bhs.sostore.ace.handler.SoStoreBodyAfterEditHandler" />
+					</property>
+				</bean>
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardHeadTailAfterEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.bhs.sostore.ace.handler.SoStoreHeadAfterEditHandler" />
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

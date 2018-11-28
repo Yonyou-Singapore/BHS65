@@ -176,13 +176,47 @@ public abstract class AceSostorePubServiceImpl {
 		String type = hvo.getDef1();
 		
 		Map<String, String> itsparaMap = getITSPara();
-		String outpath = itsparaMap.get("PATH_OUTBOUND");
-		String inpath = itsparaMap.get("PATH_INBOUND");
 		
+		//add chenth 20181126 增加inspection和change ownership的处理
+		String customer = getCustomerName(hvo);
+		if("INBOUND".equals(type)){
+			exportInboundExcel(aggVO, jobOrderNo, customer, itsparaMap);
+		}else if("OUTBOUND".equals(type)){
+			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, false);
+			
+		}else if("Inspection".equals(type)){
+			//先自动release
+			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, true);
+			//再自动inbound
+			exportInboundExcel(aggVO, jobOrderNo, customer, itsparaMap);
+		}else if("Change ownership".equals(type)){
+			String newJoborderNo = hvo.getDef3();
+			String newCustomer = getNewOwnership(hvo.getDef2());
+
+			//先自动release
+			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, true);
+			//再自动inbound
+			exportInboundExcel(aggVO, newJoborderNo, newCustomer, itsparaMap);
+		}
+		
+	}
+	
+
+	private void exportOutboundExcel(AggSoStoreHVO aggVO, String jobOrderNo,
+			String customer, Map<String, String> itsparaMap, boolean isAutoRelease) throws BusinessException {
+		String[] titleArry = null;
+		if(isAutoRelease){
+			jobOrderNo = "AR_" + jobOrderNo;
+			titleArry = new String[] { "AssetNo", "Qty", "Release Date"};
+		}else{
+			titleArry = new String[] { "AssetNo", "Qty"};
+		}
+		
+		String outpath = itsparaMap.get("PATH_OUTBOUND");
 		//先删除对应文件
-		ExportExcel.deleteCSV(jobOrderNo, inpath);
 		ExportExcel.deleteCSV(jobOrderNo, outpath);
 		
+		SoStoreHVO hvo = aggVO.getParentVO();
 		SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
 		if(bvos == null
 				|| bvos.length < 1){
@@ -190,97 +224,121 @@ public abstract class AceSostorePubServiceImpl {
 		}
 		List<String[]> recordList = new ArrayList<String[]>();
 		
-		if("INBOUND".equals(type) ){
-			String customer = getCustomerName(hvo);
-			String toolid = hvo.getToolidlid() == null ? "" : hvo.getToolidlid();
-			Integer maxRFID = Integer.valueOf(itsparaMap.get("RFID_SEQ_NUMBER"));
-			String prex = itsparaMap.get("RFID_PREFIX_PROVIDE") + itsparaMap.get("RFID_PREFIX_BHS");
-			Integer lengthofRFID = Integer.valueOf(itsparaMap.get("RFID_LENGTH"));
-			String RFIDNumber = null;
-			DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-			UFDate dbilldate = hvo.getDbilldate();
-			int year = dbilldate.getYear();
-			int yearofRFID = Integer.valueOf(itsparaMap.get("RFID_YEAR"));
-			//RFID 流水号重新编号
-			if(year!=yearofRFID){
-				maxRFID = 0;
-			}
-			prex = prex + year;
-
-			String[] titleArry = new String[] { "Customer", "Manufacturer", "Model", "Sub Model", "Tag ID", "Description", "Date of Purchase", "Length", "Width", "Height", "Weight", "Location", "Person In Charge", "Qty"
-					, "Shock Watch Activated", "Tilt_Watch_Activated", "Remarks", "Physically Damaged", "Progress/Status", "Project", "Inspected", "Crates Status", "Toppel Risk Crate No", "Asset No", "Micap No", "Tool ID/LID", "Set No"};
-			for(SoStoreBVO bvo : bvos){
-				if(bvo.getDef6() != null){
-					if(bvo.getDef10() == null 
-							|| "".equals(bvo.getDef10().trim())){
-						maxRFID = maxRFID + 1;
-						RFIDNumber = prex + frontCompWithZore(maxRFID, lengthofRFID-prex.length());
-						bvo.setDef10(RFIDNumber);
-					}
-					String snno = bvo.getDef11()==null? "" : bvo.getDef11();
-					String description = bvo.getDef2()==null? "" : bvo.getDef2();
-					//description = description + "  " + toolid + "  " + snno;
-					
-					String[] record = new String[titleArry.length];
-					record[0] = customer;//Customer
-					record[1] = hvo.getSuppliername()==null? "" : hvo.getSuppliername();//Manufacturer
-					record[2] = hvo.getMachinemodel()==null? "" : hvo.getMachinemodel();//Model
-					record[3] = hvo.getMachinesubmodel()==null? "" : hvo.getMachinesubmodel();//Sub Model
-					record[4] = bvo.getDef10();//Tag ID RFID Number
-					record[5] = description;//Description
-					record[6] = dbilldate.toString(TimeZone.getDefault(), df);//Date of INBound/OUTBound
-					record[7] = bvo.getDef6()==null? "" : bvo.getDef6();//Length
-					record[8] = bvo.getDef7()==null? "" : bvo.getDef7();//Width
-					record[9] = bvo.getDef8()==null? "" : bvo.getDef8();//Height
-					record[10] = bvo.getDef9()==null? "" : bvo.getDef9();//Weight
-					record[11] = hvo.getWarehousezone()==null? "Virtual Location" : hvo.getWarehousezone();//Location
-					record[12] = "";//Person In Charge
-					record[13] = bvo.getDef4();//Qty
-					record[14] = "";//hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
-					record[15] = "";//hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
-					record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks
-					record[17] = "";//hvo.getDamagedcrateno()==null? "" : hvo.getDamagedcrateno();//Physically Damaged
-					record[18] = "";//Progress/Status
-					record[19] = "";//Project
-					record[20] = "";//Inspected
-					record[21] = hvo.getCratestatus()==null? "" : getCrateStatus(hvo.getCratestatus());//Crates Status
-					record[22] = hvo.getToppleriskcrateno()==null? "" : hvo.getToppleriskcrateno();//Toppel Risk Crate No
-					record[23] = "";//
-					record[24] = hvo.getMicapno()==null? "" : hvo.getMicapno();//Micap No
-					record[25] = toolid;//Tool ID/LID
-					record[26] = snno;//Set No
-					recordList.add(record);
-				}
-			}
-			if(recordList.size() > 0){
-				ExportExcel.createCSV(jobOrderNo , titleArry, recordList,
-						inpath);
-			}
-			//更新vo的RFID Number
-			new BaseDAO().updateVOArray(bvos, new String[]{"def10"});
-			//更新RFID的流水号参数
-			new BaseDAO().executeUpdate("update bd_defdoc set name='" + maxRFID + "' where code = 'RFID_SEQ_NUMBER' ");
-			if(year!=yearofRFID){
-				new BaseDAO().executeUpdate("update bd_defdoc set name='" + year + "' where code = 'RFID_YEAR' ");
-			}
-			
-		}else if("OUTBOUND".equals(type)){
-			String[] titleArry = new String[] { "AssetNo", "Qty"};
-			for(SoStoreBVO bvo : bvos){
-				if(bvo.getDef3() != null){
-					String[] record = new String[2];
-					record[0] = bvo.getDef3();
-					record[1] = bvo.getDef4();
-					recordList.add(record);
-				}
-			}
-			if(recordList.size() > 0){
-				ExportExcel.createCSV(jobOrderNo, titleArry, recordList,
-						outpath);
+		UFDate date = hvo.getDbilldate().getDateBefore(1);
+		DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+		String releasedate = date.toString(TimeZone.getDefault(), df);
+		
+		for(SoStoreBVO bvo : bvos){
+			if(bvo.getDef3() != null){
+				String[] record = new String[2];
+				if(isAutoRelease){
+					record = new String[3];
+					record[2] = releasedate;
+				}				
+				record[0] = bvo.getDef3();
+				record[1] = bvo.getDef4();
+				
+				recordList.add(record);
 			}
 		}
+		if(recordList.size() > 0){
+			ExportExcel.createCSV(jobOrderNo, titleArry, recordList,
+					outpath);
+		}
 	}
-	
+
+	private void exportInboundExcel(AggSoStoreHVO aggVO, String jobOrderNo,
+			String customer, Map<String, String> itsparaMap) throws BusinessException {
+		String inpath = itsparaMap.get("PATH_INBOUND");
+		//先删除对应文件
+		ExportExcel.deleteCSV(jobOrderNo, inpath);
+		
+		SoStoreHVO hvo = aggVO.getParentVO();
+		SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
+		if(bvos == null
+				|| bvos.length < 1){
+			return;
+		}
+		List<String[]> recordList = new ArrayList<String[]>();
+
+		String toolid = hvo.getToolidlid() == null ? "" : hvo.getToolidlid();
+		Integer maxRFID = Integer.valueOf(itsparaMap.get("RFID_SEQ_NUMBER"));
+		String prex = itsparaMap.get("RFID_PREFIX_PROVIDE") + itsparaMap.get("RFID_PREFIX_BHS");
+		Integer lengthofRFID = Integer.valueOf(itsparaMap.get("RFID_LENGTH"));
+		String RFIDNumber = null;
+		DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+		UFDate dbilldate = hvo.getDbilldate();
+		int year = dbilldate.getYear();
+		int yearofRFID = Integer.valueOf(itsparaMap.get("RFID_YEAR"));
+		//RFID 流水号重新编号
+		if(year!=yearofRFID){
+			maxRFID = 0;
+		}
+		prex = prex + year;
+
+		String[] titleArry = new String[] { "Customer", "Manufacturer", "Model", "Sub Model", "Tag ID", "Description", "Date of Purchase", "Length", "Width", "Height", "Weight", "Location", "Person In Charge", "Qty"
+				, "Shock Watch Activated", "Tilt_Watch_Activated", "Remarks", "Physically Damaged", "Progress/Status", "Project", "Inspected", "Crates Status", "Toppel Risk Crate No", "Asset No", "Micap No", "Tool ID/LID", "Set No"};
+		for(SoStoreBVO bvo : bvos){
+			if(bvo.getDef6() != null){
+				if(bvo.getDef10() == null 
+						|| "".equals(bvo.getDef10().trim())){
+					maxRFID = maxRFID + 1;
+					RFIDNumber = prex + frontCompWithZore(maxRFID, lengthofRFID-prex.length());
+					bvo.setDef10(RFIDNumber);
+				}
+				String snno = bvo.getDef11()==null? "" : bvo.getDef11();
+				String description = bvo.getDef2()==null? "" : bvo.getDef2();
+				//add chenth 20181128 逗号处理
+				description = description.replaceAll(",", " ");
+				//description = description + "  " + toolid + "  " + snno;
+				
+				String[] record = new String[titleArry.length];
+				record[0] = customer;//Customer
+				record[1] = hvo.getSuppliername()==null? "" : hvo.getSuppliername();//Manufacturer
+				record[2] = hvo.getMachinemodel()==null? "" : hvo.getMachinemodel();//Model
+				record[3] = hvo.getMachinesubmodel()==null? "" : hvo.getMachinesubmodel();//Sub Model
+				record[4] = bvo.getDef10();//Tag ID RFID Number
+				record[5] = description;//Description
+				record[6] = dbilldate.toString(TimeZone.getDefault(), df);//Date of INBound/OUTBound
+				record[7] = bvo.getDef6()==null? "" : bvo.getDef6();//Length
+				record[8] = bvo.getDef7()==null? "" : bvo.getDef7();//Width
+				record[9] = bvo.getDef8()==null? "" : bvo.getDef8();//Height
+				record[10] = bvo.getDef9()==null? "" : bvo.getDef9();//Weight
+				record[11] = hvo.getWarehousezone()==null? "Virtual Location" : hvo.getWarehousezone();//Location
+				record[12] = "";//Person In Charge
+				record[13] = bvo.getDef4();//Qty
+				record[14] = "";//hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
+				record[15] = "";//hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
+				record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks
+				record[17] = "";//hvo.getDamagedcrateno()==null? "" : hvo.getDamagedcrateno();//Physically Damaged
+				record[18] = "";//Progress/Status
+				record[19] = "";//Project
+				record[20] = "";//Inspected
+				record[21] = hvo.getCratestatus()==null? "" : getCrateStatus(hvo.getCratestatus());//Crates Status
+				record[22] = hvo.getToppleriskcrateno()==null? "" : hvo.getToppleriskcrateno();//Toppel Risk Crate No
+				record[23] = "";//
+				record[24] = hvo.getMicapno()==null? "" : hvo.getMicapno();//Micap No
+				record[25] = toolid;//Tool ID/LID
+				record[26] = snno;//Set No
+				recordList.add(record);
+			}
+		}
+		if(recordList.size() > 0){
+			ExportExcel.createCSV(jobOrderNo , titleArry, recordList,
+					inpath);
+		}
+		BaseDAO dao = new BaseDAO();
+		//更新vo的RFID Number
+		dao.updateVOArray(bvos, new String[]{"def10"});
+		Collection<SoStoreBVO> newBvos = dao.retrieveByClause(SoStoreBVO.class, " dr=0 and billid = '" + hvo.getBillid() + "' ");
+		aggVO.setChildren(SoStoreBVO.class, newBvos.toArray(new SoStoreBVO[newBvos.size()]));
+		
+		//更新RFID的流水号参数
+		dao.executeUpdate("update bd_defdoc set name='" + maxRFID + "' where code = 'RFID_SEQ_NUMBER' ");
+		if(year!=yearofRFID){
+			dao.executeUpdate("update bd_defdoc set name='" + year + "' where code = 'RFID_YEAR' ");
+		}
+	}
 
 	private void deleteCSV(AggSoStoreHVO[] aggVOs) throws BusinessException{
 			if(aggVOs == null 
@@ -340,6 +398,27 @@ public abstract class AceSostorePubServiceImpl {
 			}
 		}
 		return custName;
+	}
+	
+
+	private String getNewOwnership(String newjobid) throws BusinessException {
+		String sql = "select custcode, custname from v_bhs_storejob where jobid = '" + newjobid +"' ";
+		
+		String custcode = (String) new BaseDAO().executeQuery(sql, new ResultSetProcessor(){
+			@Override
+			public Object handleResultSet(ResultSet rs) throws SQLException {
+				String custcode = null;
+		        while (rs.next()) {
+		        	custcode = rs.getString("custcode");
+		        }
+		        return custcode;
+			}
+			
+		});
+		if(custcode == null){
+			ExceptionUtils.wrappBusinessException("Please input the New Ownership. ");
+		}
+		return custcode;
 	}
 	
 	private String getCrateStatus(String pk_defdoc) throws BusinessException {

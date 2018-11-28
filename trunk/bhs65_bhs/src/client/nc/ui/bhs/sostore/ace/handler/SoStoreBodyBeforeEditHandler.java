@@ -7,6 +7,7 @@ import nc.itf.uap.IUAPQueryBS;
 import nc.ui.bhs.ref.ITSAssetRefModel;
 import nc.ui.bhs.ref.SOPartsRefModel;
 import nc.ui.pub.beans.UIRefPane;
+import nc.ui.pub.bill.BillCardPanel;
 import nc.ui.pubapp.uif2app.event.IAppEventHandler;
 import nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent;
 import nc.ui.so.pub.keyvalue.CardKeyValue;
@@ -14,6 +15,7 @@ import nc.vo.bd.cust.CustomerVO;
 import nc.vo.bhs.pack.SoOrderPackBVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.so.pub.keyvalue.IKeyValue;
+import nc.vo.so.salequotation.entity.SalequotationTermVO;
 
 public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBeforeEditEvent> {
 	
@@ -78,7 +80,23 @@ public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBe
 		// Filter ref job orders
 		if (DEF_ASSETNO_KEY.equals(e.getKey())) {
 			this.filterAsset(e);
-			retFlag = true;
+			BillCardPanel cardPanel = e.getBillCardPanel();
+			// 设置可以多选
+			UIRefPane refPane = (UIRefPane) cardPanel.getBodyItem(DEF_ASSETNO_KEY).getComponent();
+			refPane.setMultiSelectedEnabled(true);
+			
+			String jobType = (String) cardPanel.getHeadItem("def_type").getValueObject();
+			if("INBOUND".equals(jobType)){
+				cardPanel.getBodyItem("def_assetno").setEdit(false);
+				retFlag = false;
+			}else{
+				cardPanel.getBodyItem("def_assetno").setEdit(true);
+				retFlag = true;
+			}
+			
+			//重设置下参照PK，要不然多选有问题
+			String asset_no = (String) e.getBillCardPanel().getBodyValueAt(e.getRow(), "def3");
+	    	refPane.setPK(asset_no);
 		}
 		
 		e.setReturnValue(retFlag);	

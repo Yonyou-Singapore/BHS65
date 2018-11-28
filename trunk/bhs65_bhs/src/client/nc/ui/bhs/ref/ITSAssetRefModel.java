@@ -11,41 +11,39 @@ public class ITSAssetRefModel extends AbstractRefModel {
 	
 	
 	public void reset() {
-		setRefNodeName("Storage Item");
+		setRefNodeName("StorageItem");
 		setRefTitle("Storage Item");
 		setTableName("v_its_StockAvailable");
 		setFieldCode(new String[] {
-				"Location",
-				"Set_No",
-				"Asset_ID",
-				"Asset_No",
-				"Description"
+				"Asset_ID"
+				, "EPC_ID"
+				, "Asset_No"
 				, "Micap_No"
 				, "Tool_ID"
+				, "Set_No"
+				, "Description"
 				, "Date_of_Purchase"
-				, "Date_of_Expire"
+				, "Location"
 				, "customer"
 				, "LastBal"
-				, "Name"
 		});
 		setFieldName(new String[] {
-				"Location",
-				"S/N",
-				"Asset ID",
-				"Asset No",
-				"Description"
-				, "Micap No"
-				, "Tool ID/LID"
-				, "Date In"
-				, "Date of Expire"
-				, "Customer"
-				, "Last Bal"
-				, "Name"
+				"Asset ID"
+				, "EPC ID"
+				, "Asset_No"
+				, "Micap No."
+				, "Tool ID"
+				, "Set No."
+				, "Description"
+				, "Move In Date"
+				, "Location"
+				, "customer"
+				, "LastBal"
 		});
-		setHiddenFieldCode(new String[]{});
+//		setHiddenFieldCode(new String[]{"Asset_No"});
 		setPkFieldCode("Asset_No");
-		setRefCodeField("Asset_No");
-		setRefNameField("Description");
+		setRefCodeField("Asset_ID");
+		setRefNameField("Asset_No");
 		setDefaultFieldCount(getFieldName().length);
 		setMutilLangNameRef(false);
 	}
