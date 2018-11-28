@@ -34,16 +34,20 @@
 		<property name="listView" ref="listView"></property>
 		<property name="dataManager" ref="modelDataManager"></property>
 	</bean>
+	
+	
+	 <bean id="sendMailAction" class="nc.ui.arap.recpaystatement.action.SendMailAction">
+		<property name="model" ref="billManageModel"></property>
+		<property name="listView" ref="listView"></property>
+	</bean>
+	
+	
 	<!-- 打印 -->
 	<bean id="printPreview" class="nc.ui.arap.recpaystatement.action.ReportTemplatePrintPreviewAction" autowire="byName">
 		<property name="model" ref="billManageModel"></property>
 		<property name="listView" ref="listView"></property>
 	</bean>
 	<bean id="print" class="nc.ui.arap.recpaystatement.action.ReportTemplatePrintAction" autowire="byName">
-		<property name="model" ref="billManageModel"></property>
-		<property name="listView" ref="listView"></property>
-	</bean>
-	<bean id="batchPrint" class="nc.ui.arap.recpaystatement.action.ReportTemplateBatchPrintAction" autowire="byName">
 		<property name="model" ref="billManageModel"></property>
 		<property name="listView" ref="listView"></property>
 	</bean>
@@ -62,8 +66,8 @@
 		</property>
 		<property name="actions">
 			<list>
-				<ref bean="printPreview" />
 				<ref bean="print" />
+				<ref bean="printPreview" />
 				<ref bean="output" />
 			</list>
 		</property>
@@ -85,11 +89,6 @@
 		</property>
 	</bean>
 
-	<bean id="sendMailAction" class="nc.ui.arap.recpaystatement.action.SendMailAction">
-		<property name="model" ref="billManageModel"></property>
-		<property name="listView" ref="listView"></property>
-	</bean>
-	
 	<!-- 页面总组装容器 -->
 	<bean id="container" class="nc.ui.uif2.TangramContainer" init-method="initUI">
 		<property name="tangramLayoutRoot">
