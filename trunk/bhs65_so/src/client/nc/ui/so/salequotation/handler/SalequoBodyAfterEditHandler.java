@@ -197,12 +197,12 @@ public class SalequoBodyAfterEditHandler implements
     if (SalequotationBVO.PK_MATERIAL_V.equals(editKey)) {
       MaterialEditHandler materialEdit = new MaterialEditHandler();
       materialEdit.afterEdit(e);
-      e.getBillCardPanel().getBillModel().execFormula(e.getRow(), new String[]{"vbdef2->getcolvalue( bd_material,def1 ,pk_material ,pk_material );"
-    	  ,"cc->getcolvalue( bd_material,def1 ,pk_material ,pk_material );"
-      });
-    }else if("cc".equals(editKey)){
+    }
+    //add chenth 20181127 BHS 表体description经常跳回默认值，界面公式改成代码执行
+    else if("cc".equals(editKey)){
     	e.getBillCardPanel().setBodyValueAt(e.getValue(), e.getRow(),
                 SalequotationBVO.VBDEF2);
+    	//add chenth end
     }// 客户物料码(V63新加)
     else if (SalequotationBVO.CCUSTMATERIALID.equals(editKey)) {
       CustMaterialEditHandler cusrmatedit = new CustMaterialEditHandler();

@@ -67,9 +67,11 @@ public class MaterialEditHandler {
       unitrate.calcAstChangeRate(row);
       unitrate.calcQtChangeRate(row);
       
+      //add chenth 20181127 BHS 表体description经常跳回默认值，界面公式改成代码执行
       e.getBillCardPanel().getBillModel().execFormula(row, new String[]{"vbdef2->getcolvalue( bd_material,def1 ,pk_material ,pk_material );"
     	  ,"cc->getcolvalue( bd_material,def1 ,pk_material ,pk_material );"
       });
+      //add chenth end
     }
 
     // 6.表体默认值设置
