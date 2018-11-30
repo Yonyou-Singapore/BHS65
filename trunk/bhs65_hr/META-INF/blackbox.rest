@@ -3,4 +3,7 @@
 	<rest>
 		<resource classname="nc.pubitf.bhs.api.rest.BlackBoxApi"  exinfo=""/>
 	</rest>
+	<rest>
+		<resource classname="nc.pubitf.bhs.api.rest.LeaveApi"  exinfo=""/>
+	</rest>
 </module>

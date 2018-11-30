@@ -6,6 +6,11 @@
 		    <interface>nc.pubitf.bhs.api.IBlackBox</interface>
 		    <implementation>nc.impl.bhs.api.BlackBoxImpl</implementation>
 		</component>
+		<!--leave½Ó¿Ú-->
+		<component remote="true" tx="CMT" priority="0" singleton="true" supportAlias="true">
+		    <interface>nc.pubitf.bhs.api.ILeaveApply</interface>
+		    <implementation>nc.impl.bhs.api.LeaveApplyImpl</implementation>
+		</component>
 	</public>
 </module>
 
