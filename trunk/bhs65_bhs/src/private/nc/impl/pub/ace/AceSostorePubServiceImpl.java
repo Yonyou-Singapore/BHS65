@@ -192,7 +192,11 @@ public abstract class AceSostorePubServiceImpl {
 		}else if("Change ownership".equals(type)){
 			String newJoborderNo = hvo.getDef3();
 			String newCustomer = getNewOwnership(hvo.getDef2());
-
+			SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
+			for(SoStoreBVO bvo : bvos){
+				//RFID置空，重新生成
+				bvo.setDef10(null);
+			}
 			//先自动release
 			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, true);
 			//再自动inbound

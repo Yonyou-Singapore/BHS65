@@ -315,6 +315,8 @@ public class StoreSettleUtil {
 				if (isMonth2Day(durationUnit)) {
 					settlePrice = month2DayPrice(settlePrice, durationUnit,
 							endDate);
+					//add chenth 20181130 3位小数
+					settlePrice = settlePrice.setScale(3, UFDouble.ROUND_HALF_UP);
 					storageBvo.setNqtorigprice(settlePrice);
 				}
 				
@@ -370,8 +372,8 @@ public class StoreSettleUtil {
 					// 每个duration租赁的空间汇总
 					settleQty = settleQty.add(durationSettleQty);
 					
-					//结算金额
-					amount = durationSettleQty.multiply(settlePrice);
+					//结算金额 updte chenth 20181130 两位小数，舍位后再相加
+					amount = durationSettleQty.multiply(settlePrice).setScale(2, UFDouble.ROUND_HALF_UP);
 					settleAmt = settleAmt.add(amount);
 
 					if(existInOrOut){
@@ -388,8 +390,9 @@ public class StoreSettleUtil {
 				appendTotalDesc(newDescription, settleQty, settlePrice, settleAmt);
 			}
 
-			storageBvo.setNastnum(settleQty);
-//			storageBvo.setNastnum(UFDouble.ONE_DBL);
+//			storageBvo.setNastnum(settleQty);
+			storageBvo.setNastnum(UFDouble.ONE_DBL);
+			storageBvo.setNqtorigprice(settleAmt);
 			storageBvo.setNorigmny(settleAmt);
 			storageBvo.setVbdef2(newDescription.toString());
 			returnVos.add(storageBvo);
@@ -577,6 +580,7 @@ public class StoreSettleUtil {
 		} else if (isByPerSqft(durationUnit)) {
 			space = sqft;
 		}
+		
 		return space;
 	}
 
@@ -1060,8 +1064,8 @@ public class StoreSettleUtil {
 		
 		
 		//结算金额
-		UFDouble amount = space.multiply(settlePrice);
-		newDescription.append(" * $").append(decimalFormat.format(settlePrice)).append( " = $").append(decimalFormat.format(amount));
+		UFDouble amount = space.multiply(settlePrice).setScale(2, UFDouble.ROUND_HALF_UP);
+		newDescription.append(" * $").append(decimalFormat.format(settlePrice)).append( " = $").append(amount);
 		
 		if(isByPerDay(durationUnit) && duration == 1){
 			int days = UFDate.getDaysBetween(durationBeginDate, durationEndDate) + 1;
