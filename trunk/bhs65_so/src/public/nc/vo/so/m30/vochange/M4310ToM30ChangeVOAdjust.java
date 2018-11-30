@@ -1,5 +1,7 @@
 package nc.vo.so.m30.vochange;
 
+import java.util.Arrays;
+
 import nc.vo.scmpub.res.billtype.SOBillType;
 import nc.vo.so.m30.entity.SaleOrderBVO;
 import nc.vo.so.m30.entity.SaleOrderVO;
@@ -17,7 +19,6 @@ import nc.vo.so.pub.rule.SOExchangeRateRule;
 import nc.vo.so.pub.rule.SOGlobalExchangeRate;
 import nc.vo.so.pub.rule.SOGroupExchangeRate;
 import nc.vo.so.pub.rule.SOProfitCenterValueRule;
-import nc.vo.so.pub.rule.SOTaxInfoRule;
 import nc.vo.so.pub.rule.SaleOrgRelationRule;
 
 public class M4310ToM30ChangeVOAdjust extends AbstractSaleOrderChangeVOAdjust {
@@ -88,6 +89,13 @@ public class M4310ToM30ChangeVOAdjust extends AbstractSaleOrderChangeVOAdjust {
       
       // 取默认物流组织要放在取仓库后做
       orgrelrule.setTrafficOrg(rows);
+      
+      // add chenth 20181128 按行号排序
+      SaleOrderBVO[] bvos = billvo.getChildrenVO(); 
+      SaleOrderBCompare compare = new SaleOrderBCompare();
+      Arrays.sort(bvos, compare);
+      billvo.setChildrenVO(bvos);
+      //add end
     }
   }
 
