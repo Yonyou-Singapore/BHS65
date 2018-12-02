@@ -33,6 +33,42 @@ public class SaleInvoiceDeleteAction extends DeleteScriptAction {
   @Override
   protected void fillUpContext(PFlowContext context) {
     super.fillUpContext(context);
+    
+  //add chenth 20181130  删除留痕
+    Object[] uiobj = this.model.getSelectedOperaDatas();
+    int length = uiobj.length;
+    SaleInvoiceVO[] uicomvos = new SaleInvoiceVO[length];
+    for (int i = 0; i < length; i++) {
+      uicomvos[i] = (SaleInvoiceVO) uiobj[i];
+    }
+  	String sReason =
+  	        (String) MessageDialog
+	            .showInputDlg(this.getModel().getContext().getEntranceUI(),
+	                "Reason for deletion",
+	                "Please enter the reason for the deletion.",
+	                null, 120);
+    
+    while(sReason != null && "".equals(sReason.trim())){
+    	MessageDialog.showErrorDlg(this.getModel().getContext().getEntranceUI(), "Error", "Please enter the reason for the deletion.");
+    	sReason =
+      	        (String) MessageDialog
+      	            .showInputDlg(this.getModel().getContext().getEntranceUI(),
+      	                "Reason for deletion",
+      	                "Please enter the reason for the deletion.",
+      	                null, 120);
+    }
+    // 取消或关闭原因框返回的都为null,不做关闭/打开处理
+    if (sReason == null) {
+    	this.getFlowContext().setBillVos(null);
+    	return;
+    }
+    
+    for(SaleInvoiceVO vo : uicomvos){
+    	vo.getParentVO().setVnote((vo.getParentVO().getVnote() == null ? "" : vo.getParentVO().getVnote()) +sReason);
+    }
+    this.getFlowContext().setBillVos(uicomvos);
+    //add end
+    
     // 处理发票合并显示
     this.processCombinShow();
   }
@@ -115,39 +151,6 @@ public class SaleInvoiceDeleteAction extends DeleteScriptAction {
       SaleInvoiceCombin combin = new SaleInvoiceCombin();
       SaleInvoiceVO[] detainvo =
           combin.splitNoEditSaleInvoice(uicomvos, cachevo.getCombinRela());
-      
-      	//add chenth 20181130  删除留痕
-      	String sReason =
-      	        (String) MessageDialog
-  	            .showInputDlg(this.getModel().getContext().getEntranceUI(),
-  	                "Reason for deletion",
-  	                "Please enter the reason for the deletion.",
-  	                null, 120);
-	    
-//	    if("".equals(sReason)){
-//	    	MessageDialog.showErrorDlg(this.getModel().getContext().getEntranceUI(), "Error", "Please input the reason u delete.");
-//	    	this.getFlowContext().setBillVos(null);
-//	    	return;
-//	    }
-	    while(sReason != null && "".equals(sReason.trim())){
-	    	MessageDialog.showErrorDlg(this.getModel().getContext().getEntranceUI(), "Error", "Please enter the reason for the deletion.");
-	    	sReason =
-	      	        (String) MessageDialog
-	      	            .showInputDlg(this.getModel().getContext().getEntranceUI(),
-	      	                "Reason for deletion",
-	      	                "Please enter the reason for the deletion.",
-	      	                null, 120);
-	    }
-	    // 取消或关闭原因框返回的都为null,不做关闭/打开处理
-	    if (sReason == null) {
-	    	this.getFlowContext().setBillVos(null);
-	    	return;
-	    }
-	    
-	    for(SaleInvoiceVO vo : detainvo){
-	    	vo.getParentVO().setVnote((vo.getParentVO().getVnote() == null ? "" : vo.getParentVO().getVnote()) +sReason);
-	    }
-	    //add end
       
       this.getFlowContext().setBillVos(detainvo);
     }
