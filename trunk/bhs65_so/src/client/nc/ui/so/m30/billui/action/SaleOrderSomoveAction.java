@@ -1,15 +1,18 @@
 package nc.ui.so.m30.billui.action;
 
+import java.util.Collection;
 import java.util.List;
 
 import nc.bs.framework.common.NCLocator;
 import nc.itf.pubapp.pub.smart.IBillQueryService;
 import nc.itf.uap.IUAPQueryBS;
+import nc.jdbc.framework.processor.BeanListProcessor;
 import nc.jdbc.framework.processor.ColumnListProcessor;
-import nc.md.persist.framework.MDPersistenceService;
 import nc.vo.bhs.somove.AggSoMoveHVO;
+import nc.vo.bhs.somove.SoMoveBVO;
+import nc.vo.bhs.somove.SoMoveBlackBoxVO;
 import nc.vo.bhs.somove.SoMoveHVO;
-import nc.vo.bhs.sostore.AggSoStoreHVO;
+import nc.vo.bhs.sostore.SoStoreBVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.VOStatus;
 import nc.vo.pub.lang.UFDate;
@@ -54,6 +57,13 @@ public class SaleOrderSomoveAction extends SaleOrderBaseAction {
 			vo.setVbillstatus(-1);
 			
 			updateHeadVOValue(vo, headvo);
+			
+			//add chenth 20181202 从OZ Survey读取需求信息
+			SoMoveBVO[] moveDetail = getMoveDetail(vo, headvo);
+			aggvo.setChildren(SoMoveBVO.class, moveDetail);
+			SoMoveBlackBoxVO[] skillDetail = getSkillDetail(vo, headvo);
+			aggvo.setChildren(SoMoveBlackBoxVO.class, skillDetail);
+			//add end
 			
 			aggvo.setParentVO(vo);
 			aggvos = new AggSoMoveHVO[1];
@@ -119,6 +129,46 @@ public class SaleOrderSomoveAction extends SaleOrderBaseAction {
 		hvo.setKcrate(headvo.getAttributeValue("kcrate") == null?"":headvo.getAttributeValue("kcrate").toString());
 		
 	}
+	
+	
+
+	private SoMoveBVO[] getMoveDetail(SoMoveHVO vo, SaleOrderHVO headvo) throws BusinessException {
+		Object surveyno = headvo.getAttributeValue("surveyno");
+		if(surveyno == null){
+			return null;
+		}
+		String sql = "select description,length as vlengthcm,width as vwidthcm,height as vheightcm,weight as vgrossweigthkg from oz_survey_machines where survey_no = '" + surveyno.toString()+"' order by id ";
+		Collection<SoMoveBVO> list = (Collection<SoMoveBVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).executeQuery(sql,new BeanListProcessor(SoMoveBVO.class));
+		if(list == null || list.size() < 1){
+			return null;
+		}
+		SoMoveBVO[] bvos = list.toArray(new SoMoveBVO[list.size()]);
+		for (int i = 0; i < bvos.length; i++){
+			bvos[i].setRowno("" + (i * 10 + 10));
+			bvos[i].setSno(""+(i+1));
+	    }
+		return bvos;
+	}
+	
+
+
+	private SoMoveBlackBoxVO[] getSkillDetail(SoMoveHVO vo, SaleOrderHVO headvo) throws BusinessException {
+		Object surveyno = headvo.getAttributeValue("surveyno");
+		if(surveyno == null){
+			return null;
+		}
+		String sql = "select d.pk_defdoc as skill, qty as numberofpeople, case when d.pk_defdoc is null then skill_name else '' end as def2 from oz_survey_skills b left join bd_defdoc d on b.skill_name = d.name where b.survey_no = '" + surveyno.toString()+"' order by d.code  ";
+		Collection<SoMoveBlackBoxVO> list = (Collection<SoMoveBlackBoxVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).executeQuery(sql,new BeanListProcessor(SoMoveBlackBoxVO.class));
+		if(list == null || list.size() < 1){
+			return null;
+		}
+		SoMoveBlackBoxVO[] bvos = list.toArray(new SoMoveBlackBoxVO[list.size()]);
+		for (int i = 0; i < bvos.length; i++){
+			bvos[i].setRowno("" + (i * 10 + 10));
+	    }
+		return bvos;
+	}
+	
 	
 	
 }

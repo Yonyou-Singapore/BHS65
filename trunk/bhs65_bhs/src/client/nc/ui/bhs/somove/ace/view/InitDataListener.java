@@ -1,10 +1,14 @@
 package nc.ui.bhs.somove.ace.view;
 
 import nc.funcnode.ui.FuncletInitData;
+import nc.ui.pub.bill.BillModel;
 import nc.ui.pubapp.uif2app.model.DefaultFuncNodeInitDataListener;
 import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
 import nc.ui.uif2.UIState;
 import nc.vo.bhs.somove.AggSoMoveHVO;
+import nc.vo.bhs.somove.SoMoveBVO;
+import nc.vo.bhs.somove.SoMoveBlackBoxVO;
+import nc.vo.pub.CircularlyAccessibleValueObject;
 
 /**
  * Move单据打开初始化。
@@ -70,6 +74,16 @@ public class InitDataListener extends DefaultFuncNodeInitDataListener{
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("crate2", aggvos[0].getParentVO().getCrate2());
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("crate3", aggvos[0].getParentVO().getCrate3());
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().setHeadItem("kcrate", aggvos[0].getParentVO().getKcrate());
+				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().execHeadLoadFormulas();
+				
+				//带入表体
+				BillModel move = ((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().getBillModel("id_somove_b");
+				move.setBodyDataVO((CircularlyAccessibleValueObject[]) aggvos[0].getChildren(SoMoveBVO.class));
+				
+				BillModel skill = ((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().getBillModel("blackbox");
+				skill.setBodyDataVO((CircularlyAccessibleValueObject[]) aggvos[0].getChildren(SoMoveBlackBoxVO.class));
+				skill.loadLoadRelationItemValue();
+				
 				((ShowUpableBillForm)getAutoShowUpComponent()).getBillCardPanel().execHeadLoadFormulas();
 			}else{
 				this.getModel().initModel(aggvos);
