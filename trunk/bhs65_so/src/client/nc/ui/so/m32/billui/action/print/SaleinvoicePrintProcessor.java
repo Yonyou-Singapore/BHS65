@@ -11,6 +11,7 @@ import nc.bs.framework.common.NCLocator;
 import nc.itf.uap.IUAPQueryBS;
 import nc.ui.pub.print.version55.util.PTStringUtil;
 import nc.ui.pubapp.pub.power.PowerCheckUtils;
+import nc.ui.so.m32.billui.model.SaleInvoiceManageModel;
 import nc.ui.uif2.model.AbstractAppModel;
 import nc.vo.bd.defdoc.DefdocVO;
 import nc.vo.org.util.CloneUtil;
@@ -19,6 +20,7 @@ import nc.vo.pub.BusinessException;
 import nc.vo.pubapp.pub.power.PowerActionEnum;
 import nc.vo.scmpub.res.billtype.SOBillType;
 import nc.vo.so.m32.entity.SaleInvoiceBVO;
+import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.pub.precision.SoVoPrecionScale;
 
@@ -95,12 +97,21 @@ public class SaleinvoicePrintProcessor
 
 		int snno = 1;
 		
+		Object[] oridatas = ((SaleInvoiceManageModel)this.getModel()).getSelectedOperaDatas();
 		// 转化为销售发票vo
 		SaleInvoiceVO[] vos = new SaleInvoiceVO[datas.length];
 		for (int i = 0; i < datas.length; i++) {
 			snno = 1;
-			
 			vos[i] = (SaleInvoiceVO) CloneUtil.deepClone(((SaleInvoiceVO) datas[i]));
+			//add chenth 20181204 打印时要重新取下界面的数据，要不然获取的是拆分后的数据
+			SaleInvoiceHVO headvo = vos[i].getParentVO();
+			for(Object oridata : oridatas){
+				SaleInvoiceVO orivo = (SaleInvoiceVO)oridata;
+				if(headvo.getCsaleinvoiceid().equals(orivo.getParentVO().getCsaleinvoiceid())){
+					vos[i] =(SaleInvoiceVO) CloneUtil.deepClone(orivo);
+				}
+			}
+			//add end
 
 			SaleInvoiceBVO[] bvos = vos[i].getChildrenVO();
 			if (bvos == null || bvos.length < 1)
@@ -129,8 +140,10 @@ public class SaleinvoicePrintProcessor
 				// 没有超一页
 				if (totalWordRows <= perPageMaxRows) {
 					bvoLst.add(bvo);
-					//add 少过半页  处理下继续能打下一行 chenth 20181025
-					if(totalWordRows<perPageMaxRows/2){
+					//add 少过半页  处理下继续能打下一行 chenth 20181025 SI-181031-00517
+					if(//add chenth 20181204 第一页才处理  有些中间行也拆行了 SI-181130-00522
+							bvoRowNo == 0 && 
+							totalWordRows<perPageMaxRows/2){
 						perPageMaxRows = perPageMaxRows - totalWordRows;
 					}
 					//add end
