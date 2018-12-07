@@ -45,7 +45,7 @@ public class SaleInvoiceDeleteAction extends DeleteScriptAction {
   	        (String) MessageDialog
 	            .showInputDlg(this.getModel().getContext().getEntranceUI(),
 	                "Reason for deletion",
-	                "Please enter the reason for the deletion.",
+	                "Deleted invoice please print the archive. And please enter the reason for the deletion.",
 	                null, 120);
     
     while(sReason != null && "".equals(sReason.trim())){
@@ -54,7 +54,7 @@ public class SaleInvoiceDeleteAction extends DeleteScriptAction {
       	        (String) MessageDialog
       	            .showInputDlg(this.getModel().getContext().getEntranceUI(),
       	                "Reason for deletion",
-      	                "Please enter the reason for the deletion.",
+      	                "Deleted invoice please print the archive. And please enter the reason for the deletion.",
       	                null, 120);
     }
     // 取消或关闭原因框返回的都为null,不做关闭/打开处理
