@@ -187,8 +187,8 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 		PKLock lock = PKLock.getInstance();
 		
 		try{
-
-			boolean acquired = lock.acquireBatchLock(lockables, PubEnv.getPk_user(), null);
+			//modify xw 审批时总报数据被锁住，未查找到此原因，故改为只有一条数据时不加锁  20171113
+			boolean acquired = vos.length==1?true:lock.acquireBatchLock(lockables, PubEnv.getPk_user(), null);
 			if(!acquired)
 				throw new BusinessException(ResHelper.getString("6017leave","06017leave0253")
 						/*@res "数据正被他人修改或他人正在进行假期计算，请稍候再试!"*/);
@@ -249,7 +249,9 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 			return vos;
 		}
 		finally{
-			lock.releaseBatchLock(lockables, PubEnv.getPk_user(), null);
+			if(vos.length!=1){
+				lock.releaseBatchLock(lockables, PubEnv.getPk_user(), null);
+			}
 		}
 	}
 
@@ -2045,7 +2047,7 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 		}
 		if(!containsHis)
 			para.addParam(latestVO.getPk_org());
-		String order = LeaveBalanceVO.CURMONTH+","+LeaveBalanceVO.PK_PSNORG+","+LeaveBalanceVO.LEAVEINDEX;
+		String order = LeaveBalanceVO.CURYEAR+","+LeaveBalanceVO.CURMONTH+","+LeaveBalanceVO.PK_PSNORG+","+LeaveBalanceVO.LEAVEINDEX;
 		LeaveBalanceVO[] vos = (LeaveBalanceVO[]) CommonUtils.toArray(LeaveBalanceVO.class, new BaseDAO().
 				retrieveByClause(LeaveBalanceVO.class, cond, order, para));
 		if(ArrayUtils.isEmpty(vos))
@@ -2178,6 +2180,11 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 		IPeriodQueryService periodQuery = NCLocator.getInstance().lookup(IPeriodQueryService.class);
 		UFLiteralDate enddate = newJobvo.getBegindate();
 		PeriodVO oldPeriod = periodQuery.queryByDate(oldhrorg, enddate);
+		//解决跨组织单据调配无法执行 start
+		if(oldPeriod == null){//20170228
+			return;
+		}
+		//end
 		PeriodVO newPeriod = periodQuery.queryByDate(newhrorg, newJobvo.getBegindate());
 		//找出共同引用全局或集团的类别的进行处理转移结余时长
 		Map<String, LeaveTypeCopyVO> oldMap = CommonUtils.toMap(LeaveTypeCopyVO.PK_TIMEITEM, oldTypes);
