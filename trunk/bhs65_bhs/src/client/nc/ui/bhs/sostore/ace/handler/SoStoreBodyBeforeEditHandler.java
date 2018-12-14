@@ -12,10 +12,8 @@ import nc.ui.pubapp.uif2app.event.IAppEventHandler;
 import nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent;
 import nc.ui.so.pub.keyvalue.CardKeyValue;
 import nc.vo.bd.cust.CustomerVO;
-import nc.vo.bhs.pack.SoOrderPackBVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.so.pub.keyvalue.IKeyValue;
-import nc.vo.so.salequotation.entity.SalequotationTermVO;
 
 public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBeforeEditEvent> {
 	
