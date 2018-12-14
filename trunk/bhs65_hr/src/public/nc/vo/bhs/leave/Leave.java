@@ -1,5 +1,7 @@
 package nc.vo.bhs.leave;
 
+import nc.vo.pub.lang.UFDouble;
+
 public class Leave {
 	public String leaveapplyid;
 	public String employeecode;
@@ -7,6 +9,7 @@ public class Leave {
 	public long begintime;
 	public long endtime;
 	public String remarks;
+	private float leavedays;
 	
 	public String getEmployeecode() {
 		return employeecode;
@@ -43,5 +46,11 @@ public class Leave {
 	}
 	public void setLeaveapplyid(String leaveapplyid) {
 		this.leaveapplyid = leaveapplyid;
+	}
+	public float getLeavedays() {
+		return leavedays;
+	}
+	public void setLeavedays(float leavedays) {
+		this.leavedays = leavedays;
 	}
 }

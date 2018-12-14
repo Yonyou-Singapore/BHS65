@@ -4,6 +4,7 @@ import java.util.TimeZone;
 
 import nc.bs.dao.BaseDAO;
 import nc.bs.framework.common.NCLocator;
+import nc.itf.ta.ILeaveBalanceManageService;
 import nc.itf.ta.ILeaveRegisterInfoDisplayer;
 import nc.itf.ta.ILeaveRegisterManageMaintain;
 import nc.itf.ta.ILeaveRegisterQueryMaintain;
@@ -14,30 +15,37 @@ import nc.vo.bhs.leave.EmployeeVO;
 import nc.vo.bhs.leave.Leave;
 import nc.vo.bhs.leave.LeaveTypeVO;
 import nc.vo.pub.BusinessException;
+import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pub.lang.UFDateTime;
+import nc.vo.pub.lang.UFDouble;
 import nc.vo.pub.lang.UFLiteralDate;
-import nc.vo.ta.leave.LeaveCheckResult;
 import nc.vo.ta.leave.LeaveRegVO;
-import nc.vo.ta.leave.SplitBillResult;
 
 public class LeaveApplyImpl implements ILeaveApply {
 
 	@Override
 	public boolean leaveApply(Leave leaveVo) throws BusinessException {
 		LeaveRegVO vo = translateToLeaveRegVO(leaveVo);
-		ILeaveRegisterQueryMaintain maintain = NCLocator.getInstance()
-				.lookup(ILeaveRegisterQueryMaintain.class);
-		LeaveCheckResult<LeaveRegVO> checkResult = maintain
-				.checkWhenSave(vo);
-
-		SplitBillResult<LeaveRegVO> splitResult = checkResult
-				.getSplitResult();
-		LeaveRegVO[] addResult = (LeaveRegVO[]) getManageMaintain()
-				.insertData(splitResult);
-
-		for (LeaveRegVO addVO : addResult) {
-			directlyAdd(addVO);
-		}
+//		ILeaveRegisterQueryMaintain maintain = NCLocator.getInstance()
+//				.lookup(ILeaveRegisterQueryMaintain.class);
+//		LeaveCheckResult<LeaveRegVO> checkResult = maintain
+//				.checkWhenSave(vo);
+//
+//		SplitBillResult<LeaveRegVO> splitResult = checkResult
+//				.getSplitResult();
+//		LeaveRegVO[] addResult = (LeaveRegVO[]) getManageMaintain()
+//				.insertData(splitResult);
+//
+//		for (LeaveRegVO addVO : addResult) {
+//			directlyAdd(addVO);
+//		}
+		LeaveRegVO addVO = getManageMaintain().insertData(vo);
+		directlyAdd(addVO);
+		
+		//假期计算
+		ILeaveBalanceManageService balanceService = NCLocator.getInstance().lookup(ILeaveBalanceManageService.class);
+		balanceService.queryAndCalLeaveBalanceVO(vo.getPk_org(), new Object[]{vo});
+		
 		return true;
 	}
 
@@ -74,11 +82,19 @@ public class LeaveApplyImpl implements ILeaveApply {
 		vo.setLeaveendtime(new UFDateTime(leaveVo.getEndtime()));
 		vo.setLeavebegindate(new UFLiteralDate(leaveVo.getBegintime()));
 		vo.setLeaveenddate(new UFLiteralDate(leaveVo.getEndtime()));
-
-		ILeaveRegisterInfoDisplayer displayer = NCLocator.getInstance().lookup(
-				ILeaveRegisterInfoDisplayer.class);
-		vo = displayer.calculate(vo, TimeZone.getDefault());
-
+		
+		//update chenth 20181213 BHS 支持GPS直接传入休假时长
+		vo.setLeaveyear(""+vo.getLeavebegintime().getYear());
+		vo.setLeavemonth(""+vo.getLeavebegintime().getMonth());
+		vo.setIslactation(UFBoolean.FALSE);
+		if(leaveVo.getLeavedays() == 0){
+			ILeaveRegisterInfoDisplayer displayer = NCLocator.getInstance().lookup(ILeaveRegisterInfoDisplayer.class);
+			vo = displayer.calculate(vo, TimeZone.getDefault());
+		}else{
+			vo.setLeavehour(new UFDouble(leaveVo.getLeavedays()));
+		}
+		//add end
+		
 		return vo;
 	}
 

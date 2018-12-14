@@ -560,7 +560,21 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 			if(!ArrayUtils.isEmpty(leavebVOs))
 				CollectionUtils.addAll(leaveVOList, leavebVOs);
 			LeaveCommonVO[] leaveVOs = CollectionUtils.isEmpty(leaveVOList)?null:leaveVOList.toArray(new LeaveCommonVO[0]);
-			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveVOs);
+			
+			//update chenth 20181213 BHS 如果是GPS传进来的休假申请，不重新计算休假时长了，是多少天就是多少天
+//			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveVOs);
+			List<LeaveCommonVO> leaveLst = new ArrayList<LeaveCommonVO>();
+			for(LeaveCommonVO vo : leaveVOs){
+				if(vo instanceof LeaveRegVO
+						&& ((LeaveRegVO) vo).getBillsource() == 2){
+					continue;
+				}else{
+					leaveLst.add(vo);
+				}
+			}
+			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveLst.toArray(new LeaveRegVO[leaveLst.size()]));
+			//update chenth end
+			
 //			BillProcessHelperAtServer.calculateLengths(pk_org, BillMutexRule.BILL_LEAVE, leaveVOs, timeRuleVO, billMutexRule, typeMap, aggShiftMap, null);
 //			Map<String, LeaveRegVO[]> regMap = CommonUtils.group2ArrayByField(LeaveRegVO.PK_PSNORG, regVOs);
 //			Map<String, LeavebVO[]> leavebMap = CommonUtils.group2ArrayByField(LeavebVO.PK_PSNORG, leavebVOs);
