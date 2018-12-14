@@ -208,12 +208,9 @@ public abstract class AceSostorePubServiceImpl {
 
 	private void exportOutboundExcel(AggSoStoreHVO aggVO, String jobOrderNo,
 			String customer, Map<String, String> itsparaMap, boolean isAutoRelease) throws BusinessException {
-		String[] titleArry = null;
+		String[] titleArry = new String[] { "AssetNo", "Qty", "Release Date"};
 		if(isAutoRelease){
 			jobOrderNo = "AR_" + jobOrderNo;
-			titleArry = new String[] { "AssetNo", "Qty", "Release Date"};
-		}else{
-			titleArry = new String[] { "AssetNo", "Qty"};
 		}
 		
 		String outpath = itsparaMap.get("PATH_OUTBOUND");
@@ -234,13 +231,10 @@ public abstract class AceSostorePubServiceImpl {
 		
 		for(SoStoreBVO bvo : bvos){
 			if(bvo.getDef3() != null){
-				String[] record = new String[2];
-				if(isAutoRelease){
-					record = new String[3];
-					record[2] = releasedate;
-				}				
+				String[] record = new String[3];
 				record[0] = bvo.getDef3();
 				record[1] = bvo.getDef4();
+				record[2] = releasedate;
 				
 				recordList.add(record);
 			}
@@ -293,9 +287,8 @@ public abstract class AceSostorePubServiceImpl {
 				String snno = bvo.getDef11()==null? "" : bvo.getDef11();
 				String description = bvo.getDef2()==null? "" : bvo.getDef2();
 				//add chenth 20181128 ∂∫∫≈¥¶¿Ì
-				description = description.replaceAll(",", " ");
+				description = description.replaceAll(",", " ").replaceAll("\n", " ");
 				//description = description + "  " + toolid + "  " + snno;
-				
 				String[] record = new String[titleArry.length];
 				record[0] = customer;//Customer
 				record[1] = hvo.getSuppliername()==null? "" : hvo.getSuppliername();//Manufacturer
@@ -310,7 +303,7 @@ public abstract class AceSostorePubServiceImpl {
 				record[10] = bvo.getDef9()==null? "" : bvo.getDef9();//Weight
 				record[11] = hvo.getWarehousezone()==null? "Virtual Location" : hvo.getWarehousezone();//Location
 				record[12] = "";//Person In Charge
-				record[13] = bvo.getDef4();//Qty
+				record[13] = bvo.getDef4()==null? "1" : bvo.getDef4();;//Qty
 				record[14] = "";//hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
 				record[15] = "";//hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
 				record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks

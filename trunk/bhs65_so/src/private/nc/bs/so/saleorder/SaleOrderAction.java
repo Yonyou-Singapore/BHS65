@@ -32,7 +32,8 @@ public class SaleOrderAction {
 		updateBuildStatus(csaleorderid, dapprovedate, cuserid, true);
 		updatePackStatus(csaleorderid, dapprovedate, cuserid, true);
 		updateMoveStatus(csaleorderid, dapprovedate, cuserid, true);
-		updateStoreStatus(csaleorderid, dapprovedate, cuserid, true);
+		//delete chenth 20181214 store的job 不自动审批
+//		updateStoreStatus(csaleorderid, dapprovedate, cuserid, true);
 		updateStruckStatus(csaleorderid, dapprovedate, cuserid, true);
 		
 	}
@@ -50,7 +51,8 @@ public class SaleOrderAction {
 		updateBuildStatus(csaleorderid, null, null, false);
 		updatePackStatus(csaleorderid, null, null, false);
 		updateMoveStatus(csaleorderid, null, null, false);
-		updateStoreStatus(csaleorderid, null, null, false);
+		//delete chenth 20181214 store的job 不自动审批
+//		updateStoreStatus(csaleorderid, null, null, false);
 		updateStruckStatus(csaleorderid, null, null, false);
 		
 	}
