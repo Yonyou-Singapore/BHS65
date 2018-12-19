@@ -182,7 +182,13 @@ public abstract class AceSostorePubServiceImpl {
 		if("INBOUND".equals(type)){
 			exportInboundExcel(aggVO, jobOrderNo, customer, itsparaMap);
 		}else if("OUTBOUND".equals(type)){
-			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, false);
+			boolean isAutoRelease = false;
+			String strisAutoRelease = itsparaMap.get("isAutoRelease");
+			if(strisAutoRelease != null 
+					&& "Y".equals(strisAutoRelease)){
+				isAutoRelease = true;
+			}
+			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, isAutoRelease);
 			
 		}else if("Inspection".equals(type)){
 			//ÏÈ×Ô¶¯release
@@ -225,7 +231,12 @@ public abstract class AceSostorePubServiceImpl {
 		}
 		List<String[]> recordList = new ArrayList<String[]>();
 		
-		UFDate date = hvo.getDbilldate().getDateBefore(1);
+		UFDate date = hvo.getDbilldate();
+		String type = hvo.getDef1();
+		if("Inspection".equals(type) 
+				|| "Change ownership".equals(type)){
+			date = hvo.getDbilldate().getDateBefore(1);
+		}
 		DateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
 		String releasedate = date.toString(TimeZone.getDefault(), df);
 		
