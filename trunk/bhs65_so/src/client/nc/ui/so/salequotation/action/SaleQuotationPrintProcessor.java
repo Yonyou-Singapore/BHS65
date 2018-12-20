@@ -14,6 +14,7 @@ import nc.vo.pub.lang.UFDouble;
 import nc.vo.so.salequotation.entity.AggSalequotationHVO;
 import nc.vo.so.salequotation.entity.SalequotationBVO;
 import nc.vo.trade.voutils.SafeCompute;
+import nc.vo.util.CloneUtil;
 
 public class SaleQuotationPrintProcessor implements IBeforePrintDataProcess {
 
@@ -30,9 +31,9 @@ public class SaleQuotationPrintProcessor implements IBeforePrintDataProcess {
 	public Object[] processData(Object[] datas) {
 		AggSalequotationHVO[] vos = new AggSalequotationHVO[datas.length];
 		for (int i = 0; i < datas.length; i++) {
-			//vos[i] = (AggSalequotationHVO) datas[i];
-			vos[i] = (AggSalequotationHVO) ((AggSalequotationHVO) datas[i]).clone();
-
+//			vos[i] = (AggSalequotationHVO) datas[i];
+//			vos[i] = (AggSalequotationHVO) ((AggSalequotationHVO) datas[i]).clone();
+			vos[i] = (AggSalequotationHVO) CloneUtil.deepClone(((AggSalequotationHVO) datas[i]));
 			SalequotationBVO[] bvos = vos[i].getSalequotationBVO();
 			if (bvos == null || bvos.length < 1)
 				continue;
