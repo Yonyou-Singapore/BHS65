@@ -157,7 +157,7 @@ public class SaleOrderSomoveAction extends SaleOrderBaseAction {
 		if(surveyno == null){
 			return null;
 		}
-		String sql = "select d.pk_defdoc as skill, qty as numberofpeople, case when d.pk_defdoc is null then skill_name else '' end as def2 from oz_survey_skills b left join bd_defdoc d on b.skill_name = d.name where b.survey_no = '" + surveyno.toString()+"' order by d.code  ";
+		String sql = "select d.pk_defdoc as skill, qty as numberofpeople, case when d.pk_defdoc is null then skill_name else '' end as def2 from oz_survey_skills b left join bd_defdoc d on (b.skill_name = d.name and d.pk_defdoclist='1001V8100000000026SV') where b.survey_no = '" + surveyno.toString()+"' order by d.code  ";
 		Collection<SoMoveBlackBoxVO> list = (Collection<SoMoveBlackBoxVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).executeQuery(sql,new BeanListProcessor(SoMoveBlackBoxVO.class));
 		if(list == null || list.size() < 1){
 			return null;
