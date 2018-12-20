@@ -14,7 +14,7 @@ public class SoStoreRefModel extends AbstractRefModel {
 		setTableName("v_bhs_storejob");
 		setFieldCode(new String[] {
 				"custcode",	"custname", "toolidlid", "micapno"
-				, "sono","sodate", "jobno", "jobdate"
+				, "sono","sodate"
 				, "pono","quotationno", "machinemodel",	"machinesubmodel"
 		});
 		setFieldName(new String[] {
@@ -22,14 +22,14 @@ public class SoStoreRefModel extends AbstractRefModel {
 				"Customer Name",
 				"Tool ID",
 				"Micap No.",
-				"SO No.", "SO Date", "Job Order No.","Job Date"
+				"SO No.", "SO Date"
 				, "Po No.", "Quotation No.",
 				"Model", "Sub Model",
 		});
 		setHiddenFieldCode(new String[] {
-				"jobid"
+				"csaleorderid"
 		});
-		setPkFieldCode("jobid");
+		setPkFieldCode("csaleorderid");
 		setRefCodeField("custcode");
 		setRefNameField("custname");
 		setDefaultFieldCount(getFieldName().length);

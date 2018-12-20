@@ -35,6 +35,7 @@ import nc.vo.pub.lang.UFDate;
 import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.trade.voutils.SafeCompute;
+import nc.vo.util.CloneUtil;
 
 import com.su.sa.job.utils.ExportExcel;
 
@@ -196,17 +197,57 @@ public abstract class AceSostorePubServiceImpl {
 			//再自动inbound
 			exportInboundExcel(aggVO, jobOrderNo, customer, itsparaMap);
 		}else if("Change ownership".equals(type)){
-			String newJoborderNo = hvo.getDef3();
-			String newCustomer = getNewOwnership(hvo.getDef2());
-			SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
-			for(SoStoreBVO bvo : bvos){
-				//RFID置空，重新生成
-				bvo.setDef10(null);
-			}
 			//先自动release
 			exportOutboundExcel(aggVO, jobOrderNo, customer, itsparaMap, true);
+			
+			//再生成新客户对应SO的joborder 
+			BaseDAO dao = new BaseDAO();
+			String newOwnerSaleorderId = hvo.getDef2();
+			String newOwnerSaleorderCode = hvo.getDef3();
+			String newOwnerJoborderNo = hvo.getDef4();
+			if(newOwnerJoborderNo != null){//先删除新owner的job
+				dao.executeUpdate("delete bhs_sostore_h where vbillno = '" + newOwnerJoborderNo + "' ");
+				dao.executeUpdate("delete bhs_sostore_b where billid in (select billid from bhs_sostore_h where vbillno = '" + newOwnerJoborderNo + "') ");
+			}
+			
+			AggSoStoreHVO newOwnerAggvo = new AggSoStoreHVO();
+			SoStoreHVO newOwnerHead = (SoStoreHVO) CloneUtil.deepClone(hvo);
+			newOwnerHead.setBillid(null);
+			newOwnerHead.setVbillno(newOwnerJoborderNo);
+			newOwnerHead.setCsaleorderid(newOwnerSaleorderId);
+			newOwnerHead.setCsaleordercode(newOwnerSaleorderCode);
+			newOwnerHead.setStatus(VOStatus.NEW);
+			newOwnerHead.setDef1("INBOUND");
+			newOwnerHead.setDef2(null);
+			newOwnerHead.setDef3(null);
+			
+			SoStoreBVO[] bvos = (SoStoreBVO[]) aggVO.getChildren(SoStoreBVO.class);
+			SoStoreBVO[] newOwnerBvos = new SoStoreBVO[bvos.length];
+			for(int i=0; i<bvos.length; i++){
+				newOwnerBvos[i] = (SoStoreBVO) CloneUtil.deepClone(bvos[i]);
+				newOwnerBvos[i].setBillid(null);
+				newOwnerBvos[i].setBillid_b(null);
+				//RFID置空，重新生成
+				newOwnerBvos[i].setDef10(null);
+				newOwnerBvos[i].setStatus(VOStatus.NEW);
+			}
+			newOwnerAggvo.setParent(newOwnerHead);
+			newOwnerAggvo.setChildrenVO(newOwnerBvos);
+			
+			// 新job存库 
+			AceSostoreInsertBP action = new AceSostoreInsertBP();
+			AggSoStoreHVO[] retvos = action.insert(new AggSoStoreHVO[]{newOwnerAggvo});
+			
+			// 更新原job上的new owner job id
+			newOwnerHead = retvos[0].getParentVO();
+			newOwnerJoborderNo = newOwnerHead.getVbillno();
+			hvo.setDef4(newOwnerJoborderNo);
+			dao.updateVO(hvo, new String[]{"def4"});
+			
+			
 			//再自动inbound
-			exportInboundExcel(aggVO, newJoborderNo, newCustomer, itsparaMap);
+			String newCustomer = getCustomerName(newOwnerHead);
+			exportInboundExcel(retvos[0], newOwnerJoborderNo, newCustomer, itsparaMap);
 		}
 		
 	}
