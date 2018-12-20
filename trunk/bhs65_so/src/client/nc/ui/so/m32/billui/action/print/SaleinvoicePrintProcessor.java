@@ -14,7 +14,6 @@ import nc.ui.pubapp.pub.power.PowerCheckUtils;
 import nc.ui.so.m32.billui.model.SaleInvoiceManageModel;
 import nc.ui.uif2.model.AbstractAppModel;
 import nc.vo.bd.defdoc.DefdocVO;
-import nc.vo.org.util.CloneUtil;
 import nc.vo.price.adjustprice.entity.AdjustPriceHVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pubapp.pub.power.PowerActionEnum;
@@ -23,6 +22,7 @@ import nc.vo.so.m32.entity.SaleInvoiceBVO;
 import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.pub.precision.SoVoPrecionScale;
+import nc.vo.util.CloneUtil;
 
 /**
  * 打印时处理打印精度
