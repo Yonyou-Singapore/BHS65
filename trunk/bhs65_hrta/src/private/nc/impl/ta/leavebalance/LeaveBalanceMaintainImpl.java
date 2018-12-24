@@ -572,7 +572,7 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 					leaveLst.add(vo);
 				}
 			}
-			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveLst.toArray(new LeaveRegVO[leaveLst.size()]));
+			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveLst.toArray(new LeaveCommonVO[leaveLst.size()]));
 			//update chenth end
 			
 //			BillProcessHelperAtServer.calculateLengths(pk_org, BillMutexRule.BILL_LEAVE, leaveVOs, timeRuleVO, billMutexRule, typeMap, aggShiftMap, null);
