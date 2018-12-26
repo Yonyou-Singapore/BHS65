@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 import nc.ui.pubapp.uif2app.actions.MetaDataBasedPrintAction.IBeforePrintDataProcess;
+import nc.ui.so.salequotation.model.SalequoModel;
 import nc.ui.so.salequotation.scale.SalequoScaleProcessor;
 import nc.ui.uif2.model.AbstractAppModel;
 import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pub.lang.UFDouble;
+import nc.vo.so.m32.entity.SaleInvoiceVO;
 import nc.vo.so.salequotation.entity.AggSalequotationHVO;
 import nc.vo.so.salequotation.entity.SalequotationBVO;
+import nc.vo.so.salequotation.entity.SalequotationHVO;
 import nc.vo.trade.voutils.SafeCompute;
 import nc.vo.util.CloneUtil;
 
@@ -29,11 +32,24 @@ public class SaleQuotationPrintProcessor implements IBeforePrintDataProcess {
 
 	@Override
 	public Object[] processData(Object[] datas) {
+		Object[] oridatas = ((SalequoModel)this.getModel()).getSelectedOperaDatas();
+		
 		AggSalequotationHVO[] vos = new AggSalequotationHVO[datas.length];
 		for (int i = 0; i < datas.length; i++) {
 //			vos[i] = (AggSalequotationHVO) datas[i];
 //			vos[i] = (AggSalequotationHVO) ((AggSalequotationHVO) datas[i]).clone();
 			vos[i] = (AggSalequotationHVO) CloneUtil.deepClone(((AggSalequotationHVO) datas[i]));
+			
+			//add chenth 20181204 打印时要重新取下界面的数据，要不然获取的是拆分后的数据
+			SalequotationHVO headvo = vos[i].getParentVO();
+			for(Object oridata : oridatas){
+				AggSalequotationHVO orivo = (AggSalequotationHVO)oridata;
+				if(headvo.getPk_salequotation().equals(orivo.getParentVO().getPk_salequotation())){
+					vos[i] =(AggSalequotationHVO) CloneUtil.deepClone(orivo);
+				}
+			}
+			//add end
+			
 			SalequotationBVO[] bvos = vos[i].getSalequotationBVO();
 			if (bvos == null || bvos.length < 1)
 				continue;
