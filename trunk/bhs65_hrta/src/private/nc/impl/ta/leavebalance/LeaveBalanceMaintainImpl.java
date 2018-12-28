@@ -563,16 +563,18 @@ public class LeaveBalanceMaintainImpl implements ILeaveBalanceManageMaintain,
 			
 			//update chenth 20181213 BHS 如果是GPS传进来的休假申请，不重新计算休假时长了，是多少天就是多少天
 //			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveVOs);
-			List<LeaveCommonVO> leaveLst = new ArrayList<LeaveCommonVO>();
-			for(LeaveCommonVO vo : leaveVOs){
-				if(vo instanceof LeaveRegVO
-						&& ((LeaveRegVO) vo).getBillsource() == 2){
-					continue;
-				}else{
-					leaveLst.add(vo);
+			if(leaveVOs != null){
+				List<LeaveCommonVO> leaveLst = new ArrayList<LeaveCommonVO>();
+				for(LeaveCommonVO vo : leaveVOs){
+					if(vo instanceof LeaveRegVO
+							&& ((LeaveRegVO) vo).getBillsource() == 2){
+						continue;
+					}else{
+						leaveLst.add(vo);
+					}
 				}
+				BillProcessHelperAtServer.calLeaveLength(pk_org, leaveLst.toArray(new LeaveCommonVO[leaveLst.size()]));
 			}
-			BillProcessHelperAtServer.calLeaveLength(pk_org, leaveLst.toArray(new LeaveCommonVO[leaveLst.size()]));
 			//update chenth end
 			
 //			BillProcessHelperAtServer.calculateLengths(pk_org, BillMutexRule.BILL_LEAVE, leaveVOs, timeRuleVO, billMutexRule, typeMap, aggShiftMap, null);
