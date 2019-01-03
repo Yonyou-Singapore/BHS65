@@ -18,6 +18,8 @@ import nc.pubitf.so.m30.so.m32.Rewrite32Para;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.so.m30.entity.SaleOrderVO;
 import nc.vo.so.m30.entity.SaleOrderViewVO;
+import nc.vo.so.m32.entity.SaleInvoiceBVO;
+import nc.vo.so.m32.entity.SaleInvoiceHVO;
 import nc.vo.so.m32.entity.SaleInvoiceVO;
 
 /**
@@ -61,39 +63,59 @@ public class PFRewrite30AfterRule implements IRule<BillRewriteObject> {
     BSContext.getInstance().removeSession(Rewrite32Para.class.getName());
     
     //add chenth 20181123 BHS 支持销售订单多次开票
+    //update chenth 20190103 BHS 考虑红冲发票的情况  
+    //TODO STORE类的订单的红冲发票没考虑，如果有红冲，会把原本开着的销售订单又关了。
+//    Set<String> orderids = new HashSet<String>();
+//    for (SaleOrderViewVO vo : rewriteViewVOs) {
+//    	orderids.add(vo.getHead().getCsaleorderid());
+//    }
+//    Set<String> invoiceids = new HashSet<String>();
+//    if(PfRewriteParam.DELETE_ACTION.equals(rewriteObjs[0].getRewriteParas()[0].getActionType())){
+//    	SaleInvoiceVO[] invoicevos = (SaleInvoiceVO[]) rewriteObjs[0].getOriginSrcBills();
+//    	for(SaleInvoiceVO vo : invoicevos){
+//    		invoiceids.add(vo.getParentVO().getCsaleinvoiceid());
+//    	}
+//    }
     Set<String> orderids = new HashSet<String>();
-    for (SaleOrderViewVO vo : rewriteViewVOs) {
-    	orderids.add(vo.getHead().getCsaleorderid());
-    }
     Set<String> invoiceids = new HashSet<String>();
-    if(PfRewriteParam.DELETE_ACTION.equals(rewriteObjs[0].getRewriteParas()[0].getActionType())){
-    	SaleInvoiceVO[] invoicevos = (SaleInvoiceVO[]) rewriteObjs[0].getOriginSrcBills();
-    	for(SaleInvoiceVO vo : invoicevos){
-    		invoiceids.add(vo.getParentVO().getCsaleinvoiceid());
-    	}
-    }
-    try {
-  		BaseDAO dao = new BaseDAO();
-  		int i = 0;
-  		StringBuffer sql = new StringBuffer("update so_saleorder set binvoicendflag='N' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
-  		sql.append(" and not exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder.csaleorderid and h.vdef20='Y' ");
-  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
-		i=dao.executeUpdate(sql.toString());
-		sql = new StringBuffer("update so_saleorder_b set bbinvoicendflag='N' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
-  		sql.append(" and not exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid  where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder_b.csaleorderid and h.vdef20='Y' ");
-  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
-  		i=dao.executeUpdate(sql.toString());
-		sql = new StringBuffer("update so_saleorder set binvoicendflag='Y' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
-  		sql.append(" and exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid  where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder.csaleorderid and h.vdef20='Y' ");
-  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
-  		i=dao.executeUpdate(sql.toString());
-		sql = new StringBuffer("update so_saleorder_b set bbinvoicendflag='Y' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
-  		sql.append(" and exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid  where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder_b.csaleorderid and h.vdef20='Y' ");
-  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
-  		i=dao.executeUpdate(sql.toString());
-	} catch (DAOException e) {
-		ExceptionUtils.wrappException(e);
-	}	
+	SaleInvoiceVO[] invoicevos = (SaleInvoiceVO[]) rewriteObjs[0].getOriginSrcBills();
+	for(SaleInvoiceVO vo : invoicevos){
+		SaleInvoiceHVO hvo = vo.getParentVO();
+		if(PfRewriteParam.DELETE_ACTION.equals(rewriteObjs[0].getRewriteParas()[0].getActionType())){
+			invoiceids.add(vo.getParentVO().getCsaleinvoiceid());
+		}
+		SaleInvoiceBVO[] bvos = vo.getChildrenVO();
+		if(hvo.getFopposeflag() != 2 ){
+			for(SaleInvoiceBVO bvo : bvos){
+				orderids.add(bvo.getCsrcid());
+			}
+		}
+	}
+	if(orderids.size() > 0){
+	    try {
+	  		BaseDAO dao = new BaseDAO();
+	  		int i = 0;
+	  		//del chenth 不用更新主表
+//	  		StringBuffer sql = new StringBuffer("update so_saleorder set binvoicendflag='N' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
+//	  		sql.append(" and not exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder.csaleorderid and h.vdef20='Y' ");
+//	  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
+//			i=dao.executeUpdate(sql.toString());
+	  		StringBuffer sql = new StringBuffer("update so_saleorder_b set bbinvoicendflag='N' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
+	  		sql.append(" and not exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid  where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder_b.csaleorderid and h.vdef20='Y' ");
+	  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
+	  		i=dao.executeUpdate(sql.toString());
+//			sql = new StringBuffer("update so_saleorder set binvoicendflag='Y' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
+//	  		sql.append(" and exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid  where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder.csaleorderid and h.vdef20='Y' ");
+//	  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
+//	  		i=dao.executeUpdate(sql.toString());
+			sql = new StringBuffer("update so_saleorder_b set bbinvoicendflag='Y' where csaleorderid in").append(InSqlManager.getInSQLValue(orderids));
+	  		sql.append(" and exists(select 1 from so_saleinvoice h inner join so_saleinvoice_b b on h.csaleinvoiceid = b.csaleinvoiceid  where h.dr=0 and b.dr=0 and b.csrcid = so_saleorder_b.csaleorderid and h.vdef20='Y' ");
+	  		sql.append("    and h.csaleinvoiceid not in ").append(InSqlManager.getInSQLValue(invoiceids)).append(") ");
+	  		i=dao.executeUpdate(sql.toString());
+		} catch (DAOException e) {
+			ExceptionUtils.wrappException(e);
+		}	
+	}
     //add end 
     
   }

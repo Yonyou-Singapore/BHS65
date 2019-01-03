@@ -875,7 +875,7 @@ public class StoreSettleUtil {
 		StringBuffer condition = new StringBuffer(" csaleorderid in ");
 		condition.append(InSqlManager.getInSQLValue(saleorderids));
 		condition
-				.append(" and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y')");
+				.append(" and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y' and isnull(b.vbdef8,'~') != '~' )");
 		Collection<SaleOrderHVO> vos = query.retrieveByClause(
 				SaleOrderHVO.class, condition.toString(),
 				new String[] { "csaleorderid" });

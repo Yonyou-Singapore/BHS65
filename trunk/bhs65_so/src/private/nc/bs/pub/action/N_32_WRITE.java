@@ -222,6 +222,13 @@ private SaleInvoiceVO[] getInsertVO(SaleInvoiceVO[] orderVos) {
 		  for(SaleInvoiceVO vo : vos){
 			  SaleInvoiceHVO hvo = vo.getParentVO();
 			  SaleInvoiceBVO[] bvos = vo.getChildrenVO();
+			  
+			  //add chenth 20190102 考虑红冲的情况
+			  if(hvo.getFopposeflag() == 2){
+				  continue;
+			  }
+			  //add end
+			  
 			  //判断是否最后一期账单，是的话关闭
 			  if(UFBoolean.TRUE.equals(new UFBoolean(hvo.getVdef20()))){
 				  for(SaleInvoiceBVO bvo : bvos){
@@ -236,14 +243,14 @@ private SaleInvoiceVO[] getInsertVO(SaleInvoiceVO[] orderVos) {
 		  
 		  BaseDAO dao = new BaseDAO();
 		  if(openStateHids.size() > 0){
-			  //更新主表
-			  String updatesql = " update so_saleorder set binvoicendflag = 'N' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
-			  //只处理store 
-			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y') ";
-			  dao.executeUpdate(updatesql);
+//			  //更新主表
+//			  String updatesql = " update so_saleorder set binvoicendflag = 'N' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
+//			  //只处理store 
+//			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y') ";
+//			  dao.executeUpdate(updatesql);
 			  
 			  //更新子表
-			  updatesql = " update so_saleorder_b set bbinvoicendflag = 'N' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
+			  String updatesql = " update so_saleorder_b set bbinvoicendflag = 'N' where csaleorderid in " + InSqlManager.getInSQLValue(openStateHids);
 			  //只处理store 
 			  updatesql = updatesql + " and cmaterialid in (select pk_material from bd_material m where so_saleorder_b.cmaterialid = m.pk_material and m.def20='Y') ";
 			  dao.executeUpdate(updatesql);
@@ -251,12 +258,12 @@ private SaleInvoiceVO[] getInsertVO(SaleInvoiceVO[] orderVos) {
 		  
 		  if(closeStateHids.size() > 0){
 			  //更新主表
-			  String updatesql = " update so_saleorder set binvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(closeStateHids);
-			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y') ";
-			  dao.executeUpdate(updatesql);
+//			  String updatesql = " update so_saleorder set binvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(closeStateHids);
+//			  updatesql = updatesql + " and exists(select 1 from so_saleorder_b b inner join bd_material m on b.cmaterialid = m.pk_material where so_saleorder.csaleorderid = b.csaleorderid and m.def20='Y') ";
+//			  dao.executeUpdate(updatesql);
 			  
 			  //更新子表
-			  updatesql = " update so_saleorder_b set bbinvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(closeStateHids);
+			  String updatesql = " update so_saleorder_b set bbinvoicendflag = 'Y' where csaleorderid in " + InSqlManager.getInSQLValue(closeStateHids);
 			  updatesql = updatesql + " and cmaterialid in (select pk_material from bd_material m where so_saleorder_b.cmaterialid = m.pk_material and m.def20='Y') ";
 			  dao.executeUpdate(updatesql);
 		  }
