@@ -320,10 +320,13 @@ public abstract class AceSostorePubServiceImpl {
 		UFDate dbilldate = hvo.getDbilldate();
 		int year = dbilldate.getYear();
 		int yearofRFID = Integer.valueOf(itsparaMap.get("RFID_YEAR"));
+		
+		//update chenth 20190115 跨年不重新编号，要不然会有问题
 		//RFID 流水号重新编号
-		if(year!=yearofRFID){
-			maxRFID = 0;
-		}
+//		if(year!=yearofRFID){
+//			maxRFID = 0;
+//		}
+		
 		prex = prex + year;
 
 		String[] titleArry = new String[] { "Customer", "Manufacturer", "Model", "Sub Model", "Tag ID", "Description", "Date of Purchase", "Length", "Width", "Height", "Weight", "Location", "Person In Charge", "Qty"
