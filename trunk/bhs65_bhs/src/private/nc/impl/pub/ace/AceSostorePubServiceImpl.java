@@ -22,6 +22,7 @@ import nc.bs.bhs.sostore.ace.bp.AceSostoreUpdateBP;
 import nc.bs.dao.BaseDAO;
 import nc.impl.pubapp.pattern.data.bill.BillLazyQuery;
 import nc.impl.pubapp.pattern.data.bill.tool.BillTransferTool;
+import nc.jdbc.framework.processor.MapProcessor;
 import nc.jdbc.framework.processor.ResultSetProcessor;
 import nc.ui.querytemplate.querytree.IQueryScheme;
 import nc.vo.bd.cust.CustomerVO;
@@ -449,7 +450,20 @@ public abstract class AceSostorePubServiceImpl {
 				custName = vo.getCode();
 			}
 		}
+		
+		//add chenth 20190117 先校验客户在ITS系统中是否维护了，如果没维护抛异常
+		checkITSExistCust(custName);
+		
 		return custName;
+	}
+	
+	private void checkITSExistCust(String customer) throws BusinessException{
+		String sql = " select name from v_its_category where name = '" + customer + "' ";
+		Map<String, Object>  result = (Map<String, Object>) new BaseDAO().executeQuery(sql, new MapProcessor());
+		if(result == null 
+				|| result.size() < 1){
+			ExceptionUtils.wrappBusinessException("The customer [" + customer +"] does not exist in ITS system. Please maintain in ITS system first. ");
+		}
 	}
 	
 
