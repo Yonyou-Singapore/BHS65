@@ -37,7 +37,8 @@ public class AutoGenerateMonthWorkDays implements IBackgroundWorkPlugin {
 			return retObj;
 		}
 		
-		if(cyearperiod == null){
+		if(cyearperiod == null
+				|| cyearperiod.trim().length() < 1){
 			UFDate current = new UFDate();
 			cyearperiod = current.getYear() + "" +current.getStrMonth();
 		}
@@ -170,7 +171,7 @@ public class AutoGenerateMonthWorkDays implements IBackgroundWorkPlugin {
 	 * @throws BusinessException
 	 */
 	private Map<String,String> getWorkDayTypes() throws BusinessException {
-		StringBuffer sql = new StringBuffer(" select a.pk_defdoc,a.name from bd_defdoc a inner join bd_defdoclist b on a.pk_defdoclist = b.pk_defdoclist where b.code = 'BHS08' ");
+		StringBuffer sql = new StringBuffer(" select a.pk_defdoc,a.name from bd_defdoc a inner join bd_defdoclist b on a.pk_defdoclist = b.pk_defdoclist where b.code = 'HR02' ");
 		
 		BaseDAO dao = new BaseDAO();
 		Map<String,String> remap =  (Map<String,String>) dao.executeQuery(sql.toString(), new ResultSetProcessor(){
