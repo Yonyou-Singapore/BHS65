@@ -1105,13 +1105,21 @@ public class BlackBoxImpl implements IBlackBox{
 //		sb.append(" , ' <br/>Heaviest (KG):', cast(job.largestweight as int), ' Crate #:', cast(job.kcrate as int) ");
 //		sb.append(" ) as requirement ");
 		sb.append(" ,sou.id as id, som.micapno as micap_no,job.vbillno as jobno ");
+		//add chenth 20190124 增加查询oz_joborder_user的一些信息
+		sb.append(" ,sou.job_user_status_name, sou.confirmed_late_mins, sou.not_comming_informed_date, sou.checkedin_time, sou.checkedout_time, sou.checkin_confirmed, sou.audit_rate ");
+		//add end
 		sb.append(" from bhs_somove_h job ");
 		sb.append(" inner join so_saleorder som on job.csaleorderid = som.csaleorderid ");
 		sb.append(" left join bhs_somove_box blackbox on job.billid = blackbox.billid  ");
 		sb.append(" left join ( ");
-		sb.append("   select distinct ou.id, ou.job_id, ou.assigned_user_id, ou.skill_category_id,ou.is_locked, ou.job_user_status_id, ce.").append(BlackBoxConstant.FLD_PSNDOCSCERT_CERT)
-		.append(" as certificate_id ");
+		sb.append("   select distinct ou.id, ou.job_id, ou.assigned_user_id, ou.skill_category_id,ou.is_locked, ou.job_user_status_id, ce.").append(BlackBoxConstant.FLD_PSNDOCSCERT_CERT).append(" as certificate_id ");
+		//add chenth 20190124 增加查询oz_joborder_user的一些信息
+		sb.append("   ,ous.name as job_user_status_name, confirmed_late_mins, not_comming_informed_date,checkedin_time,checkedout_time,checkin_confirmed,audit_rate ");
+		//add end
 		sb.append("   from oz_joborder_user ou inner join ").append(BlackBoxConstant.TABLE_PSNDOC_CERTIFICATE).append(" ce on ou.assigned_user_id = ce.pk_psndoc ");
+		//add chenth 20190124 增加查询oz_joborder_user的一些信息
+		sb.append("    left join oz_joborder_user_status ous on ou.job_user_status_id=ous.id ");
+		//add end
 		sb.append(" ) sou on (job.billid = sou.job_id and sou.skill_category_id = blackbox.skill and (sou.certificate_id = blackbox.certificate or blackbox.certificate = '~') ) ");
 		sb.append(" left join bd_addressdoc fc on job.fromcorp = fc.pk_addressdoc ");
 		sb.append(" left join bd_addressdoc tc on job.tocorp = tc.pk_addressdoc ");
@@ -1359,6 +1367,15 @@ public class BlackBoxImpl implements IBlackBox{
 			orderUser.setJobUserStatusId(rs.getString("jobuserstatusid"));
 			//add chenth 20180501
 			orderUser.setId(rs.getString("id"));
+			//add end
+			//add chenth 20190124 增加查询oz_joborder_user的一些信息
+			orderUser.setJobUserStatusName(rs.getString("job_user_status_name"));
+			orderUser.setCheckedinTime(rs.getString("checkedin_time"));
+			orderUser.setCheckedoutTime(rs.getString("checkedout_time"));
+			orderUser.setCheckinConfirmed(rs.getString("checkin_confirmed"));
+			orderUser.setConfirmedLateMins(rs.getString("confirmed_late_mins"));
+			orderUser.setNotCommingInformedDate(rs.getString("not_comming_informed_date"));
+			orderUser.setAuditRate(rs.getString("audit_rate"));
 			//add end
 			return orderUser;
 		}
