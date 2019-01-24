@@ -39,7 +39,7 @@ public class AutoGenerateMonthWorkDays implements IBackgroundWorkPlugin {
 		
 		if(cyearperiod == null){
 			UFDate current = new UFDate();
-			cyearperiod = current.getYear() + "" +current.getMonth();
+			cyearperiod = current.getYear() + "" +current.getStrMonth();
 		}
 		String cyear = cyearperiod.substring(0, 4);
 		String cperiod = cyearperiod.substring(4);
@@ -138,8 +138,8 @@ public class AutoGenerateMonthWorkDays implements IBackgroundWorkPlugin {
 	 * @throws BusinessException
 	 */
 	private List<WorkDaysVO> getPsnWorkDayType(String pk_psndoc) throws BusinessException {
-		StringBuffer sql = new StringBuffer(" select pk_psndoc,p.glbdef50 as pk_workdaytype, d.name as workdaytype from bd_psndoc p left join bd_defdoc d on p.glbdef39 = d.pk_defdoc ");
-		sql.append(" where isnull(p.glbdef50,'~') != '~' ");
+		StringBuffer sql = new StringBuffer(" select pk_psndoc,p.glbdef39 as pk_workdaytype, d.name as workdaytype from bd_psndoc p left join bd_defdoc d on p.glbdef39 = d.pk_defdoc ");
+		sql.append(" where isnull(p.glbdef39,'~') != '~' ");
 		if(pk_psndoc != null){
 			sql.append(" and p.pk_psndoc = '").append(pk_psndoc).append("' ");
 		}
@@ -170,7 +170,7 @@ public class AutoGenerateMonthWorkDays implements IBackgroundWorkPlugin {
 	 * @throws BusinessException
 	 */
 	private Map<String,String> getWorkDayTypes() throws BusinessException {
-		StringBuffer sql = new StringBuffer(" select a.pk_defdoc,a.name from bd_defdoc a inner join bd_defdoclist b on a.pk_defdoclist = b.pk_defdoclist where b.code = 'HR18' ");
+		StringBuffer sql = new StringBuffer(" select a.pk_defdoc,a.name from bd_defdoc a inner join bd_defdoclist b on a.pk_defdoclist = b.pk_defdoclist where b.code = 'BHS08' ");
 		
 		BaseDAO dao = new BaseDAO();
 		Map<String,String> remap =  (Map<String,String>) dao.executeQuery(sql.toString(), new ResultSetProcessor(){
