@@ -1,6 +1,7 @@
 package nc.ui.bhs.sostore.ace.handler;
 
 import java.util.Collection;
+import java.util.List;
 
 import nc.bs.framework.common.NCLocator;
 import nc.itf.uap.IUAPQueryBS;
@@ -12,6 +13,8 @@ import nc.ui.pubapp.uif2app.event.IAppEventHandler;
 import nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent;
 import nc.ui.so.pub.keyvalue.CardKeyValue;
 import nc.vo.bd.cust.CustomerVO;
+import nc.vo.bhs.sostore.SoStoreHVO;
+import nc.vo.pf.sql.InSqlUtil;
 import nc.vo.pub.BusinessException;
 import nc.vo.so.pub.keyvalue.IKeyValue;
 
@@ -38,16 +41,33 @@ public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBe
 		ITSAssetRefModel model = (ITSAssetRefModel) ((UIRefPane) e
 				.getBillCardPanel().getBodyItem(e.getKey()).getComponent())
 				.getRefModel();
+				
+		StringBuilder sb = new StringBuilder(" ");
 		String csaleorderid = keyValue.getHeadStringValue("csaleorderid");
+		String condition = " csaleorderid = '" + csaleorderid + "' ";
+		List<SoStoreHVO> list = null;
+		try {
+			list = (List<SoStoreHVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).retrieveByClause(SoStoreHVO.class, condition, new String[]{"vbillno"});
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+		}
+		//同一个SO的才能被参照到
+		if(list != null && list.size() > 0){
+			String[] ids = new String[list.size()];
+			for(int i=0; i<list.size(); i++){
+				ids[i] = list.get(i).getVbillno();
+			}
+			sb.append(InSqlUtil.buildInSql("Doc_No", "and", "in", ids));
+		}else{
+			sb.append(" 1=2 ");
+		}
 		
-		StringBuilder sb = new StringBuilder(" 1=1 ");
 		String location = keyValue.getHeadStringValue("warehousezone");
 		if(location != null
 				&& !location.trim().equals("")){
 			sb.append(" and Location = '" + location + "'");
 		}
-		//同一个SO的才能被参照到
-		sb.append(" and Doc_No in (select vbillno from bhs_sostore_h where csaleorderid = '" + csaleorderid + "'");
+		
 		model.setWherePart(sb.toString());
 	}
 
