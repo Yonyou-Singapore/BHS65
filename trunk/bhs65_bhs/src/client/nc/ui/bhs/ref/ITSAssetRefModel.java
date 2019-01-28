@@ -26,6 +26,7 @@ public class ITSAssetRefModel extends AbstractRefModel {
 				, "Location"
 				, "customer"
 				, "LastBal"
+				, "Doc No."
 		});
 		setFieldName(new String[] {
 				"Asset ID"
@@ -39,6 +40,7 @@ public class ITSAssetRefModel extends AbstractRefModel {
 				, "Location"
 				, "customer"
 				, "LastBal"
+				, "Move In Doc No."
 		});
 //		setHiddenFieldCode(new String[]{"Asset_No"});
 		setPkFieldCode("Asset_No");

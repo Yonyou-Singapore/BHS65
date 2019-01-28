@@ -38,30 +38,16 @@ public class SoStoreBodyBeforeEditHandler implements IAppEventHandler<CardBodyBe
 		ITSAssetRefModel model = (ITSAssetRefModel) ((UIRefPane) e
 				.getBillCardPanel().getBodyItem(e.getKey()).getComponent())
 				.getRefModel();
-//		String customer = keyValue.getHeadStringValue("def_customer");
-		String customer = null;
 		String csaleorderid = keyValue.getHeadStringValue("csaleorderid");
-		String condition = " pk_customer in ( select ccustomerid from so_saleorder where csaleorderid = '" 
-				+ csaleorderid + "') ";
-		Collection<CustomerVO> list = null;
-		try {
-			list = (Collection<CustomerVO>) NCLocator.getInstance().lookup(IUAPQueryBS.class).retrieveByClause(CustomerVO.class, condition);
-		} catch (BusinessException e1) {
-			// TODO Auto-generated catch block
-		}
-		if(list != null ){
-			for ( CustomerVO vo : list){
-				customer = vo.getCode();
-			}
-		}
 		
-		String location = keyValue.getHeadStringValue("warehousezone");
 		StringBuilder sb = new StringBuilder(" 1=1 ");
+		String location = keyValue.getHeadStringValue("warehousezone");
 		if(location != null
 				&& !location.trim().equals("")){
 			sb.append(" and Location = '" + location + "'");
 		}
-		sb.append(" and customer = '" + customer + "'");
+		//同一个SO的才能被参照到
+		sb.append(" and Doc_No in (select vbillno from bhs_sostore_h where csaleorderid = '" + csaleorderid + "'");
 		model.setWherePart(sb.toString());
 	}
 

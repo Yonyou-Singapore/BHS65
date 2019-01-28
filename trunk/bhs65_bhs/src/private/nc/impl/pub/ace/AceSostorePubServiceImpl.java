@@ -327,6 +327,7 @@ public abstract class AceSostorePubServiceImpl {
 //		if(year!=yearofRFID){
 //			maxRFID = 0;
 //		}
+		String type = hvo.getDef1();
 		
 		prex = prex + year;
 
@@ -361,15 +362,44 @@ public abstract class AceSostorePubServiceImpl {
 				record[12] = "";//Person In Charge
 				record[13] = bvo.getDef4()==null? "1" : bvo.getDef4();;//Qty
 				record[14] = "";//hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
+				if(hvo.getNoofshockwatches() != null
+						&& hvo.getNoofshockwatches().setScale(0, UFDouble.ROUND_UP).toString().equals(snno)) {
+					record[14] = "Y";
+				}
+				
 				record[15] = "";//hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
+				if(hvo.getNooftiltwatches() != null
+						&& hvo.getNooftiltwatches().setScale(0, UFDouble.ROUND_UP).toString().equals(snno)) {
+					record[15] = "Y";
+				}
+				
 				record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks
+				
 				record[17] = "";//hvo.getDamagedcrateno()==null? "" : hvo.getDamagedcrateno();//Physically Damaged
-				record[18] = "";//Progress/Status
-				record[19] = "";//Project
-				record[20] = "";//Inspected
+				if(hvo.getDamagedcrateno() != null) {
+					String[] cratenos = hvo.getDamagedcrateno().split(",");
+					for(String crateno : cratenos){
+						if(crateno.equals(snno)){
+							record[17] = "Y";
+						}
+					}
+				}
+				
+				//update chenth 20190128 inspection 保留原始asset信息
+				if("Inspection".equals(type)){
+					record[18] = bvo.getDef16();//Progress/Status ITS字段为remarks3 现改成原始asset_id
+					record[19] = bvo.getDef17();//Project   ITS字段为remarks4 现改成原始inbounddate
+					record[20] = "Y";//Inspected
+				}else{
+					record[18] = "";//Progress/Status ITS字段为remarks3 
+					record[19] = "";//Project   ITS字段为remarks4 
+					record[20] = "";//Inspected
+				}
+				//update end
+				
 				record[21] = hvo.getCratestatus()==null? "" : getCrateStatus(hvo.getCratestatus());//Crates Status
 				record[22] = hvo.getToppleriskcrateno()==null? "" : hvo.getToppleriskcrateno();//Toppel Risk Crate No
-				record[23] = "";//
+				record[23] = "";//Asset No.
 				record[24] = hvo.getMicapno()==null? "" : hvo.getMicapno();//Micap No
 				record[25] = toolid;//Tool ID/LID
 				record[26] = snno;//Set No
