@@ -26,7 +26,7 @@ public class ITSAssetRefModel extends AbstractRefModel {
 				, "Location"
 				, "customer"
 				, "LastBal"
-				, "Doc No."
+				, "Doc_No"
 		});
 		setFieldName(new String[] {
 				"Asset ID"
@@ -38,7 +38,7 @@ public class ITSAssetRefModel extends AbstractRefModel {
 				, "Description"
 				, "Move In Date"
 				, "Location"
-				, "customer"
+				, "Customer"
 				, "LastBal"
 				, "Move In Doc No."
 		});

@@ -364,13 +364,13 @@ public abstract class AceSostorePubServiceImpl {
 				record[14] = "";//hvo.getNoofshockwatches()==null? "" : String.valueOf(hvo.getNoofshockwatches());//Shock Watch Activated
 				if(hvo.getNoofshockwatches() != null
 						&& hvo.getNoofshockwatches().setScale(0, UFDouble.ROUND_UP).toString().equals(snno)) {
-					record[14] = "Y";
+					record[14] = "1"; //1代表Y 0代表N
 				}
 				
 				record[15] = "";//hvo.getNooftiltwatches()==null? "" : String.valueOf(hvo.getNooftiltwatches());//Tilt_Watch_Activated
 				if(hvo.getNooftiltwatches() != null
 						&& hvo.getNooftiltwatches().setScale(0, UFDouble.ROUND_UP).toString().equals(snno)) {
-					record[15] = "Y";
+					record[15] = "1";//1代表Y 0代表N
 				}
 				
 				record[16] = bvo.getDef12()==null? "" : bvo.getDef12();//Remarks
