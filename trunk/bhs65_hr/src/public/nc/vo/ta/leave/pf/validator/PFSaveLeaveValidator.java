@@ -59,7 +59,7 @@ public class PFSaveLeaveValidator implements Validator{
 		List<SoMoveHVO> moveVOs = null;
 		try {
 			StringBuilder whereInStr = new StringBuilder();
-			whereInStr.append("select * from so_move_h where billid in (");
+			whereInStr.append("select * from bhs_somove_h where billid in (");
 			whereInStr.append("select job_id from oz_joborder_user where assigned_user_id in(");
 			whereInStr.append(userPk + ") and job_user_status_id != 'NC')");
 			moveVOs = (List<SoMoveHVO>) queryBS.executeQuery(
